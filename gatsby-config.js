@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: "Gatsby Theme Carbon",
-    description: "A Gatsby theme for the carbon design system",
+    title: "Think Lab 2176",
+    description: "Hybrid Application Management - tutorials for IBM Think confenrence Academy Labs",
     keywords: "gatsby,theme,carbon",
   },
   plugins: [
@@ -17,6 +17,19 @@ module.exports = {
         display: "browser",
       },
     },
-    'gatsby-theme-carbon'
+    {
+      resolve: 'gatsby-theme-carbon',
+      options: {
+        iconPath: './src/images/custom-icon-512.png',
+        isSearchEnabled: true,
+        repository: {
+          baseUrl:
+            'https://github.com/b1stern/Think21-Lab-2176',
+          subDirectory: '/',
+          branch: 'master'
+        },
+      },
+      pathPrefix: "/think21-lab-2176"
+    }
   ],
 };
