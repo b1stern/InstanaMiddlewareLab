@@ -1,7 +1,7 @@
-- title: Getting started
+- title: Intro and Login
   pages:
-    - path: /getting-started
-- title: Tutorials
+    - path: /tutorials/Intro_and_Login
+- title: Think Lab 2176
   pages:
     - title: Provisioning to VMware
       path: /tutorials/vmware
