@@ -1,26 +1,79 @@
-# Title Provision Virtual Machines in VMware
+# Automation with VMware
 
-In this exercise you will learn about the service library and how to use Terraform and other integrations to automate
-tasks within a VMware environment.  Will begin by using an existing "Managed Service" to provision a Virtual Machine. 
-Then you'll learn how to publish the service into the service library so that end users can run your service.  As an
-administrator, you'll have more capabilities than a typical end user.  Finally, we'll explore some of the other capabilities
-where you can leverage the power of combining Terraform, Ansible Tower, resthooks and other integrations to via our 
-service composer to accomplish complex tasks.
+In this exercise you will learn about the service library and how to use Terraform and other integrations to automate tasks within a VMware environment.  Will begin by using an existing "Managed Service" to provision a Virtual Machine.  Then you'll learn how to publish the service into the service library so that end users can run your service.  As an administrator, you'll have more capabilities than a typical end user.  Finally, we'll explore some of the other capabilities where you can leverage the power of combining Terraform, Ansible Tower, resthooks and other integrations to via our service composer to accomplish complex tasks.
 
 Begin by selecting the hamburger menu in the upper left corner
 ![](images/2021-04-27-21-07-15.png)
-From the dropdown, select "Automate Infrastructure" and then "Manage Services"
-![](images/2021-04-27-21-08-58.png)
 
-You will be taken to a welcom page as seen below
-![](images/2021-04-27-21-10-57.png)
+From the dropdown menu, select "Automate Infrastructure" and then "Service Library
+![](images/2021-04-28-20-20-17.png)
+
+The Service Library is where a typical end-user would go to take advantage of the automations that other users have created. These users don't need administrative rights or knowledge of Terraform, but can take advantage of the automation capabilities.  You will noticed that the services are organized into categories such as Virtual Machine and Cluster Lifecycle Services.  These services are a small subset of the services that are provided out of the box with the solution. These are the ones that have been published for the permissions that your user account has access to.
+
+We will begin by deploying a single virtual machine into VMware.
+
+- Find the service named "Think Lab VMware"
+![](images/2021-04-28-20-40-30.png)
+- Double click on the box
+- Click "Next" to execute the service: ![](images/2021-04-28-20-41-56.png)
+- This screen contains a list of parameters that are required to provision a virtual machine into VMware.  It is possible to expose other parameters such as the VMware Datastore, VMware Cluster, etc. but we intentionally want to keep this simple
+  for the end user.
+- Select a namespace of "thinklabs" for the VM.  CP4MCM always associates resources with a project/namespace.  The namespace can be used to restrict permissions for the provisioned resource.
+  ![](images/2021-04-28-21-01-39.png)
+- Next specify a service instance. This is the name of the service being provisioned.  You can use this service instance to perform maintenance and delete the service.  For this lab, specify your username as the service name to ensure we have a unique service instance name
+  ![](images/2021-04-28-20-55-02.png)
+- Select an Environment for your VM (Development, QA, etc.).  Any value is fine for the lab.
+![](images/2021-04-28-21-03-22.png)
+- Select a Connection.  In this lab, you will see vcenter3 and vcenter5.  These are the two vCenter environments where virtual machines can be provisioned.  You can select either vCenter environment.
+![](images/2021-04-28-21-05-07.png)
+- Assign a name to your virtual machine.   The default value is "demovm".  Change this to your username to ensure that we don't have any naming conflicts.
+![](images/2021-04-28-21-06-36.png)
+- Select the vSphere Inventory Definition. Again, you can select either vcenter3 or vcenter5
+![](images/2021-04-28-21-07-45.png)
+- In the next field, you will specify the memory for the VM.  We recommend leaving this at 1024 to conserve resource on vCenter.  Note that it is possible to make this a dropdown list with values like 1, 2,4, 8, 16
+![](images/2021-04-28-21-08-51.png)
+- Specify the VM vCPU Allocation.  This is the number of virtual CPUs assigned to the VM.  Specify 1 or 2 CPUs.  This field could also be a dropdown list with min and max numbers of CPUs.
+![](images/2021-04-28-21-10-10.png)
+- Finally specify the disk space for the virtual machine. This VMware template requires a minimum of 25 Gig of disk space.  Please do NOT specify more than 50 Gig of space to conserve disk space in the vCenter environment.
+![](images/2021-04-28-21-12-51.png)
+- You are now ready to deploy your virtual machine.  Click the "Deploy" button to begin the provisioning process.
+![](images/2021-04-28-21-13-51.png)
+
+- At this point, a dialog will open indicating that your order has been submitted. There are two buttons on the dialog.  Click on the "Go to Instances" button and you can watch the logs as your virtual machine is provistioning.
+![](images/2021-04-28-21-17-15.png)
+- You will see a list of deployed instances.  Search for your username in the list
+![](images/2021-04-28-21-18-56.png)
+- Click on the "name".  In the example, click on "student37"
+- You will be taken to a page where you can see a summary of the deployment.  It may say that the deployment is completed or may say that it is in progress or even failed. 
+![](images/2021-04-28-21-20-18.png)
+- On this page, you'll see a tab at the top for "Log file" or a link on the right labeled "view log".  Click on either one of those to view the logs.
+![](images/2021-04-28-21-22-40.png)
+- This log shows you all of the steps that Terraform performed in order to deploy the virtual machine.  You should see a message at the end of the log indicating success
+![](images/2021-04-28-21-24-07.png)
+- You have now successfully provisioned a virtual machine via the service library.
+
+## Section
+
+Now let's take a look at how the service library was created.  We'll show you how to modify a service and add more capabilities.  And, we'll show you how to publish the service to the service library so that other users can run your service.
+
+- Select the hamburger menu in the upper left corner
+![](images/2021-04-27-21-07-15.png)
+- From the dropdown, select "Automate Infrastructure" and then "Manage Services"
+![](images/2021-04-28-10-58-33.png)
+
+
+
+
+
+
+
 Normally, you would use the welcome page to setup your VMware connections, create a Terraform template, and build a service.
 In this lab, we have already done some of those steps.  Connections to VMware vCenter already exist and we are going to begin
 with a pre-defined Terraform template.
 
 - Click on the "Service Library" URL in step 3 as seen in previous picture.  Or, you can use the hamburger menu to Navigate
   to Library->Services
-  ![](images/2021-04-27-21-15-46.png)
+  ![](images/2021-04-28-20-07-07.png)
 
 - You are now looking at the Manage service library.  Here, you'll see a number of Terraform based services that are provided
   with the product.  These services can be used to provision virtual machines, provision cloud services, perform cluster
@@ -29,12 +82,11 @@ with a pre-defined Terraform template.
 
 - Explore a few of the services.  On each of the services, you'll a description in the upper left corner.  There is also and
   link in the upper left corner named "Service library" that will take you back to the main service library page.
-  ![](images/2021-04-27-21-22-15.png)
+![](images/2021-04-28-20-13-09.png)
 
 - When you are done exploring the services, click on the "Service library" link to navigate back to the main service library page.
 
 
-
-
 ## Section
 
+We will begin by deploying a virtual machine to VMware.  This use interface is not what a typical end-user would use.  We'll 
