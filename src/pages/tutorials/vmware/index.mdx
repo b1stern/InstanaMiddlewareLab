@@ -1,6 +1,6 @@
 # Automation with VMware
 
-In this exercise you will learn about the service library and how to use Terraform and other integrations to automate tasks within a VMware environment.  Will begin by using an existing "Managed Service" to provision a Virtual Machine.  Then you'll learn how to publish the service into the service library so that end users can run your service.  As an administrator, you'll have more capabilities than a typical end user.  Finally, we'll explore some of the other capabilities where you can leverage the power of combining Terraform, Ansible Tower, resthooks and other integrations to via our service composer to accomplish complex tasks.
+In this exercise you will learn about the service library and how to use Terraform and other integrations to automate tasks within a VMware environment.  We'll begin by using an existing Service to provision a Virtual Machine.  Next, we'll learn how to modify the Service and explore some of the other capabilities such as the service composer.  Finally, you'll learn how to publish the service into the service library so that end users can run your service.  
 
 Begin by selecting the hamburger menu in the upper left corner
 ![](images/2021-04-27-21-07-15.png)
@@ -124,25 +124,56 @@ Now, let's explore the Composition user interface.  You can use the Composition 
 - After the Mean stack is provisioned to the selected Cloud, the Composition flow next registers the system in a ServiceNow CMDB.
 - Finally, an Email is sent indicating the provisioning is complete.
 ![](images/2021-04-29-20-59-24.png)
+- Click on the SNow CMDB icon
+![](images/2021-04-30-10-35-46.png)
+- You'll notice that information will be populated on the right side of the screen.  Here you can see the Basic information that describes the Terraform template that you selected.
+- Click on the "Parameters" tab that is just to the right of the "Basic Information" tab.
+![](images/2021-04-30-10-37-43.png)
+- You can see the input parameters that will be passed into the CMDB.  
+- Let's examine the other components that can be added to a service composition.  If you look on the left side, you'll notice different categories of objects that can be added to the service.  As you examine the content on the left, you'll notice Decision flows, E-mail Notification, Rest Hook, other Terraform templates, and Ansible Tower templates.  
+![](images/2021-04-30-11-00-05.png)
+- Select the "Demo Job Template" Ansible Tower template and drag it over to the Composition area.  As you drag the Ansible Tower template, you'll notice that boxes appear on the composition screen.  You can drop the template on any one of the boxes.   After a few seconds that Ansible Tower template will appear on the screen.  In order to make this functional, you would need to define Parameters to pass.   We won't here, but you can do that via the "IBM Cloud Automation" portion of the lab.
+![](images/2021-04-30-11-03-55.png)
+- Click on "<- Service Library" to navigate back to the main page.  A dialog will open.  Click Continue so that your changes won't be saved.
+
+## Executing Terraform templates directly
+- There is tremendous value in building and executing Services within the Cloud Pak.   But sometimes you just want to execute a Terraform template.  If you click on the "Terraform templates" tab at the top of the screen, you will see a list of available templates
+![](images/2021-04-30-11-12-09.png)
+- If you click on the icon next to the "Import Template" button, you can filter the templates:  ![](images/2021-04-30-11-31-11.png)
+- Select the icon, then check the "VMware vSphere" checkbox and you'll see a list of templates that can be run in a VMware environment
+![](images/2021-04-30-11-32-51.png)
+- There are two advantages of executing a Terraform template directly:
+    - First, you may have access to parameters that are not exposed in the Service.  For example, maybe you want to provision to a different vSphere Cluster.
+    - Second, occasionally you will run into cases where the Terraform template runs correctly, but the service doesn't.  It is a good debug tool.  First confirm that your Terraform Template can be deployed.  Then, debug the Service.
 
 
-## Add Ansible Tower Automation to Your Service
+## Publishing Your Service to the Service Library
 
-- Now, we'll learn how to add addional automation to the service.  We'll be adding an Ansible Tower Automation to your Service by using the Service Composition user interface.
-- Navigate back to the list of Services by clicking on "Service Library" in the upper left corner
-![](images/2021-04-29-21-22-50.png)
-
-- Click on the Composition tab at the top of the screen.
-![](images/2021-04-29-20-28-46.png)
-- The Composition tab allows you to compose a complex service via a drag and drop user interface.  If you explore
-- Find your Service (StudentXX Vmware service)
-- Expand the service by clicking on the dropdown arrow
-![](images/2021-04-29-21-24-51.png)
-- Then, click on the 3 vertical dots on the right of version 3.0.0.0 and select "edit"
-![](images/2021-04-29-21-26-33.png)
-- Next click on the "Composition" tab at the top of the screen
-![](images/2021-04-29-21-28-07.png)
-
+- You have modified your Service and changed the menus.  Now, let's make it available to end users via the Service Library.
+- Click back on the "Services tab of the Manage service library
+![](images/2021-04-30-11-49-36.png)
+- Find your service "studentxx VMware service"
+- When publishing a service, you must publish a specific version of your service.
+- Expand your template by clicking on the dropdown arrow on the left.
+![](images/2021-04-30-11-52-25.png)
+- On the right side, click on the 3 vertical dots for versoin 3.0.0.0 and select "Publish"
+![](images/2021-04-30-11-53-38.png)
+- A dialog opens and asks to confirm whether you want to publish vesrion 3.0.0.0.
+![](images/2021-04-30-11-56-01.png)
+- Click "Publish"
+- A dialog will open indicating that the Service has been published.  Click the "Close" button to close the dialog.
+![](images/2021-04-30-11-58-22.png)
+- The next step is to assign permissions to your newly published service.   At the top level of your Service, click on the 3 vertical dots on the right and select "Assign access"
+![](images/2021-04-30-12-08-45.png)
+- A dialog opens with a list of namespaces.  Permissions for the service library is done at the namespace level.  You will select the namespaces that you want to give permissions to.  Your user account has permissions to the vmware namespace, so check that checkbox.
+![](images/2021-04-30-12-12-43.png)
+- Then, click the "Assign" button at the bottom of the dialog.
+- A dialog opens indicating that the assignment was successful.  Click "Close"
+![](images/2021-04-30-12-14-10.png)
+- Click on "Return to main navigation"
+![](images/2021-04-30-12-02-33.png)
+- Select the hamburger menu in the top left: ![](images/2021-04-30-12-05-14.png) Then select Automate Infrastructure -> Service library
+![](images/2021-04-30-12-04-22.png)
 
 
 ## Section
