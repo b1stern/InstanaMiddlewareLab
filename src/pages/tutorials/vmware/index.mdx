@@ -41,52 +41,110 @@ We will begin by deploying a single virtual machine into VMware.
 
 - At this point, a dialog will open indicating that your order has been submitted. There are two buttons on the dialog.  Click on the "Go to Instances" button and you can watch the logs as your virtual machine is provistioning.
 ![](images/2021-04-28-21-17-15.png)
+
 - You will see a list of deployed instances.  Search for your username in the list
 ![](images/2021-04-28-21-18-56.png)
-- Click on the "name".  In the example, click on "student37"
+
+- Click on the "name" of the service.  In the example, click on "student37"
+
 - You will be taken to a page where you can see a summary of the deployment.  It may say that the deployment is completed or may say that it is in progress or even failed. 
 ![](images/2021-04-28-21-20-18.png)
+
 - On this page, you'll see a tab at the top for "Log file" or a link on the right labeled "view log".  Click on either one of those to view the logs.
 ![](images/2021-04-28-21-22-40.png)
+
 - This log shows you all of the steps that Terraform performed in order to deploy the virtual machine.  You should see a message at the end of the log indicating success
 ![](images/2021-04-28-21-24-07.png)
+
 - You have now successfully provisioned a virtual machine via the service library.
 
-## Section
+## Explore and Modify a Service
 
-Now let's take a look at how the service library was created.  We'll show you how to modify a service and add more capabilities.  And, we'll show you how to publish the service to the service library so that other users can run your service.
+Now let's take a look at how the service was created.  We'll show you how to modify a service and add more capabilities.  And, we'll show you how to publish the service to the service library so that other users can run your service.
 
 - Select the hamburger menu in the upper left corner
 ![](images/2021-04-27-21-07-15.png)
 - From the dropdown, select "Automate Infrastructure" and then "Manage Services"
 ![](images/2021-04-28-10-58-33.png)
+- The first time you do this, you will be taken to the "welcome" page
+![](images/2021-04-29-08-07-57.png)
+  The welcome page is used to setup the initial steps to setup the services. These steps include setting up the cloud and vCenter connections, creating Terraform templates, and then creating a service.  These initial steps have already been performed in this environment.  Click on the "Service library" link or go to the hamburger menu and select Library->Services.
+![](images/2021-04-29-08-10-57.png)
 
-
-
-
-
-
-
-Normally, you would use the welcome page to setup your VMware connections, create a Terraform template, and build a service.
-In this lab, we have already done some of those steps.  Connections to VMware vCenter already exist and we are going to begin
-with a pre-defined Terraform template.
-
-- Click on the "Service Library" URL in step 3 as seen in previous picture.  Or, you can use the hamburger menu to Navigate
-  to Library->Services
-  ![](images/2021-04-28-20-07-07.png)
 
 - You are now looking at the Manage service library.  Here, you'll see a number of Terraform based services that are provided
   with the product.  These services can be used to provision virtual machines, provision cloud services, perform cluster
   lifecycle management, install middleware, and more.  There is also an example template that includes an approval process. 
   This allows you to require an approval before resources are provisioned.
 
-- Explore a few of the services.  On each of the services, you'll a description in the upper left corner.  There is also and
-  link in the upper left corner named "Service library" that will take you back to the main service library page.
-![](images/2021-04-28-20-13-09.png)
+- Scroll down and view the services that exist.
 
-- When you are done exploring the services, click on the "Service library" link to navigate back to the main service library page.
+- Locate the "Think Lab VMware" service.  This is the service that you just provisioned via the Service Library.
+
+- You are going to make a copy of this service so that you can make modifications without impacting other users.  
+
+- Click the 3 dots on the right side and then select "Duplicate"
+![](images/2021-04-29-08-18-01.png)
+
+- A dialog will open.  At the bottom of the dialog you will see a name that was automatically populated with "Copy of Think Lab VMware".   Change the name to a name that begins with your username. For example, "student37 VMware service".  Then, click the "Duplicate" button.
+![](images/2021-04-29-08-21-11.png)
+- You are now in the editor for your service.
+- You'll notice that the current version is 3.0.0.0.  It is possible to create additional versions and be working on multiple versions simultaneously.  Or, have one version that is published and a newer version that is under development.  We'll work with version 3.0.0.0.
+- Scroll down to the bottom of the page.  Here, you can see the GitHub link to where the Servie definition is stored and the prerequisites.
+![](images/2021-04-29-20-10-16.png)
+- At the top of the page, click on the Parameters tab. You'll see a list of input parameters that are used for this service.
+![](images/2021-04-29-20-13-15.png)
+- Let's learn how to modify one of the input parameters to improve the service.   Select the 3 virtical dots on the right side for eh vm_cpu input parameter.  A dialog will open with the existing definition.  You'll notice that the default value of 1 virtual CPU is already populated.  There are also validation rules that can be specified.
+![](images/2021-04-29-20-17-46.png)
+- To improve the service, let's change the vCPU to a dropdown list.  Click on the "Specify options" checkbox as shown above.  The dialog will change and you'll see options to edit labels and values.
+![](images/2021-04-29-20-20-31.png)
+- Populate the label and values fields and use the "Add" button to add 3 or 4 rows of options (1, 2, 4, 8 CPUs).   The dialog should look like the screen below.  Then, click the Save.
+![](images/2021-04-29-20-23-46.png)
+
+## Explore Composition
+
+Now, let's explore the Composition user interface.  You can use the Composition UI to build complex workflows via a drag and drop set of capabilities.  Let's begin be exploring some existing services.  Later, you'll learn to build your own.
+
+- Click the link in the top left labeled "Service Library" to return to the list of available services
+![](images/2021-04-29-20-40-56.png)
+
+- At the top of the screen type "MEAN" into the search bar to filter the least of services
+![](images/2021-04-29-20-43-38.png)
+- You will see a service titled "Mult Cloud - MEAN Stack deployment"
+- Click on the down arrow to expand the service.  Here is where you will see the versions of the service that exist.  You can only edit and deploy a specific version of the service.
+![](images/2021-04-29-20-47-27.png)
+- Then, click the 3 dots on the right that are specific to the 2.4.0.0 version and select edit. 
+![](images/2021-04-29-20-49-40.png)
+- You are now editing version 2.4.0.0 of the MEAN Stack deployment.
+- Click on the "Composition" tab
+![](images/2021-04-29-20-51-33.png)
+- If you look at this Composition, you'll notice that the first item on the left is a "Decision" on which Cloud you want to deploy to.  If you were to deploy this service, you would be given the option to deploy to VMware, the IBM Cloud, AWS, or Azure.
+- After selecting a Cloud, the service would use the appropriate Terraform template to deploy the MEAN Stack.
+- You can see each of the 4 clouds listed vertically and there is a Terraform template for each.
+- After the Mean stack is provisioned to the selected Cloud, the Composition flow next registers the system in a ServiceNow CMDB.
+- Finally, an Email is sent indicating the provisioning is complete.
+![](images/2021-04-29-20-59-24.png)
+
+
+## Add Ansible Tower Automation to Your Service
+
+- Now, we'll learn how to add addional automation to the service.  We'll be adding an Ansible Tower Automation to your Service by using the Service Composition user interface.
+- Navigate back to the list of Services by clicking on "Service Library" in the upper left corner
+![](images/2021-04-29-21-22-50.png)
+
+- Click on the Composition tab at the top of the screen.
+![](images/2021-04-29-20-28-46.png)
+- The Composition tab allows you to compose a complex service via a drag and drop user interface.  If you explore
+- Find your Service (StudentXX Vmware service)
+- Expand the service by clicking on the dropdown arrow
+![](images/2021-04-29-21-24-51.png)
+- Then, click on the 3 vertical dots on the right of version 3.0.0.0 and select "edit"
+![](images/2021-04-29-21-26-33.png)
+- Next click on the "Composition" tab at the top of the screen
+![](images/2021-04-29-21-28-07.png)
+
 
 
 ## Section
 
-We will begin by deploying a virtual machine to VMware.  This use interface is not what a typical end-user would use.  We'll 
+In this section, we will publish your new service to the Service Library
