@@ -9,3 +9,5 @@
       path: /tutorials/ibmcloud
     - title: Cost Management
       path: /tutorials/costmgmt
+    - title: Console Access
+      path: /tutorials/Console_Access
