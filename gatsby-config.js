@@ -28,8 +28,8 @@ module.exports = {
           subDirectory: '/',
           branch: 'master'
         },
-      },
-      pathPrefix: "/think21-lab-2176"
+      },      
     }
   ],
+  pathPrefix: "/Think21-Lab-2176"
 };
