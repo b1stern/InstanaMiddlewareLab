@@ -1,6 +1,6 @@
 - title: Intro and Login
   pages:
-    - path: /tutorials/Intro_and_Login
+    - path: /
 - title: Think Lab 2176
   pages:
     - title: Provisioning to VMware
@@ -8,6 +8,6 @@
     - title: Provisioning to IBM Cloud
       path: /tutorials/ibmcloud
     - title: Cost Management
-      path: /tutorials/costmgmt
+      path: /tutorials/Chargeback
     - title: Console Access
       path: /tutorials/Console_Access
