@@ -8,6 +8,6 @@
     - title: Provisioning to IBM Cloud
       path: /tutorials/ibmcloud
     - title: Cost Management
-      path: /tutorials/costmgmt
+      path: /tutorials/Chargeback
     - title: Console Access
       path: /tutorials/Console_Access
