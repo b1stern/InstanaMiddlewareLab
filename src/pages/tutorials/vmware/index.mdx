@@ -55,7 +55,7 @@ This screen contains a list of parameters that are required to provision a virtu
   ![](images/2021-04-28-21-08-51.png)
 
 
-11) Specify the VM vCPU Allocation.  This is the number of virtual CPUs assigned to the VM.  Specify 1 or 2 CPUs.  There is data validation that will only allow you to specify 1, 2, or 4 CPUs.  This field could also be a dropdown list with min and max numbers of CPUs.
+11) Specify the VM vCPU Allocation.  This is the number of virtual CPUs assigned to the VM.  Specify 1 or 2 CPUs.  There is data validation that will only allow you to specify 1, 2, or 4 CPUs.  Later in the lab, you'll learn how to convert this to a dropdown list containing 1,2,4, and 8 CPUs.
   ![](images/2021-04-28-21-10-10.png)
 
 
@@ -105,17 +105,18 @@ You have now successfully deployed a virtual machine into VMware and optionally 
 
 ## Explore and Modify a Service
 
-Now let's take a look at how the service was created.  You'll see how to modify a service and add more capabilities.  And, learn how to publish the service to the service library so that other users can run your service.
+Now let's take a look at how the service was created.  You'll learn how to modify a service and add more capabilities.  And, learn how to publish the service to the service library so that other users can run your service.
+
 
 1) Select the hamburger menu in the upper left corner
   ![](images/2021-04-27-21-07-15.png)
 
 
-2) From the dropdown, select "Automate Infrastructure" and then "Manage Services"
-  ![](images/2021-04-28-10-58-33.png)
+2) From the dropdown, select "Library" and then "Services"
+![](images/2021-05-05-14-48-12.png)
 
 
-3) The first time you do this, you will be taken to the "welcome" page
+3) The first time you do this, you will be taken to the "welcome" page.  If not, you will be taken directly to the list of Services that are installed in the environment and you can proceed to step 4)
   ![](images/2021-04-29-08-07-57.png)
 
 
@@ -143,7 +144,7 @@ Now let's take a look at how the service was created.  You'll see how to modify 
   ![](images/2021-04-29-08-18-01.png)
 
 
-8) A dialog will open.  At the bottom of the dialog you will see a name that was automatically populated with "Copy of Think Lab VMware".   Change the name to a name that begins with your username. For example, "student37 VMware service".  Then, click the "Duplicate" button.
+8) A dialog will open.  At the bottom of the dialog you will see a name that was automatically populated with "Copy of Think Lab VMware".   Note:  you may have to scroll down within the dialog in order to see the "Name" field.  Change the name to a name that begins with your username. For example, "student37 VMware service".  Then, click the "Duplicate" button.
 
 
   ![](images/2021-04-29-08-21-11.png)
@@ -152,7 +153,7 @@ Now let's take a look at how the service was created.  You'll see how to modify 
   You are now in the editor for your service.
 
 
-  You'll notice that the current version is 3.0.0.1.  It is possible to create additional versions and be working on multiple versions simultaneously.  Or, have one version that is published and a newer version that is under development.  We'll work with version 3.0.0.1.
+  You'll notice that the current version is 3.0.0.2.  It is possible to create additional versions and be working on multiple versions simultaneously.  Or, have one version that is published and a newer version that is under development.  We'll work with version 3.0.0.2.
 
 
 9) Scroll down to the bottom of the page.  Here, you can see the GitHub link to where the Service definition is stored and the prerequisites.
@@ -168,17 +169,18 @@ Now let's take a look at how the service was created.  You'll see how to modify 
 
 
   A dialog will open with the existing definition.  You'll notice that the default value of 1 virtual CPU is already populated.  There are currently data validation rules that limit the CPUs to 1, 2, or 4.
-  ![](images/2021-04-30-17-59-38.png)
+  ![](images/2021-05-05-15-07-34.png)
 
 
 12) Remove the Validation Rule and Validation rule description
+  ![](images/2021-05-05-15-09-42.png)
 
 
-13) To improve the service, let's change the vCPU to a dropdown list.  Click on the "Specify options" checkbox as shown above.  The dialog will change and you'll see options to edit labels and values.
-  ![](images/2021-04-29-20-20-31.png)
+13) To improve the service, let's change the vCPU to a dropdown list.  Click on the "Specify options" checkbox (1) as shown above.  The dialog will change and you'll see options to edit labels and values.
+  ![](images/2021-05-05-15-14-34.png)
 
 
-14)  Populate the label and values fields and use the "Add" button to add 3 or 4 rows of options (1, 2, 4, 8 CPUs).   The dialog should look like the screen below.  Then, click the Save.
+14)  Populate the label field with "1 CPU" and values field with "1" and use the "Add" button to add 3 more rows of options.  Populate the rows with (1, 2, 4, 8 CPUs).  Leave 1 CPU as the default value (see the raio button)  The dialog should look like the screen below.  Then, click the Save.
   ![](images/2021-04-29-20-23-46.png)
 
 
@@ -186,7 +188,7 @@ Now let's take a look at how the service was created.  You'll see how to modify 
   ![](images/2021-05-01-21-04-56.png)
 
 
-16) If you want, you can do a "Test Deploy" of the Service to see how your new dropdown list behaves.  I don't recommend actually deploying the VM to save time.   To see the diaglog, click the 3 vertical dots in the upper right corner.  Then, select "Test Deploy" as seen below.
+16) Now try a "Test Deploy" of the Service to see how your new dropdown list behaves.  To see the diaglog, click the 3 vertical dots in the upper right corner.  Then, select "Test Deploy" as seen below.
   ![](images/2021-05-01-21-07-35.png)
 
 
@@ -196,6 +198,9 @@ Now let's take a look at how the service was created.  You'll see how to modify 
 
 18) Now, view the dropdown list for the VM vCPU Allocation.
   ![](images/2021-05-01-21-11-18.png)
+
+
+At this point, we aren't going to actually deploy the service.  We'll continue on to the next section of the lab.
 
 
 You have now explored and modified a service.  The next step is to explore the Composition user interface.
@@ -212,8 +217,8 @@ Now, let's explore the Composition user interface.  You can use the Composition 
   ![](images/2021-04-29-20-40-56.png)
 
 
-2) Then, click the hamburger menu in the upper left corner and select Automate Infrastructure -> Manage Services
-  ![](images/2021-05-01-21-15-09.png)
+You should see a list of the available services.
+![](images/2021-05-05-15-25-15.png)
 
 
 3) At the top of the screen type "MEAN" into the search bar to filter the least of services
@@ -238,8 +243,8 @@ Now, let's explore the Composition user interface.  You can use the Composition 
   ![](images/2021-04-29-20-51-33.png)
 
 
-7) Look at this Composition.  You'll notice that the first item on the left is a "Decision" on which Cloud you want to deploy to.  If you were to deploy this service, you would be given the option to deploy to VMware, the IBM Cloud, AWS, or Azure.
-  - After selecting a Cloud, the service would use the appropriate Terraform template to deploy the MEAN Stack.
+7) Examine the Composition.  The first item on the left is a "Decision" where a user gets to choose the cloud where the service will be deployed.  If you were to deploy this service, you would be given the option to deploy to VMware, the IBM Cloud, AWS, or Azure.
+  - After selecting a Cloud, the service would use the Terraform template for the selected Cloud to deploy the MEAN Stack.
   - You can see each of the 4 clouds listed vertically and there is a Terraform template for each.
   - After the Mean stack is provisioned to the selected Cloud, the Composition flow next registers the system in a ServiceNow CMDB.
   - Finally, an Email is sent indicating the provisioning is complete.
@@ -255,16 +260,26 @@ Now, let's explore the Composition user interface.  You can use the Composition 
 
 9)  Click on the "Parameters" tab that is just to the right of the "Basic Information" tab.
   ![](images/2021-04-30-10-37-43.png)
+  
+  
   - You can see the input parameters that will be passed into the CMDB.  
+  ![](images/2021-05-05-15-31-28.png)
+  
+  
   - Let's examine the other components that can be added to a service composition.  If you look on the left side, you'll notice different categories of objects that can be added to the service.  As you examine the content on the left, you'll notice Decision flows, E-mail Notification, Rest Hook, other Terraform templates, and Ansible Tower templates.  
   ![](images/2021-04-30-11-00-05.png)
 
 
-10) Select the "Demo Job Template" Ansible Tower template and drag it over to the Composition area.  As you drag the Ansible Tower template, you'll notice that boxes appear on the composition screen.  You can drop the template on any one of the boxes.   After a few seconds that Ansible Tower template will appear on the screen.  In order to make this functional, you would need to define Parameters to pass.   We won't do that in this portion of the lab.  The "IBM Cloud Automation" portion of the lab will go into a little more detail.
+10) As shown above, select the "Demo Job Template" Ansible Tower template and drag it over to the Composition area.  As you drag the Ansible Tower template, you'll notice that boxes appear on the composition screen.  You can drop the template on any one of the boxes.   After a few seconds that Ansible Tower template will appear on the screen.  In order to make this functional, you would need to define Parameters to pass between components of the service composition.   We won't do that in this portion of the lab.  The "IBM Cloud Automation" portion of the lab will go into a little more detail.
   ![](images/2021-04-30-11-03-55.png)
 
 
-11) Click on "<- Service Library" to navigate back to the main page.  A dialog will open.  Click Continue so that your changes won't be saved.
+11) Click on "<- Service Library" in the upper left corner to navigate back to the main page.  
+![](images/2021-05-05-15-34-27.png)
+
+
+12) A dialog will open.  Click Continue so that your changes won't be saved.
+![](images/2021-05-05-15-36-42.png)
 
 
 You have now seen how the Service Composition user interface can help you build complex automations via drag and drop capabilities.
@@ -275,7 +290,10 @@ You have now seen how the Service Composition user interface can help you build 
 ## Executing Terraform templates directly
 
 
-1) There is tremendous value in building and executing Services within the Cloud Pak.   But sometimes you just want to execute a Terraform template.  If you click on the "Terraform templates" tab at the top of the screen, you will see a list of available templates
+There is tremendous value in building and executing Services within the Cloud Pak.   But sometimes you just want to execute a Terraform template.  
+
+
+1) Click on the "Terraform templates" tab at the top of the screen and you will see a list of available templates
   ![](images/2021-04-30-11-12-09.png)
 
 
@@ -288,8 +306,8 @@ You have now seen how the Service Composition user interface can help you build 
 
 
   There are two advantages of executing a Terraform template directly:
-    - First, you may have access to parameters that are not exposed in the Service.  For example, maybe you want to provision to a different vSphere Cluster.
-    - Second, occasionally you will run into cases where the Terraform template runs correctly, but the service doesn't.  It is a good debug tool.  First confirm that your Terraform Template can be deployed.  Then, debug the Service.
+  - First, you will have access to parameters that are not exposed in the Service.  For example, maybe you want to provision to a different vSphere Cluster.
+  - Second, occasionally you will run into cases where the Terraform template runs correctly, but the service doesn't.  It is a good debug tool.  A good development practice is to first deploy and debug the Terraform template until it successfully deploys.  Then, deploy and debug the Service until it deploys successfully.
 
 
 ***
@@ -314,11 +332,11 @@ You have modified your Service and changed the menus.  Now, let's make it availa
   ![](images/2021-04-30-11-52-25.png)
 
 
-4) On the right side, click on the 3 vertical dots for versoin 3.0.0.0 and select "Publish"
+4) On the right side, click on the 3 vertical dots for versoin 3.0.0.2 and select "Publish"
   ![](images/2021-04-30-11-53-38.png)
 
 
-  A dialog opens and asks to confirm whether you want to publish vesrion 3.0.0.0.
+  A dialog opens and asks to confirm whether you want to publish vesrion 3.0.0.2.
   ![](images/2021-04-30-11-56-01.png)
 
 
@@ -364,6 +382,57 @@ You have now completed the section of the lab on automating tasks in VMware envi
 
 
 In this portion of the lab, you saw how easy it is for an end user to provision complex services that can provision virtual machine, clusters, install applications, and more.  You learned how to modify and customize a service.  You explored the capabilities within the service composer which allows you to combine Terraform, Ansible, Rest Hooks, ServiceNow, and more into complex workflows.  Finally, you learned how to publish your Service so that other users can execute the Service and provision VMware virtual machines.
+
+
+To continue other portions of the lab, select one of the lab exercises in the upper left corner or select one of the images below.
+
+
+<Row>
+
+<Column colLg={3} colMd={3} noGutterMdLeft>
+<ArticleCard
+    color="dark"
+    subTitle="Automation with the Public Cloud"
+    title="Want to learn how to automate infrastructure management in Public clouds?"
+    href="/tutorials/ibmcloud"
+    actionIcon="arrowRight"
+    >
+
+![](images/public-cloud.jpg)
+
+</ArticleCard>
+</Column>
+
+<Column colLg={3} colMd={3} noGutterMdLeft>
+<ArticleCard
+    color="dark"
+    subTitle="Managing chargeback"
+    title="Do you want to create and execute a chargeback report on the VM and container workloads?"
+    href="/tutorials/Chargeback"
+    actionIcon="arrowRight"
+    >
+
+![](/images/prereqs.jpg)
+
+</ArticleCard>
+</Column>
+
+<Column colLg={3} colMd={3} noGutterMdLeft>
+<ArticleCard
+    color="dark"
+    subTitle="Managing SRE console access"
+    title="Do you want to learn how to provide SRE secure terminal access to Virtual Machines?"
+    href="/tutorials/Console_Access"
+    actionIcon="arrowRight"
+    >
+
+
+![](/images/secure-access.jpg)
+
+
+</ArticleCard>
+</Column>
+</Row>
 
 
 ***
