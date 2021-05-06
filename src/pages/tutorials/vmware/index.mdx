@@ -164,7 +164,7 @@ Now let's take a look at how the service was created.  You'll learn how to modif
   ![](images/2021-04-29-20-13-15.png)
 
 
-11) Let's learn how to modify one of the input parameters to improve the service.   Select the 3 vertical dots on the right side for the vm_cpu input parameter.
+11) Let's learn how to modify one of the input parameters to improve the service.   Select the 3 vertical dots on the right side for the vm_vcpu input parameter.
   ![](images/2021-05-01-20-59-57.png)
 
 
@@ -200,7 +200,7 @@ Now let's take a look at how the service was created.  You'll learn how to modif
   ![](images/2021-05-01-21-11-18.png)
 
 
-At this point, we aren't going to actually deploy the service.  We'll continue on to the next section of the lab.
+At this point, you aren't going to actually deploy the service.  Continue on to the next section of the lab.
 
 
 You have now explored and modified a service.  The next step is to explore the Composition user interface.
@@ -210,40 +210,40 @@ You have now explored and modified a service.  The next step is to explore the C
 
 ## Explore Composition
 
-Now, let's explore the Composition user interface.  You can use the Composition UI to build complex workflows via a drag and drop set of capabilities.  Let's begin be exploring some existing services.  Later, you'll learn to build your own.
+Now, let's explore the Composition user interface.  You can use the Composition UI to build complex workflows via a drag and drop set of capabilities.  Begin be exploring some existing services.  Later, you'll learn to build your own.
 
 
 1) Click the link in the top left labeled "Service Library" to return to the list of available services
   ![](images/2021-04-29-20-40-56.png)
 
 
-You should see a list of the available services.
-![](images/2021-05-05-15-25-15.png)
+  You should see a list of the available services.
+  ![](images/2021-05-05-15-25-15.png)
 
 
-3) At the top of the screen type "MEAN" into the search bar to filter the least of services
+2) At the top of the screen type "MEAN" into the search bar to filter the least of services
   ![](images/2021-04-29-20-43-38.png)
 
 
   You will see a service titled "Mult Cloud - MEAN Stack deployment"
 
 
-4) Click on the down arrow to expand the service.  Here is where you will see the versions of the service that exist.  You can only edit and deploy a specific version of the service.
+3) Click on the down arrow to expand the service.  Here is where you will see the versions of the service that exist.  You can only edit and deploy a specific version of the service.
   ![](images/2021-04-29-20-47-27.png)
 
 
-5) Then, click the 3 dots on the right that are specific to the 2.4.0.0 version and select edit. 
+4) Then, click the 3 dots on the right that are specific to the 2.4.0.0 version and select edit. 
   ![](images/2021-04-29-20-49-40.png)
 
 
   You are now editing version 2.4.0.0 of the MEAN Stack deployment.
 
 
-6) Click on the "Composition" tab
+5) Click on the "Composition" tab
   ![](images/2021-04-29-20-51-33.png)
 
 
-7) Examine the Composition.  The first item on the left is a "Decision" where a user gets to choose the cloud where the service will be deployed.  If you were to deploy this service, you would be given the option to deploy to VMware, the IBM Cloud, AWS, or Azure.
+6) Examine the Composition.  The first item on the left is a "Decision" where a user gets to choose the cloud where the service will be deployed.  If you were to deploy this service, you would be given the option to deploy to VMware, the IBM Cloud, AWS, or Azure.
   - After selecting a Cloud, the service would use the Terraform template for the selected Cloud to deploy the MEAN Stack.
   - You can see each of the 4 clouds listed vertically and there is a Terraform template for each.
   - After the Mean stack is provisioned to the selected Cloud, the Composition flow next registers the system in a ServiceNow CMDB.
@@ -251,14 +251,14 @@ You should see a list of the available services.
   ![](images/2021-04-29-20-59-24.png)
 
 
-8) Click on the SNow CMDB icon
+7) Click on the SNow CMDB icon
   ![](images/2021-04-30-10-35-46.png)
 
 
   You'll notice that information will be populated on the right side of the screen.  Here you can see the Basic information that describes the Terraform template that you selected.
 
 
-9)  Click on the "Parameters" tab that is just to the right of the "Basic Information" tab.
+8)  Click on the "Parameters" tab that is just to the right of the "Basic Information" tab.
   ![](images/2021-04-30-10-37-43.png)
   
   
@@ -270,15 +270,15 @@ You should see a list of the available services.
   ![](images/2021-04-30-11-00-05.png)
 
 
-10) As shown above, select the "Demo Job Template" Ansible Tower template and drag it over to the Composition area.  As you drag the Ansible Tower template, you'll notice that boxes appear on the composition screen.  You can drop the template on any one of the boxes.   After a few seconds that Ansible Tower template will appear on the screen.  In order to make this functional, you would need to define Parameters to pass between components of the service composition.   We won't do that in this portion of the lab.  The "IBM Cloud Automation" portion of the lab will go into a little more detail.
+9) As shown above, select the "Demo Job Template" Ansible Tower template and drag it over to the Composition area.  As you drag the Ansible Tower template, you'll notice that boxes appear on the composition screen.  You can drop the template on any one of the boxes.   After a few seconds that Ansible Tower template will appear on the screen.  In order to make this functional, you would need to define Parameters to pass between components of the service composition.   We won't do that in this portion of the lab.  The "IBM Cloud Automation" portion of the lab will go into a little more detail.
   ![](images/2021-04-30-11-03-55.png)
 
 
-11) Click on "<- Service Library" in the upper left corner to navigate back to the main page.  
+10) Click on "<- Service Library" in the upper left corner to navigate back to the main page.  
 ![](images/2021-05-05-15-34-27.png)
 
 
-12) A dialog will open.  Click Continue so that your changes won't be saved.
+11) A dialog will open.  Click Continue so that your changes won't be saved.
 ![](images/2021-05-05-15-36-42.png)
 
 
@@ -332,7 +332,7 @@ You have modified your Service and changed the menus.  Now, let's make it availa
   ![](images/2021-04-30-11-52-25.png)
 
 
-4) On the right side, click on the 3 vertical dots for versoin 3.0.0.2 and select "Publish"
+4) On the right side, click on the 3 vertical dots next to version 3.0.0.2 and select "Publish"
   ![](images/2021-04-30-11-53-38.png)
 
 
