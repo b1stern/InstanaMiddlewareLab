@@ -3,31 +3,11 @@ title: Automating infrastructure in public clouds
 description:
 ---
 
-<FeatureCard
-  title="Automating infrastructure in public clouds"
-  color="dark"
-  >
-
-![banner](/images/automate-banner.jpg)
-
-</FeatureCard>
-
-
-<AnchorLinks>
-  <AnchorLink>Lab Overview</AnchorLink>
-  <AnchorLink>Managing infrastructure in public clouds</AnchorLink>
-  <AnchorLink>Exploring the cloud providers</AnchorLink>
-  <AnchorLink>Exploring GRC dashboard</AnchorLink>  
-  <AnchorLink>Summary</AnchorLink>
-</AnchorLinks>
-
-***
-
 ## Lab Overview
 
 IBM Cloud Pak for Watson AIOps Infrastructure Management delivers the insight, control, and automation enterprises need to address challenges of managing hybrid cloud environments, which are far more complex than traditional data center. This technology enables enterprises with existing virtual infrastructures to improve visibility and control, and those just starting virtualization deployments to build and operate a well-managed virtual infrastructure.
 
-IBM Cloud Pak for Watson AIOps Infrastructure Management includes the following feature sets:
+IBM Cloud Pak for Watson AIOps Infrastructure Management is based on upstream OSS project [ManageIQ](https://www.manageiq.org) and includes the following feature sets:
 
 - Insight: discovery, monitoring, utilization, performance, reporting, analytics, chargeback, and trending.
 - Control: security, compliance, alerting, policy-based resource and configuration management.
@@ -114,7 +94,7 @@ In this tutorial, you will explore the following key capabilities:
 
   ![](images/2021-05-04-11-34-39.png)
 
-  First task provisions a terraform template in IBM Cloud. When it completes, the second one registers newly provisioned VMs in Ansible inventory so you can run the configfuration tasks against them. Let's add some Ansible task to the flow. Since the service is already published, to modify it you have to first create a new version. Go back to the **Service Library** view.
+  First task provisions a terraform template in IBM Cloud (To see the source code of the template click this [link](https://github.com/dymaczew/cmh-test-github/tree/master/terraform/ibmcloud-vpc-thinklab)) When it completes, the second one registers newly provisioned VMs in Ansible inventory so you can run the configuration tasks against them. Let's add an Ansible task to the flow. Since the service is already published, to modify it you have to first create a new version. Go back to the **Service Library** view.
 
   ![](images/2021-05-04-11-43-55.png)
 
@@ -126,9 +106,47 @@ In this tutorial, you will explore the following key capabilities:
 
   ![](images/2021-05-04-11-49-28.png)
 
-  New version of the service is opened in Service editor. Go to the **Composition** tab (1), unfold the available ansible tasks on the left (2) and drag-and-drop **Configure Nginx** task next to the Ansible inventory task in the flow (3).
+  New version of the service is opened in Service editor. Go to the **Composition** tab (1), unfold the available ansible tasks on the left (2) and drag-and-drop **Configure Nginx** task next to the Ansible inventory task in the flow (3). 
 
   ![](images/2021-05-04-11-54-38.png)
+
+  This is a very simple Ansible playbook available [here](https://github.com/dymaczew/rba-ansible-sample/blob/master/nginx.yaml), which was imported into connected Ansible tower and exposed as a Template (All templates  you create in connected Ansible Tower are automatically shown in the Service Editor). For covenience, the source code was also shown below:
+
+  ```
+  ---
+- name: Install nginx
+  hosts: all
+  gather_facts: False
+  become: true
+
+  vars:
+   - MyMessage: "Welcome to Think Lab 2176 instance!"
+
+  tasks:
+  - name: Add epel-release repo
+    yum:
+      name: epel-release
+      state: present
+
+  - name: Install nginx
+    yum:
+      name: nginx
+      state: present
+
+  - name: Insert Index Page
+    template:
+      src: index.html.j2
+      dest: /usr/share/nginx/html/index.html
+
+  - file:
+      path: /usr/share/nginx/html/index.html
+      mode: 0644
+
+  - name: Start NGiNX
+    service:
+      name: nginx
+      state: started
+  ```
 
   Click the newly added task to edit parameters.
 
@@ -138,7 +156,7 @@ In this tutorial, you will explore the following key capabilities:
 
   - inventory name
   - credentials
-  - extra variables (to be passed to Ansible playbook)
+  - extra variables (to be passed to Ansible playbook - for simplicity our task does not require any parameters)
 
   Click **inventory_name** link (1) and then click **Link parameter** (2).
 
@@ -160,11 +178,11 @@ In this tutorial, you will explore the following key capabilities:
 
   ![](images/2021-05-04-12-24-54.png) ![](images/2021-05-04-12-25-21.png)
 
-  Provisioning dialog opens. Click **Next**
+  Provisioning dialog opens. Click **Next**.
 
   ![](images/2021-05-04-12-37-08.png)
 
-  Provide the required parameters. For **service name** (1) and **prefix** (2) provide a unique name (for example your user id). For ssh key (3) you have to provide a personal public ssh key. Since all the students are using the workstation generated from the same template let's generate a new one. Open the Terminal windows and run the following command
+  Provide the required parameters. For **service name** (1) and **prefix** (2) provide a unique name (for example your user id - this will help you identify your instance among all VMs provisioned by other students). For **Public ssh key** (3) you have to provide a public ssh key to be injected into the Virtual machines. Since all the students are using the jump workstation generated from the same template, to avoid duplicates let's generate a new one. Open the Terminal window (link should be on the Desktop - you may need to minimize the browser to see it) and run the following command (hit ENTER twice when prompted for passphrase):
 
   ```sh
   ssh-keygen -t rsa -f student
@@ -237,7 +255,7 @@ In this tutorial, you will explore the following key capabilities:
 
   ![](images/2021-05-04-15-29-49.png)
 
-  This policy checks if the allocated resources like number of CPU, RAM or storage is conformant with company guidelines. If you want to save the policy, provide the unique name (1), select any namespace (2) and specify the Resource binding (3) to match "owner: studentX" where studentX matches your user id. Finally click **Create** in the top-right corner. You may also click **Cancel** as one policy was already created for all sutdents.
+  This policy checks if the allocated resources like number of CPU, RAM or storage is conformant with company guidelines. If you want to save the policy, provide the unique name (1), select any namespace (2) and specify the Resource binding (3) to match "owner: studentX" where studentX matches your user id. Finally, click **Create** in the top-right corner. You may also click **Cancel** as one policy was already created for all sutdents.
 
   ![](images/2021-05-04-15-36-27.png)
 
@@ -251,7 +269,7 @@ In this tutorial, you will explore the following key capabilities:
 
 ### Verifying new instances in Infrastructure Management view
 
-  Go to the browser tab where you have Infrastructure Management opened and select Instances for cloud provider "us-suoth" (Compute -> Cloud -> Instances). On the list you should see 2 instances created by you in a previous step. Click any of them to see details.
+  Go to the browser tab where you have Infrastructure Management opened and select Instances for cloud provider "us-south" (Compute -> Cloud -> Instances). On the list, you should see two instances created by you in the previous step (HINT: the refresh is done periodically, so it may take few minutes for your virtual machines to show up). Click any of them to see details.
 
   ![](images/2021-05-04-15-02-59.png)
 
