@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: "Think Lab XXXXX:  Observability of a hybrid application using Instana",
-    description: "Hybrid Application Management - tutorials for IBM Think confenrence Academy Labs",
+    title: "Think Lab 1189:  Observability of a hybrid application using Instana",
+    description: "Think Lab to learn about Instana's observability capabilities in the context of a hybrid application",
     keywords: "gatsby,theme,carbon",
   },
   plugins: [

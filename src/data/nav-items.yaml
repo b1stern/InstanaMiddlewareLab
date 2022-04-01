@@ -1,13 +1,13 @@
 - title: Intro and Login
   pages:
     - path: /
-- title: Instana Observability Middleware Lab
+- title: Think Lab 1189 - Observability of a Hybrid Application Using Instana
   pages:
     - title: Installation
       path: /tutorials/Install
     - title: Explore Instana
       path: /tutorials/Explore
-    - title: Diagnose a Problem
+    - title: Diagnosing Problems
       path: /tutorials/Diagnose
     - title: Instana Administration
       path: /tutorials/Administration
