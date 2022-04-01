@@ -1,25 +1,24 @@
 --- 
 title: Think Lab 2176
-description: Automate with confidence using Cloud Pak for Watson AIOps
+description: Observability of a hybrid application using Instana
 ---
 
 ## Introduction
 
-This lab will focus on leveraging the Cloud Pak for Multicloud Management and the 
-Cloud Pak for Watson AIOps to improve your efficiency by automating some of the tasks 
-that your organization may be executing manually.
+This lab will allow students to learn how to intrument a hybrid application for observability using Instana.  The application consists 
+of a cloud native component running in kubernetes (OpenShift) and a traditional server with IBM MQ and IBM App Connect Enterprise.  
+Once instrumented, students will explore the rich set of monitoring data available to monitor the traditional and cloud native infratructure,
+the application, and the web traffic.  Students will see how Instana can help them get to root cause quickly and in an intuitive way by
+allowing the Instana UI to guide them through the diagnosis.  Students will also learn how to customize the environment and define custom Events.
 
-The lab consists of a few different exercises that will allow you to understand the 
-capabilities to automate key tasks.  Each section of the lab is intended to be independent and 
-can be executed in any order.  The lab exercises include:
-- Provision a virtual machine into the IBM public cloud using the service library.  
-    In this section, you'll learn how to provision a VM, publish a service to the service library, and modify a service to add additional capabilties.
-    One of the key capabilities is how the "manage services" allow you to combine tools like Terraform and Ansible Tower to achieve more complex automations.
-    Complex workflows can be achieved via the Composition page and you'll learn how to use the drag and drop capabilities.
-- Provision a virtual machine into a VMware environment using the service library.
-    In this section, you'll learn how Terraform is leveraged to provision the virtual machine to the public cloud and how parameters are defined and 
-    exposed in the service. You'll also see how tags can be defined in the virtual machines and used for other activities such as chargeback reports.
-- Use Infrastructure Management view detailed information about your containerized environments and setup chargeback reports
+1) In the first portion of the lab, students will instrument kubernetes and IBM ACE and MQ for monitoring.
+
+2) Once instrumented, students will explore key aspects of the Instana user interface.   Part 1 must be completed before proceding the second
+portion of the lab.
+
+3) In the 3rd section of the lab, students will perform a diagnostic scenario in the hybrid application
+
+4) Finally, in the 4th section students will learn how to perform administrative tasks.
 
 After completing the Login section, use the other links to go directly to one of the lab exercises.
 
@@ -36,9 +35,9 @@ Select one of the lab exercises in the upper left corner or select one of the im
 <Column colLg={4} colMd={4} noGutterMdLeft>
 <ArticleCard
     color="dark"
-    subTitle="Automation with VMware"
-    title="Want to learn how to automate infrastructure management in VMWare vSphere?"
-    href="/tutorials/vmware"
+    subTitle="Installing and Configuring Monitoring"
+    title="Install the Instana Monitoring Agent and Configure the Sensors"
+    href="/tutorials/Install"
     actionIcon="arrowRight"
     >
 
@@ -51,13 +50,13 @@ Select one of the lab exercises in the upper left corner or select one of the im
 <Column colLg={4} colMd={4} noGutterMdLeft>
 <ArticleCard
     color="dark"
-    subTitle="Automation with the Public Cloud"
-    title="Want to learn how to automate infrastructure management in Public clouds?"
-    href="/tutorials/ibmcloud"
+    subTitle="Explorer Instana"
+    title="Explore the Instana UI and Capabilities"
+    href="/tutorials/Explore"
     actionIcon="arrowRight"
     >
 
-![](images/public-cloud.jpg)
+![](images/Skytap.png)
 
 </ArticleCard>
 </Column>
@@ -65,9 +64,9 @@ Select one of the lab exercises in the upper left corner or select one of the im
 <Column colLg={4} colMd={4} noGutterMdLeft>
 <ArticleCard
     color="dark"
-    subTitle="Managing chargeback"
-    title="Do you want to create and execute a chargeback report on the VM and container workloads?"
-    href="/tutorials/Chargeback"
+    subTitle="Diagnose a Problem"
+    title="Learn How Instana Can Help you Quickly Diagnose a Complex Problem"
+    href="/tutorials/Diagnose"
     actionIcon="arrowRight"
     >
 
@@ -79,8 +78,8 @@ Select one of the lab exercises in the upper left corner or select one of the im
 <Column colLg={4} colMd={4} noGutterMdLeft>
 <ArticleCard
     color="dark"
-    subTitle="Managing SRE console access"
-    title="Do you want to learn how to provide SRE secure terminal access to Virtual Machines?"
+    subTitle="Administer Instana"
+    title="Learn How to Perform Administrative Tasks in Instana"
     href="/tutorials/Console_Access"
     actionIcon="arrowRight"
     >
@@ -95,16 +94,19 @@ Select one of the lab exercises in the upper left corner or select one of the im
 
 ## Logging into the Environment
 
-  Before beginning the exercises, take the following steps to login to the soleil environment and access the Cloud Pak for Multicloud Management console.
+  Before beginning the exercises, take the following steps to login to the soleil environment and access the lab environment.
 
-  After opening your browser and logging into the lab, you'll see an image of a remote computer.  This is your virtual machine.
+  After opening your browser and logging into the lab, you'll see an image of a two computers.  The first is named thinkdemo. This 
+  server is the kubernetes(OpenShift) cluster where the cloud native portion of the application will run.
 
-  ![](images/2021-04-27-19-54-51.png)
+  ![](images/Skytap.png)
 
   If the background is green, it means the virtual machine is running.  If it is not running, click the start arrow to start the VM
   ![](images/2021-04-27-20-00-11.png)
 
-  After the VM is running, click the picture of the computer to launch the desktop.
+  The 2nd VM is named "MQ and ACE".  This VM is a traditional server running IBM MQ and IBM App Connect Enterprise.
+  
+  After the VM is running, click the picture of the "thinkdemo" computer to launch the desktop.
 
   For more information on using the soleil environment, click the link below.
 
