@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: "Think Lab 2176",
+    title: "Think Lab XXXXX:  Observability of a hybrid application using Instana",
     description: "Hybrid Application Management - tutorials for IBM Think confenrence Academy Labs",
     keywords: "gatsby,theme,carbon",
   },
@@ -24,12 +24,12 @@ module.exports = {
         isSearchEnabled: true,
         repository: {
           baseUrl:
-            'https://github.com/b1stern/Think21-Lab-2176',
+            'https://github.com/b1stern/InstanaMiddlewareLab',
           subDirectory: '/',
           branch: 'master'
         },
       },      
     }
   ],
-  pathPrefix: "/Think21-Lab-2176"
+  pathPrefix: "/InstanaMiddlewareLab"
 };

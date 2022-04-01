@@ -3,7 +3,7 @@ import Header from 'gatsby-theme-carbon/src/components/Header';
 
 const CustomHeader = (props) => (
   <Header {...props}>
-    &nbsp;<span>Hybrid Application Management</span>
+    &nbsp;<span>Instana</span>
   </Header>
 );
 

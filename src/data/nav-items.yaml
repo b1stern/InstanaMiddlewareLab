@@ -1,13 +1,13 @@
 - title: Intro and Login
   pages:
     - path: /
-- title: Think Lab 2176
+- title: Instana Observability Middleware Lab
   pages:
-    - title: Provisioning to VMware
-      path: /tutorials/vmware
-    - title: Provisioning to IBM Cloud
-      path: /tutorials/ibmcloud
-    - title: Cost Management
-      path: /tutorials/Chargeback
-    - title: Console Access
-      path: /tutorials/Console_Access
+    - title: Installation
+      path: /tutorials/Install
+    - title: Explore Instana
+      path: /tutorials/Explore
+    - title: Diagnose a Problem
+      path: /tutorials/Diagnose
+    - title: Instana Administration
+      path: /tutorials/Administration
