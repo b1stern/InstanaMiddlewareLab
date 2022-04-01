@@ -1,5 +1,5 @@
 --- 
-title: Think Lab 2176
+title: Think Lab 1189 - Observability of a Hybrid Application Using Instana
 description: Observability of a hybrid application using Instana
 ---
 
@@ -23,9 +23,32 @@ portion of the lab.
 After completing the Login section, use the other links to go directly to one of the lab exercises.
 
 
-We recommend you use Firefox to complete the lab.  If you attempt to use Chrome, you won't be able to accept the certificates.
-![](images/2021-05-05-09-20-41.png)
+When you first login to the Soleil virtual machines, a chrome browser will open with multiple tabs.  The first tab will be this lab guide.  We recommend that you use
+the lab guide within the virtual machine so that you can easily copy and past text into the terminal windows.
 
+## Logging into the Environment
+
+  Before beginning the exercises, take the following steps to login to the soleil environment and access the lab environment.
+
+  After opening your browser and logging into the lab, you'll see an image of a two computers.  The first is named thinkdemo. This 
+  server is the kubernetes(OpenShift) cluster where the cloud native portion of the application will run.
+
+  ![](images/Skytap.png)
+
+  If the background is green, it means the virtual machine is running.  If it is not running, click the start arrow to start the VM
+  ![](images/2021-04-27-20-00-11.png)
+
+  The 2nd VM is named "MQ and ACE".  This VM is a traditional server running IBM MQ and IBM App Connect Enterprise.
+  
+  After the VM is running, click the picture of the "thinkdemo" computer to launch the desktop.  Login to the virtual machine as the 
+  user "demo" and password "Passw0rd". 
+
+  For more information on using the soleil environment, scroll towards the bottom of the page.
+
+## Begin the Exercises
+
+You are now ready to start performing the lab exercises.  You must complete the Installation section first.  After that, the sections can be done in any order.  For a new user of Instana, we recommend 
+performing the Explore Instana section of the labe next.  If you are already familiar with Instana, you can select any other section of the lab.
 
 Select one of the lab exercises in the upper left corner or select one of the images below.
 
@@ -56,7 +79,7 @@ Select one of the lab exercises in the upper left corner or select one of the im
     actionIcon="arrowRight"
     >
 
-![](images/Skytap.png)
+![](images/InstanaTopology.png)
 
 </ArticleCard>
 </Column>
@@ -92,23 +115,6 @@ Select one of the lab exercises in the upper left corner or select one of the im
 
 ***
 
-## Logging into the Environment
-
-  Before beginning the exercises, take the following steps to login to the soleil environment and access the lab environment.
-
-  After opening your browser and logging into the lab, you'll see an image of a two computers.  The first is named thinkdemo. This 
-  server is the kubernetes(OpenShift) cluster where the cloud native portion of the application will run.
-
-  ![](images/Skytap.png)
-
-  If the background is green, it means the virtual machine is running.  If it is not running, click the start arrow to start the VM
-  ![](images/2021-04-27-20-00-11.png)
-
-  The 2nd VM is named "MQ and ACE".  This VM is a traditional server running IBM MQ and IBM App Connect Enterprise.
-  
-  After the VM is running, click the picture of the "thinkdemo" computer to launch the desktop.
-
-  For more information on using the soleil environment, click the link below.
 
 ## Using the soleil environment
 
