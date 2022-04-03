@@ -22,7 +22,7 @@ the username associated with your "Student Name".  Finally, you will see a passw
 
  Click on the 2nd tab in the browser to open the Instana user interface.  You'll see a login dialog.
   ![](images/login.png) 
- Enter the "Instana Loging" name associated with your student name and enter the password that you found on the 3rd tab. Finally, click the Login button.
+ Enter the "Instana Login" name associated with your student name and enter the password that you found on the 3rd tab. Finally, click the Login button.
 
  You will see the summary page for Instana.  We'll come back to the user interface later.  
 
@@ -98,6 +98,73 @@ If the pod is not running, wait a minute and issue the "oc get pods" command aga
 
 Once the pod is running, let's navigate to the Instana user interface.   Leave the terminal window open because you will be using it later.
 
+
+## Install the Quote of the Day Application
+Next, you'll be installing the "Quote of the Day" application.   For the containerized portion of the application, a lot of the monitoring instrumentation.  In some cases, minor 
+configuration changes are necessary.  You'll see that when we deploy the "Quote of the Day" application, we'll specify that we want to enable the Instana monitoring.
+
+For more information about the Quote of the Day application, you can go to this GitLab location:  https://gitlab.com/quote-of-the-day/quote-of-the-day
+It is not necessary to go to this GitLab location, but you might be interested in learning more about the application.
+
+The first thing you need to do is to create namespaces (projects) for the application and the load generation tool to run.   Then, you need to setup the OpenShift permissions
+for those projects.  Run the following commands.   When you run the commands, specify your student name instead of student***. 
+
+For example, if your student name is student27, issue the following command:   oc create namespace student27
+
+Issue the following 6 commands, replacing student*** with your student name:
+oc create namespace student***-load
+oc project student***-load
+oc adm policy add-scc-to-user anyuid -z default
+oc create namespace student***
+oc project student***
+oc adm policy add-scc-to-user anyuid -z default
+
+The helm repository where we will be installing the application has already been setup on your virtual machine.  But, let's update the helm repo to ensure we get the current code.
+Issue the following command:
+
+helm repo update
+
+You should see output indicating that it successfully got an update to the "qotd" chart repository.
+  ![](images/HelmUpdate.png)
+
+Next, you need to define a Website within the Instana user interface.  Open the browser tab with the Instana UI.  Then, click on the Websites & Mobile Apps icon hear the upper left corner.
+  ![](images/Websites.png)
+
+You will see a list of previously defined Websites.   You are going to create a new Website by clicking on the "+ Add Website" link near the upper right corner.
+  ![](images/AddWebsite.png)
+
+A dialog will open asking for a Website Name.  Enter your student name as the Website Name as seen below.
+  ![](images/WebsiteName.png)
+
+A dialog will open with some javascript.  For an existing web application, you could add this javascript to the HTML pages.  But, in this case, we will use it when we deploy The
+Quote of the Day application.
+  ![](images/WebsiteKey.png)
+
+As seen in the dialog, copy the value associated with the "key".  Do not include the single quotes when you copy the text.  You'll use the key when performing the helm install of the 
+application.  This will allow the application to send End User Experience (EUM) data to the Instana server.
+
+You will be issuing a helm install command to install the application.  Before you do the install, you need to make sure the helm command matches your environment.  You previously 
+create two namespace(projects) using your student name.  We'll be using those names in the command.
+
+Edit the following file using vi or the Linux Test Editor that can be found under the Applications->Accessories menu.  Edit /media/qotd
+Once the file is open, go to the bottom of the screen where you'll see the following command:
+
+helm install student6 qotd/qotd --set host=apps.console.thinkdemo.tivlab.raleigh.ibm.com --set instanaReportingUrl=https://eum-coral-saas.instana.io --set instanaEnumMinJsUrl=https://eum.instana.io/eum.min.js --set instanaKey=aOY24DI5TziFBCfXFQEHuQ --set enableInstana=true --set appNamespace=student6 --set loadNamespace=student6-load --set useNodePort=true --set branding="student6"
+
+You need to change 2 things within this helm command.   
+1) Replace student6 with your student name. 
+2) Rplace the instanaKey with the key for the website that you created earlier within the Instana UI.   
+
+Now that you have edited the /media/qotd file, save your changes.
+
+Next, select the helm install command.  Then, right click and select "Copy"
+  ![](images/Copy.png)
+
+Now, open the terminal window.  Within the terminal window, right click and select "Paste" to paste the helm command into the terminal window.
+  ![](images/Paste.png)
+
+Press the "Enter" key to run the helm install.  You should see output similar to what's shown below.
+  ![](images/HelmInstall.png)
 
 
 
