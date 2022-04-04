@@ -30,17 +30,37 @@ the username associated with your "Student Name".  Finally, you will see a passw
  ![](images/terminal.png)
 
  A terminal window will open.  Select the terminal windows.
- ![](images/sudo.png)
+
 
 
 ## Preparing to Install the Instana Agent
 Next, we'll be installing the Instana Agent.  
 
-To make things easier, we'll switch to the root user account type typing "sudo -i"
+To make things easier, we'll switch to the root user account using "sudo"
 
-Type:  **sudo -i**  
+
+Type the follwing command:
+```sh
+sudo -i
+```
+
 
 When prompted, enter "Passw0rd" for the password.
+
+Throughout these procedures, we are going to be using your student name for various naming conventions and to identify objects.  In order to simplify the steps in this document, 
+you are going to setup an environment variable named $STUDENT and set it to the student name that you were assigned (student1 through student30) 
+
+Type the following command, but replace STUDENTXXX with your student name.
+```sh
+export STUDENT=**STUDENTXXX**
+```
+
+The commend should look something like this:   **export STUDENT=student27**
+
+Test to make sure the variable was set properly.  Type:
+```sh
+echo $STUDENT```
+
 
 Throughout this lab, we will be using the "oc" command to run commands within OpenShift.  The "oc" command is similar to kubectl for other versions of kubernetes.  There are
 some minor syntax differences.
