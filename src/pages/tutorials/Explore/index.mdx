@@ -32,8 +32,8 @@ oc get pods -n instana-agent
 Check to make sure that all pods are running.
 
 If all pods are running, we need examine the logs of one of the pods.
-Type:  oc logs <instana agent pod> -c instana-agent
-where <instana agent pod> is one of the pods listed in the previous command.
+Type:  oc logs **POD_NAME** -c instana-agent
+where **POD_NAME** is one of the pods listed in the previous command.
 
 Assuming that your cluster name shows up properly, click on the link for "student***".
 
