@@ -32,20 +32,43 @@ oc get pods -n instana-agent
 Check to make sure that all pods are running.
 
 If all pods are running, we need examine the logs of one of the pods.
+
 Type:  oc logs **POD_NAME** -c instana-agent
 where **POD_NAME** is one of the pods listed in the previous command.
 
 Assuming that your cluster name shows up properly, click on the link for "student***".
 
+You should see a screen similar to the one below where you can see overall utilization of the kubernetes cluster.
+  ![](images/cluster.png)
+
+Select some of the other tabs to explore the kubernetes monitoring.  We recommend you look at the Events, Nodes, and Pods tabs.  When you select the pods tab, you will see a list of all pods running within the cluster.
+
+In the upper right corner, add your student name into the search widget.  You'll notice that it will filter the list to the pods related to the Quote of the Day application.
+  ![](images/pods.png)
 
 
 ***
 
 ## Explore the Infrastructure View
 
-  There are multiple technologies available to provision and manage IT services and infrastructure in public clouds. Each of them has some advantages and there is no way one can fully replace the others. This creates a real challenge for enterprises: "How to achieve consistency and traceability across all environments?". IBM Cloud Pak for Watson AIOps - Infrastructure Management helps integrate different tools and technologies in the closed-loop management cycle.
+Next, explore the Infrastructure view.  To do this, click on the "Infrastructure" icon on the left side.
+  ![](images/infrastructure.png)
 
-  In the following exercise, you learn how to provision a new service in a public cloud using Terraform. You will extend the service (which initially provisions set of 2 virtual machines) with the configuration management task driven by Ansible. Then, you will explore how tags are mapped to provide a consistent view of the resources across all infrastructure providers and how to apply the configuration policies to ensure configuration governance.
+ You'll notice that there is a square surrounding one of the servers with your student name.  The square is a "zone".  If you recall, you specified a zone name when you
+ performed the yaml based install of the Instana Agent.  The box contained within the square represents the OpenShift worker node.  This is a single server OpenShift environment.
+ If this was a more typically environment, you would see more cubes, one for each worker node.
+
+
+
+
+
+
+
+
+
+
+
+ 
 
 ### Exploring the cloud providers
 

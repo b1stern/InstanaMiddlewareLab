@@ -37,7 +37,8 @@ the username associated with your "Student Name".  Finally, you will see a passw
 Next, we'll be installing the Instana Agent.  
 
 To make things easier, we'll switch to the root user account type typing "sudo -i"
-Type:  sudo -i  
+
+Type:  **sudo -i**  
 
 When prompted, enter "Passw0rd" for the password.
 
@@ -91,12 +92,13 @@ To install the Agent from the yaml file, type:  oc create -f /home/demo/Download
 You will notice one error on the screen which simply indicates that it attemped to create the "instana-agent" project, but it already existed.  This error can be ignored.
 
 Next, type:  oc get pods
+
 This will provide a list of the pods that are in this namespace (project).  Notice that the instana-agent pod is running.
-  ![](images/pod.png)
+  ![](images/pods.png)
 
 If the pod is not running, wait a minute and issue the "oc get pods" command again.
 
-Once the pod is running, let's navigate to the Instana user interface.   Leave the terminal window open because you will be using it later.
+Once the pod is running, navigate to the Instana user interface.   Leave the terminal window open because you will be using it later.
 
 
 ## Install the Quote of the Day Application
@@ -107,22 +109,29 @@ For more information about the Quote of the Day application, you can go to this 
 It is not necessary to go to this GitLab location, but you might be interested in learning more about the application.
 
 The first thing you need to do is to create namespaces (projects) for the application and the load generation tool to run.   Then, you need to setup the OpenShift permissions
-for those projects.  Run the following commands.   When you run the commands, specify your student name instead of student***. 
+for those projects.  Run the following commands.   When you run the commands, **specify your student name** instead of student***. 
 
 For example, if your student name is student27, issue the following command:   oc create namespace student27
 
 Issue the following 6 commands, replacing student*** with your student name:
+
 oc create namespace student***-load
+
 oc project student***-load
+
 oc adm policy add-scc-to-user anyuid -z default
+
 oc create namespace student***
+
 oc project student***
+
 oc adm policy add-scc-to-user anyuid -z default
+
 
 The helm repository where we will be installing the application has already been setup on your virtual machine.  But, let's update the helm repo to ensure we get the current code.
 Issue the following command:
 
-helm repo update
+**helm repo update**
 
 You should see output indicating that it successfully got an update to the "qotd" chart repository.
   ![](images/HelmUpdate.png)
