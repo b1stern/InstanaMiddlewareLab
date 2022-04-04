@@ -1,15 +1,15 @@
 ---
-title: Automating infrastructure in public clouds
+title: Explore Instana and the Quote of the Day Application
 description:
 ---
 
-<FeatureCard title="Automating infrastructure in public clouds" color="dark">
+<FeatureCard title="Explore Instana and the Quote of the Day Application" color="dark">
   ![banner](images/automate-banner.jpg)
 </FeatureCard>
 
 <AnchorLinks>
-  <AnchorLink>Lab Overview</AnchorLink>
-  <AnchorLink>Managing infrastructure in public clouds</AnchorLink>
+  <AnchorLink>Explore kubernetes</AnchorLink>
+  <AnchorLink>Explore the Infrasture View</AnchorLink>
   <AnchorLink>Exploring the cloud providers</AnchorLink>
   <AnchorLink>Exploring GRC dashboard</AnchorLink>  
   <AnchorLink>Summary</AnchorLink>
@@ -17,28 +17,31 @@ description:
 
 ***
 
-## Lab Overview
+## Explore Kubernetes
 
-IBM Cloud Pak for Watson AIOps Infrastructure Management delivers the insight, control, and automation enterprises need to address challenges of managing hybrid cloud environments, which are far more complex than traditional data center. This technology enables enterprises with existing virtual infrastructures to improve visibility and control, and those just starting virtualization deployments to build and operate a well-managed virtual infrastructure.
+Open the browser tab for the Instana user interface.
 
-IBM Cloud Pak for Watson AIOps Infrastructure Management is based on upstream OSS project [ManageIQ](https://www.manageiq.org) and includes the following feature sets:
+On the left navigation, select "kubernetes"
+  ![](images/kubernetes.png)
 
-- Insight: discovery, monitoring, utilization, performance, reporting, analytics, chargeback, and trending.
-- Control: security, compliance, alerting, policy-based resource and configuration management.
-- Automate: IT process, task, and event, provisioning, workload management and orchestration.
-- Integrate: systems management, tools and processes, event consoles, CMDB, RBA, and web services.
+You will see a list of kubernetes clusters.   Look for the Cluster with your student name.  If you don't see your student name, you may need to wait a couple of minutes.
 
-In this tutorial, you will explore the following key capabilities:
+If you don't see your student name after a couple of minutes, we need to troubleshoot the Instana Agent.  From a terminal window, issue the following command:
+oc get pods -n instana-agent
 
-- Understand Cloud Pak for Watson AIOps Infrastructure Management capabilities for public clouds
-- Learn how to deploy a new service in a public cloud
-- Learn how to manage lifecycle of the service
-- Learn how to apply configuration and control policies to the managed VMs
-- Learn how Cloud Pak help SRE teams managing infrastructure in public clouds with full audit trail.
+Check to make sure that all pods are running.
+
+If all pods are running, we need examine the logs of one of the pods.
+Type:  oc logs <instana agent pod> -c instana-agent
+where <instana agent pod> is one of the pods listed in the previous command.
+
+Assuming that your cluster name shows up properly, click on the link for "student***".
+
+
 
 ***
 
-## Managing infrastructure in public clouds
+## Explore the Infrastructure View
 
   There are multiple technologies available to provision and manage IT services and infrastructure in public clouds. Each of them has some advantages and there is no way one can fully replace the others. This creates a real challenge for enterprises: "How to achieve consistency and traceability across all environments?". IBM Cloud Pak for Watson AIOps - Infrastructure Management helps integrate different tools and technologies in the closed-loop management cycle.
 

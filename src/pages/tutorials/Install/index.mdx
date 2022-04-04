@@ -22,7 +22,7 @@ the username associated with your "Student Name".  Finally, you will see a passw
 
  Click on the 2nd tab in the browser to open the Instana user interface.  You'll see a login dialog.
   ![](images/login.png) 
- Enter the "Instana Login" name associated with your student name and enter the password that you found on the 3rd tab. Finally, click the Login button.
+ Enter the "Instana Login" name associated with **your student name** and enter the password that you found on the 3rd tab. Finally, click the Login button.
 
  You will see the summary page for Instana.  We'll come back to the user interface later.  
 
@@ -166,9 +166,45 @@ Now, open the terminal window.  Within the terminal window, right click and sele
 Press the "Enter" key to run the helm install.  You should see output similar to what's shown below.
   ![](images/HelmInstall.png)
 
+At this point, the application should be running.  In addition, the load generation tool is continuously running transactions against the application.  Let's verify that things are 
+running.
 
+Type:  oc get pods -n student***
+Replace student*** with your student name
 
+You should see results similar to what's shown below.
+NAME                              READY   STATUS    RESTARTS   AGE
+qotd-author-67cf448cc-5pcxg       1/1     Running   0          2d7h
+qotd-author-67cf448cc-tfvsc       1/1     Running   0          2d7h
+qotd-db-546b4b7fbd-g2kcs          1/1     Running   0          2d7h
+qotd-engraving-7d65f94f85-8k9xz   1/1     Running   0          2d7h
+qotd-engraving-7d65f94f85-jlq6c   1/1     Running   0          2d7h
+qotd-image-7c7958b79f-bzkg6       1/1     Running   0          2d7h
+qotd-image-7c7958b79f-v9jls       1/1     Running   0          2d7h
+qotd-pdf-7bcbc7d97b-hcw7w         1/1     Running   0          2d7h
+qotd-quote-799b6b7f6d-lc78t       1/1     Running   0          2d7h
+qotd-quote-799b6b7f6d-smbw2       1/1     Running   0          2d7h
+qotd-rating-fc4d48bcb-dtbmq       1/1     Running   0          2d7h
+qotd-rating-fc4d48bcb-g4gsl       1/1     Running   0          2d7h
+qotd-rating-fc4d48bcb-xhddn       1/1     Running   0          2d7h
+qotd-web-876ccc966-9tqbd          1/1     Running   0          2d7h
+qotd-web-876ccc966-hhv68          1/1     Running   0          2d7h
 
+If the pods are not running, wait a minute and try the "oc get pods" command again.
+
+Next, verify that the automated workload is running.
+Type:  oc get pods -n student***-load
+Replace student*** with your student name.
+
+You should see results similar to what's shown below.
+NAME                           READY   STATUS    RESTARTS   AGE
+qotd-load-6dd948db76-4nb2p     1/1     Running   3          41d
+qotd-load-6dd948db76-n7z6l     1/1     Running   3          41d
+qotd-load-6dd948db76-p6h84     1/1     Running   3          41d
+qotd-load-6dd948db76-zwhvr     1/1     Running   3          41d
+qotd-usecase-bb7cf7ccd-74hmr   1/1     Running   3          41d
+
+If the pods are not running, wait a minute and try the "oc get pods" command again.
 
 
 
