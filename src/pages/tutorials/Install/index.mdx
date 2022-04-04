@@ -1,6 +1,6 @@
 ---
 title: Install the Application and Monitoring
-description: 
+description: Install the Quote of the Day Application and Install/Configure Monitoring
 ---
 
 In this portion of the lab, you will be installing the Instana Monitoring, installing the "Quote of the Day" hybrid application, and configuring the Instana to monitor the application.
@@ -51,16 +51,17 @@ Throughout these procedures, we are going to be using your student name for vari
 you are going to setup an environment variable named $STUDENT and set it to the student name that you were assigned (student1 through student30) 
 
 Type the following command, but replace **STUDENTXXX** with your student name.
+
+The commend should look something like this:   **export STUDENT=student27**
 ```sh
 export STUDENT=STUDENTXXX
 ```
-
-The commend should look something like this:   **export STUDENT=student27**
 
 Test to make sure the variable was set properly.  Type:
 ```sh
 echo $STUDENT
 ```
+The output should be something like "student27".
 
 
 Throughout this lab, we will be using the "oc" command to run commands within OpenShift.  The "oc" command is similar to kubectl for other versions of kubernetes.  There are
@@ -72,7 +73,10 @@ oc create namespace instana-agent
 ```
 
 If successful, you'll see output similar to what's shown below.
- ![](images/namespace.png)
+```sh
+# oc create namespace instana
+namespace/instana-agent created
+```
 
  Next, change your context to the instana-agent namespace (OpenShift project) by typing "oc project instana-agent".  If you want to confirm that you have changed to the 
  instana-agent project, type:
@@ -106,7 +110,7 @@ A window will open with a list of different environments where you can install t
 Select the dropdown list next to the word "Technology".  Notice that there are multiple options for installing the Agent.  Choose the "YAML" option from the list.
   ![](images/yaml.png) 
 
-Enter a name for the Cluster and Zone as seen below.  Use your student name for the Cluster name and your student name for the Zone name.  This will allow you to find
+Enter a name for the Cluster and Zone as seen below.  Use **your student name** for the Cluster name and **your student name** for the Zone name.  This will allow you to find
 your Agent and Kubernetes Cluster within the user interface and not get confused by data coming in from other students.
   ![](images/ZoneCluster.png) 
 
@@ -116,12 +120,20 @@ Next, click the "Download" button to download the yaml file.  The yaml file has 
 You can now install the downloaded yaml file into the environment. This will install the Instana Agent as a daemonset within the OpenShift cluster.  The process is nearly
 identical for other versions of kubernetes.
 
-To install the Agent from the yaml file, type:  oc create -f /home/demo/Downloads/configuration.yaml
+To install the Agent from the yaml file, type:  
+```sh
+oc create -f /home/demo/Downloads/configuration.yaml
+```
+
+You will see output similar to what's shown below
   ![](images/install.png)
 
 You will notice one error on the screen which simply indicates that it attemped to create the "instana-agent" project, but it already existed.  This error can be ignored.
 
-Next, type:  oc get pods
+Next, type:  
+```sh
+oc get pods
+```
 
 This will provide a list of the pods that are in this namespace (project).  Notice that the instana-agent pod is running.
   ![](images/pods.png)
@@ -139,15 +151,13 @@ For more information about the Quote of the Day application, you can go to this 
 It is not necessary to go to this GitLab location, but you might be interested in learning more about the application.
 
 The first thing you need to do is to create namespaces (projects) for the application and the load generation tool to run.   Then, you need to setup the OpenShift permissions
-for those projects.  Run the following commands.   When you run the commands, **specify your student name** instead of student***. 
+for those projects.  Run the following commands.   
 
-For example, if your student name is student27, issue the following command:   oc create namespace student27
+Issue the following 6 commands:
+``
+oc create namespace $STUDENT-load
 
-Issue the following 6 commands, replacing student*** with your student name:
-
-oc create namespace student***-load
-
-oc project student***-load
+oc project $STUDENT-load
 
 oc adm policy add-scc-to-user anyuid -z default
 
