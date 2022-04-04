@@ -10,7 +10,7 @@ At this point, you should be logged into Soleil and should see the two virtual m
 
 If you haven't already done it, click on the thinkdemo VM
 
-Click on the window and you will see a login dialog.  Login as demo with a password of "Passw0rd"
+Click on the window and you will see a login dialog.  Login as demo with a password of "**Passw0rd**"
 
 After logging in, you will see that chrome has already been opened with 3 tabs at the top.  The first tab is the lab guide.  The 2nd tab is the Instana user interface,
 and the 3rd tab is a list of user accounts.  From this point forward, we recommend you use the lab guide within the virtual machine.
@@ -29,7 +29,7 @@ the username associated with your "Student Name".  Finally, you will see a passw
  For now, open a Terminal window within the virtual machine.  To do this, select "Applications" in the upper left corner.  Then, flyover "System Tools". Finally, select "Terminal"
  ![](images/terminal.png)
 
- A terminal window will open.  Select the terminal windows.
+ A terminal window will open.  Select the terminal window.
 
 
 
@@ -45,32 +45,40 @@ sudo -i
 ```
 
 
-When prompted, enter "Passw0rd" for the password.
+When prompted, enter "**Passw0rd**" for the password.
 
 Throughout these procedures, we are going to be using your student name for various naming conventions and to identify objects.  In order to simplify the steps in this document, 
 you are going to setup an environment variable named $STUDENT and set it to the student name that you were assigned (student1 through student30) 
 
-Type the following command, but replace STUDENTXXX with your student name.
+Type the following command, but replace **STUDENTXXX** with your student name.
 ```sh
-export STUDENT=**STUDENTXXX**
+export STUDENT=STUDENTXXX
 ```
 
 The commend should look something like this:   **export STUDENT=student27**
 
 Test to make sure the variable was set properly.  Type:
 ```sh
-echo $STUDENT```
+echo $STUDENT
+```
 
 
 Throughout this lab, we will be using the "oc" command to run commands within OpenShift.  The "oc" command is similar to kubectl for other versions of kubernetes.  There are
 some minor syntax differences.
 
-Before installing the Instana Agent, we need to create a namespace (OpenShift Project) where the Agent will run.  Type "oc create namespace instana-agent" to create
-the namespace.
+Before installing the Instana Agent, we need to create a namespace (OpenShift Project) where the Agent will run.  Type the following command to create the namespace.
+```sh
+oc create namespace instana-agent
+```
+
+If successful, you'll see output similar to what's shown below.
  ![](images/namespace.png)
 
  Next, change your context to the instana-agent namespace (OpenShift project) by typing "oc project instana-agent".  If you want to confirm that you have changed to the 
- instana-agent project, type "oc project".
+ instana-agent project, type:
+ ```sh
+ oc project
+ ```
 
  Next, you need to setup the proper permissions for the Namespace/Project.  This will allow the Agent to have access to monitor the entire cluster.
 
