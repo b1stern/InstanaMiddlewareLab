@@ -183,38 +183,44 @@ You will see a list of previously defined Websites.   You are going to create a 
 A dialog will open asking for a Website Name.  Enter your student name as the Website Name and click "Add Website" as seen below.
   ![](images/WebsiteName.png)
 
-A dialog will open with some javascript.  For an existing web application, you could add this javascript to the HTML pages.  But, in this case, we will use it when we deploy the
+A dialog will open with some javascript.  For an existing web application, you could add this javascript to the HTML pages.  But, in this case, you will use it when you deploy the
 Quote of the Day application.
   ![](images/WebsiteKey.png)
 
 As seen in the dialog, copy the value associated with the "key".  It is highlighted with a red oval.  Do not include the single quotes when you copy the text.  You'll use the key when performing the helm install of the application.  This will allow the application to send End User Experience (EUM) data to the Instana server.
 
-You will be issuing a helm install command to install the application.  Before you do the install, you need to make sure the helm command matches your environment.  You previously 
-create two namespace(projects) using your student name.  We'll be using those names in the command.
+The helm command that you are going to use is in a file /media/qotd.  You are going to use "sed" to replace the application key that is in that file with the key
+that you just extracted from the Instana UI.   Type the following command.  When you type the command, replace **KEY_VALUE** with the key value that you extracted.
 
-Edit the following file using vi or the Linux Test Editor that can be found under the Applications->Accessories menu.  Edit **/media/qotd**
-
-Once the file is open, go to the bottom of the screen where you'll see the following command:
 ```sh
-helm install student6 qotd/qotd --set host=apps.console.thinkdemo.tivlab.raleigh.ibm.com --set instanaReportingUrl=https://eum-coral-saas.instana.io --set instanaEnumMinJsUrl=https://eum.instana.io/eum.min.js --set instanaKey=aOY24DI5TziFBCfXFQEHuQ --set enableInstana=true --set appNamespace=student6 --set loadNamespace=student6-load --set useNodePort=true --set branding="student6"
+sed -i 's/deOQ5O_8Tz27r820NpQnlg/KEY_VALUE/g' /media/qotd
 ```
 
-You need to change 2 things within this helm command.   
-1) Replace **student6** with your student name. 
+Again, we'll be using the $STUDENT environment variable to ensure that the command is unique for your student name.  Let's double check to make sure the variable 
+is still set.  Type:
+```sh
+echo $STUDENT
+```
 
-2) Rplace the value associated with instanaKey with the key for the website that you created earlier within the Instana UI.  You will be replacing the string **aOY24DI5TziFBCfXFQEHuQ** 
+If it is not set to your student name, type the following command and replace studentXXX with your student name.
+```sh
+export STUDENT=studentXXX
+```
 
-Now that you have edited the /media/qotd file, save your changes.
+Next, you need to copy the helm command from the /media/qotd file.  Type the following command:
+```sh
+cat /media/qotd
+```
 
-Next, within the editor, use your mouse to highlight the helm install command that you modified.  Then, right click and select "Copy"
-  ![](images/Copy.png)
+Now, hightlight the command in the the terminal. Then, right click the mouse and select copy
+  ![](images/copyHelm.png)
 
+Now, in the terminal window, right click with your mouse and select Paste.
+  ![](images/pasteHelm.png)
 
-Now, open the terminal window.  Within the terminal window, right click and select "Paste" to paste the helm command into the terminal window.
+If the command does not execute, press the ENTER key on your keyboard to run the helm install.
 
-  ![](images/Paste.png)
-
-Press the "Enter" key to run the helm install.  You should see output similar to what's shown below.
+You should see output similar to what's shown below.
   ![](images/HelmInstall.png)
 
 At this point, the application should be running.  In addition, the load generation tool is continuously running transactions against the application.  Let's verify that things are 
@@ -229,19 +235,13 @@ You should see results similar to what's shown below.
 
 If the pods are not running, wait a minute and try the "oc get pods" command again.
 
-Next, verify that the automated workload is running.
-Type:  oc get pods -n student***-load
-Replace student*** with your student name.
+Next, verify that the automated workload is running.  Type the following command:
+```sh
+oc get pods -n $STUDENT-load
+```
 
 You should see results similar to what's shown below.
-```sh
-NAME                           READY   STATUS    RESTARTS   AGE
-qotd-load-6dd948db76-4nb2p     1/1     Running   3          41d
-qotd-load-6dd948db76-n7z6l     1/1     Running   3          41d
-qotd-load-6dd948db76-p6h84     1/1     Running   3          41d
-qotd-load-6dd948db76-zwhvr     1/1     Running   3          41d
-qotd-usecase-bb7cf7ccd-74hmr   1/1     Running   3          41d
-``
+  ![](images/loadPods.png)
 
 If the pods are not running, wait a minute and try the "oc get pods" command again.
 
@@ -272,12 +272,18 @@ the value for the SUPPLY_CHAIN_SIMULATE to "false" to disable the simulation.  W
 
 
 
-
-
-
 **Install and Configure the Instana Agent for ACE and MQ**
 
-This concludes the section of the report on Chargeback. In this section, you've learned how to create reports, view reports generated by other people, assign rate cards, schedule reports, and more.  
+The next step is to go to the other virtual machine in Soleil.  Select the virtual machine named "MQ and ACE" to open the console.
+  ![](images/ACEMQ_VM.png)
+
+At the login prompt, login with a password of "Passw0rd"
+
+
+
+
+
+
 
 
 To continue other portions of the lab, select one of the lab exercises in the upper left corner or select one of the images below.
