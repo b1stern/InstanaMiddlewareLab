@@ -316,12 +316,82 @@ The install will progress and you will see an output similar to the screen captu
   At this point the Agent is installed and up and running.
 
 The Agent will automatically start monitoring the operating system and start discovering key processes and middleware.  In many cases it will automatically instrument
-those technologies.
+those technologies.  In the case of MQ an and App Connect Enterprise(ACE), there are manual configuration steps required due to the need to provide credentials for accessing those applications.  We'll walk through those configuration steps in a little while.
+
+## Configure ACE and MQ for Resource Monitoring
+This section of the lab is optional, but you might fine it useful.  It will help you understand how IBM MQ and IBM App Connect Enterprise (ACE) need to be configured for monitoring.  There are certain configuration settings within MQ and ACE that are required in order to get the
+monitoring KPIs.  The requirements are documented in the sensor configuration guide that is online.  You'll see links to those guides further down in this document.  
+
+Typically, the "Resource Monitoring" KPIs are already enabled in most customer environments.  But it is work validating the configuration.  For example, you can use the
+ACE mqsireportresourcestats and mqsireportflowstats commands to view the configuration.  
+
+Here are example commands that you can issue to see the ACE configuration:
+```sh
+mqsireportresourcestats BK1 -e EG2
+```
+
+You will see results similar to those shown below.  Notice that the "state" is set to "true"
+  ![](images/resourcestats.png)
+
+To see the configuration of the "flow" stats, issue the following command:
+```sh
+mqsireportflowstats BK1 -s -e EG2
+```
+
+You will see results similar to those shown below.  Notice that the "state" is "active", the the outputFormat is "json"
+  ![](images/flowstats.png)
+
+There are fewer requirements for MQ.  The sensor will work with the default settings.  However, you can have the sensor automatically use threshols/Events that are 
+setup within the MQ server.  If you want to use the built in MQ Events, then you need to set CHLEV and PEFMEV to ENABLED.  To check those settings, you can issue The
+following commands.  You first need to run the "runmqsc" command.  Then, within the runmqsc command prompt you can issue other MQ commands.
+```sh 
+runmqsc QM1
+```
+Then:
+```sh
+display QMGR PUBSUB CHLEV
+```
+```sh
+display QMGR CLUSTER PERFMEV
+```
+
+To exist the runmqsc shell, type "quit"
+
+These commands will give outputs similar to what's shown below.
+  ![](images/runmqsc.png)
+
+## Configure ACE and MQ for Tracing
+
+In addition to the "Resource Monitoring" KPIs, additional settings are required to enable Tracing within IBM MQ and ACE.  It is important that you understand this 
+process since Tracing is typically not enabled by default in must IBM MQ and ACE environments.  In this section, we've documented the steps. 
+
+Note:  Typically, these steps are performed by the MQ and ACE admins, so you don't need to know the step by step procedure.
+
+This section is simply going to describe the process.  It is well documented within the Instana online documentation.
+
+For ACE, you perform the following steps
+- Download a small TAR file from IBM Fix Central.  There are links within the Instana documentation. 
+- Extract the tar file into the **/var/mqsi/shared-classes** directory
+- Stop the ACE server
+- Run the following command to "Install" the **User Exit**:  mqsichangeflowuserexits <integrationNodeName> -o -x /var/mqsi/shared-classes
+- Start the ACE server
+- Activate the **User Exit** by typing:  mqsichangeflowuserexits <integrationNodeName> -o -a ACEOpenTracingUserExit
+
+The MQ procedure is similar.  
+- Download a small TAR file from IBM Fix Central.  There are links within the Instana documentation. 
+- Extract the tar file to **/var/mqm/exits64**
+- Edit the /var/mqm/mqs.ini file
+- Add a small section within the /var/mqm/mqs.ini file.  The content can be copied and pasted from the Instana documentation.
+- Restart the Queue Manager
+
+In the lab environment, these steps have already been performed.  If you want, you can examine the files and directories specified above.
+
+Note:  Even though the TAR files for ACE and MQ look similar, they are unique for each middleware component.
 
 ## Configure the ACE and MQ Sensors
 
-In the case of MQ an and App Connect Enterprise(ACE), there are manual configuration steps required due to the need to provide credentials for accessing those applications.
-We'll walk through those configuration steps next.  In addition, we want to set a Zone name for your Instana Agent so that you can find it within the UI.
+After installing an Instana Agent, one of the first things you want to do is set a Zone name.  This allows you to organize your Agents to make them easier to find.  The Zones can
+also be used for custom queries, threshold distribution, and more.   In your case, we want to set the Zone name to your student name.
 
 Change directory to /opt/instana/agent/etc/instana
 ```sh
@@ -429,7 +499,7 @@ The main install log file is /opt/instana/agent/data/log/agent.log
     actionIcon="arrowRight"
     >
 
-![](images/prereqs.jpg)
+![](images/public-cloud.jpg)
 
 </ArticleCard>
 </Column>
@@ -443,7 +513,7 @@ The main install log file is /opt/instana/agent/data/log/agent.log
     actionIcon="arrowRight"
     >
 
-![](images/secure-access.jpg)
+![](images/multi-cloud.jpg)
 
 </ArticleCard>
 </Column>
