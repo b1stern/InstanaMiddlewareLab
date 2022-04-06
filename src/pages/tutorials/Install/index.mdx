@@ -279,6 +279,55 @@ The next step is to go to the other virtual machine in Soleil.  Select the virtu
 
 At the login prompt, login with a password of "Passw0rd"
 
+Within the Virtual Machines, select the "Instana" tab to open the Instana user interface.   Login using the username and password assigned to you.  If you don't remember,
+the 3rd tab in the browser contains a list of user accounts.
+  ![](images/accounts.png)
+
+Select the "Stan" the robot icon in the upper left corner
+  ![](images/stan.png)
+
+Next, click the "Deploy Agent" button near the upper right corner.
+  ![](images/DeployAgent.png)
+
+A window will open with a list of different environments where you can install the Instana Agent.  This is a Linux server, so select Linux on the left side of the screen.
+  ![](images/linuxInstall.png)
+
+Just to see what your options are, select the "Technology" dropdown list to see the different ways that you can install the Instana Agent.  You'll notice that you perform
+rpm installs or simply download a tar file.  but, the easiest method is the default one, "Automatic Installation (One-Liner)".  Select that option in the dropdown list.
+
+Notice that there are a few other options including the use of different java versions, static vs. dynamic agents, etc.   Leave those default settings.
+
+Next, select the checkbox next to "Install and start as service".  This will setup the systemctl autostart process and will also start the Agent immediately after it is installed.
+
+Finally, copy and paste the curl command by selecting in with your mouse and then doing a right-click and selecting "Copy".
+  ![](images/copyInstall.png)
+
+Next, within the terminal window, right-click and select "Paste".  This will paste the install command into the terminal window.
+
+Press "Enter" to begin the install.
+
+You will be promted with "[Y/N]" asking whether you want to continue the install.   
+  ![](images/yesNo.png)
+
+Type "Y" and then press "Enter" to continue the install.
+
+The install will progress and you will see an output similar to the screen capture shown below.
+  ![](images/installResult.png)
+
+  At this point the Agent is installed and up and running.
+
+The Agent will automatically start monitoring the operating system and start discovering key processes and middleware.  In many cases it will automatically instrument
+those technologies.
+
+In the case of MQ an and App Connect Enterprise(ACE), there are manual configuration steps required due to the need to provide credentials for accessing those applications.
+We'll walk through those configuration steps next.
+
+
+
+
+
+
+
 
 
 
