@@ -3,6 +3,21 @@ title: Install the Application and Monitoring
 description: Install the Quote of the Day Application and Install/Configure Monitoring
 ---
 
+<AnchorLinks>
+  <AnchorLink>Login to the Virtual Machine</AnchorLink>
+  <AnchorLink>Preparing to Install the Instana Agent</AnchorLink>
+  <AnchorLink>Install the Instana Agent to Monitor OpenShift</AnchorLink>
+  <AnchorLink>Preparing to Install the Quote of the Day Application</AnchorLink>  
+  <AnchorLink>Perform the helm install of Quote of the Day</AnchorLink>
+  <AnchorLink>Configure Quote of the Day to use and extern ACE and MQ server</AnchorLink>
+  <AnchorLink>Install the Instana Linux Agent on the ACE/MQ Server</AnchorLink>
+  <AnchorLink>Configure ACE and MQ for Resource Monitoring</AnchorLink>
+  <AnchorLink>Configure ACE and MQ for Tracing</AnchorLink>
+  <AnchorLink>Configure the ACE and MQ Sensors</AnchorLink>
+</AnchorLinks>
+
+## Login to the Virtual Machine
+
 In this portion of the lab, you will be installing the Instana Monitoring, installing the "Quote of the Day" hybrid application, and configuring the Instana to monitor the application.
 
 At this point, you should be logged into Soleil and should see the two virtual machines.
@@ -43,7 +58,6 @@ Type the follwing command:
 ```sh
 sudo -i
 ```
-
 
 When prompted, enter "**Passw0rd**" for the password.
 
@@ -373,9 +387,9 @@ For ACE, you perform the following steps
 - Download a small TAR file from IBM Fix Central.  There are links within the Instana documentation. 
 - Extract the tar file into the **/var/mqsi/shared-classes** directory
 - Stop the ACE server
-- Run the following command to "Install" the **User Exit**:  mqsichangeflowuserexits <integrationNodeName> -o -x /var/mqsi/shared-classes
+- Run the following command to "Install" the **User Exit**:  mqsichangeflowuserexits BK1 -o -x /var/mqsi/shared-classes
 - Start the ACE server
-- Activate the **User Exit** by typing:  mqsichangeflowuserexits <integrationNodeName> -o -a ACEOpenTracingUserExit
+- Activate the **User Exit** by typing:  mqsichangeflowuserexits BK1 -o -a ACEOpenTracingUserExit
 
 The MQ procedure is similar.  
 - Download a small TAR file from IBM Fix Central.  There are links within the Instana documentation. 

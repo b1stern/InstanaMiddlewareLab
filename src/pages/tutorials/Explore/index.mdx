@@ -3,9 +3,6 @@ title: Explore Instana and the Quote of the Day Application
 description:
 ---
 
-<FeatureCard title="Explore Instana and the Quote of the Day Application" color="dark">
-  ![banner](images/automate-banner.jpg)
-</FeatureCard>
 
 <AnchorLinks>
   <AnchorLink>Explore kubernetes</AnchorLink>
@@ -52,11 +49,22 @@ In the upper right corner, add your student name into the search widget.  You'll
 ## Explore the Infrastructure View
 
 Next, explore the Infrastructure view.  To do this, click on the "Infrastructure" icon on the left side.
-  ![](images/infrastructure.png)
+  ![](images/yourZone.png)
 
- You'll notice that there is a square surrounding one of the servers with your student name.  The square is a "zone".  If you recall, you specified a zone name when you
- performed the yaml based install of the Instana Agent.  The box contained within the square represents the OpenShift worker node.  This is a single server OpenShift environment.
- If this was a more typically environment, you would see more cubes, one for each worker node.
+You'll notice that there is a square surrounding one of the servers with your student name.  The square is a "zone".  If you recall, you specified a zone name when you
+performed the yaml based install of the Instana Agent.  The box contained within the square represents the OpenShift worker node.  This is a single server OpenShift environment.
+If this was a more typically environment, you would see more cubes, one for each worker node.  Notice the k8s-bstern2 zone.  This is a cluster with three worker nodes.
+
+If you are unable to find your zone due to the large number of students, you can type your student name in the filter bar at the top
+  ![](images/student27.png) 
+
+Or, you can use the lucene query language in the search bar.
+- Flyover the filter bar and select "Entity"
+- A list will popup. Find and select "Host"
+- Once you have select "Host", another list will popup. Select "name"
+- Now, you will see "entity.host.name:".  After the ":", you can do a wildcard search.  For example "entity.host.name:student*"
+
+Once you have found your zone, flyover the cube that represents your worker node
 
 
 
