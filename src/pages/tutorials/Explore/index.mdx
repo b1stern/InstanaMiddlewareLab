@@ -22,18 +22,24 @@ On the left navigation, select "kubernetes"
   ![](images/kubernetes.png)
 
 You will see a list of kubernetes clusters.   Look for the Cluster with your student name.  If you don't see your student name, you may need to wait a couple of minutes.
+  ![](images/clusters.png)
 
 If you don't see your student name after a couple of minutes, we need to troubleshoot the Instana Agent.  From a terminal window, issue the following command:
+```sh
 oc get pods -n instana-agent
+```
 
 Check to make sure that all pods are running.
 
 If all pods are running, we need examine the logs of one of the pods.
 
-Type:  oc logs **POD_NAME** -c instana-agent
+Type:  
+```sh
+oc logs POD_NAME -c instana-agent
+```
 where **POD_NAME** is one of the pods listed in the previous command.
 
-Assuming that your cluster name shows up properly, click on the link for "student***".
+Assuming that your cluster name shows up properly, click on the link for your student name.
 
 You should see a screen similar to the one below where you can see overall utilization of the kubernetes cluster.
   ![](images/cluster.png)
@@ -49,14 +55,16 @@ In the upper right corner, add your student name into the search widget.  You'll
 ## Explore the Infrastructure View
 
 Next, explore the Infrastructure view.  To do this, click on the "Infrastructure" icon on the left side.
-  ![](images/yourZone.png)
+  ![](images/yourZone1.png)
 
-You'll notice that there is a square surrounding one of the servers with your student name.  The square is a "zone".  If you recall, you specified a zone name when you
-performed the yaml based install of the Instana Agent.  The box contained within the square represents the OpenShift worker node.  This is a single server OpenShift environment.
-If this was a more typically environment, you would see more cubes, one for each worker node.  Notice the k8s-bstern2 zone.  This is a cluster with three worker nodes.
+Look for your student name.  You'll notice that there is a square surrounding two "towers" with your student name.  The square is a "zone".  If you recall, you 
+specified a zone name when you performed the yaml based install of the Instana Agent.  The towers contained within the square represents the OpenShift worker node and the 
+virtual machine running ACE and MQ. 
+
+If this was a more typically kubernetes environment, you would see more cubes, one for each worker node.  Notice the k8s-bstern2 zone.  This is a cluster with three worker nodes.
 
 If you are unable to find your zone due to the large number of students, you can type your student name in the filter bar at the top
-  ![](images/student27.png) 
+  ![](images/student6Zone.png) 
 
 Or, you can use the lucene query language in the search bar.
 - Flyover the filter bar and select "Entity"
@@ -85,10 +93,10 @@ Next, click on the "Comparison Table" near the top of the page.
 
 This table shows a sortable and searchable list of the Hosts that make up this environment.  You can quickly find hosts consuming high CPU, high memory, or have poor health.
 
-In addition, if you select where is says "Hosts", there is a dropdown list that allows you to see lists of JVMs, containers, etc.
+In addition, if you select where is says **"Hosts"**, there is a dropdown list that allows you to see lists of JVMs, containers, etc.
   ![](images/tableContent.png)
 
-Change from "Hosts" to "Docker Containers" in the dropdown list and you'll see a complete list of containers and their utilization and health.
+Change from **"Hosts"** to **"Docker Containers"** in the dropdown list and you'll see a complete list of containers and their utilization and health.
 
 Switch back to the Map view by clicking on "Map" near the upper left corner.
   ![](images/map.png)
@@ -97,7 +105,7 @@ Zoom in with the plus sign in the bottom right corner.
   ![](images/plus.png)
 
 You'll notice that each tower is actually comprised of multiple pizza boxes.   Each one represents an "Entity" such as an MQ Queue Manager or an ACE Integration Node.
-  ![](images/pizza.png)
+  ![](images/pizzaBox.png)
 
 Flyover the ACE/MQ server again until you see a list of all discovered Entities.  If you only see 1 entity, move your mouse to one of the corners of the tower.
 Once you see all of the entities, click your mouse.  You'll see a dialog open 
@@ -105,10 +113,10 @@ Once you see all of the entities, click your mouse.  You'll see a dialog open
 
 Use the scroll bar to scroll down. You'll notice that you see each of the types of Entities that were discovered.  Expand the MQ entity type and you'll see the Queue
 Manager that was discovered.
-  ![](images/openDashboard.png)
+  ![](images/dashboardScroll.png)
 
-At this point, you could either click on the "Open Dashboard" button or you can click on the link for the MQ Queue Manager.  In a similar way, you could open the dashboard 
-for any of the Entities that are being monitored.
+It is possible to click on either the "Open Dashboard" button or the links for the individual entities.  If you clicked, you could navigate to either the Host 
+operating system metrics or the specific middleware entity.
 
 Click on the "Open Dashboard" button and we'll examine the Host Agent dashboard.  After you click on the botton you'll see a screen that looks like this:
   ![](images/host.png)
@@ -118,18 +126,20 @@ You can see fine grained metric data for the Host operating system. Scroll down 
 As you scroll down the page, you'll notice a section on the left side of the screen that contains a list of Entity types that were discovered. This is the same list that you 
 saw earlier on the Infrastructure view.
   ![](images/drillMQ.png)
-Expand the IBM MQ Queue Manager section and select the link for the **QM1@acemq.tivlab.raleigh.ibm.com**
+Expand the IBM MQ Queue Manager section and select the link for the **QM1@acemq.tivlab.raleigh.ibm.com** queue manager
 
 You will navigate to the dashboard for the MQ Queue Manager. Scroll down the page and examine the metrics.  There are many tables that contain links that would allow you to
 drill into the listener, topics, queues, channels, and more.  Let's focus on the Channels.  Scroll down to the table labeled "Channels".  You will notice two channels with the
-same name. One represents loopback and the other represents the server IP Address.   Select the link next to the one the connection name of 10.0.0.3.
+same name. One represents loopback and the other represents the server IP Address.   Select the link next to the one with connection name 10.0.0.3.
   ![](images/drillChannel.png)
+
+Examine the Channel metrics on the page.
 
 Next, look at the top of the screen.  You'll notice that this is a breadcrumb that allows you to navigate back to where you were earlier in your nativations.   It is also
 possible to use the back button in your browser.
   ![](images/breadcrumb.png)
 
-If time permits at the end of the lab, you can explore some of the other 
+If time permits at the end of the lab, you can explore some of the other elements within the MQ sensor or other middleware such as ACE.
 
 
 ### Create Application Perspective
@@ -141,7 +151,7 @@ this will be small until the students in the class define their applications.
 The next thing you are going to do is define an application.  You will see an "Add" button in the bottom right corner. 
   ![](images/add.png)
 
-Click on the "Add" button
+Click on the **"Add"** button
 
 A dialog will open with two options.  We'll examine the "Global Smart Alerts" in the Administrative section of this lab.  For now, click on the "New Application Perspective" button
   ![](images/newApplication.png)
@@ -152,32 +162,51 @@ When the dialog opens, click the "Next" button
 On the next screen, click the radio button for "All downstream services".  This will ensure that all of the downstream calls for the application will be monitored in this 
 Application Perspective.
 
-Next, click the "Add filter" button.
+Next, click the **"Add filter"** button.
 
 You will see list of filter options.  Select the option labeled "Zone"
   ![](images/zoneFilter.png)
 
-Then, click on the "value" field that is next to the "Zone".  You should see a list of Zones including your student name.  Select your student name.
+Then, click on the **"value"** field that is next to the "Zone".  You should see a list of Zones including your student name.  Select your student name or type the name 
+in the entry box.
   ![](images/zoneStudent6.png)
 
-Now, click "Next" to go to the next screen.
+Click **"Next"** to go to the next screen.
   ![](images/next.png)
 
 On the next page, give your Application Perspect of your student name.  For example, student6.  Then, click the "All Calls" radio button to monitor all calls.  Then, click the "Create" button to create your Application Perspective.
   ![](images/createApp.png)
 
+You have now created an Application Perspective. In the next section, you'll explore the application.
+
+
 ### Explore the Application
 
+After creating the application, your screen should have automatically changed context to show the student** Application Perspective that you just defined.
 
+Initially, you probably won't see any metrics on the screen.  In the upper right corner, click the "Live" button and within a short amount of time you should start
+to see metrics in the widgets.
+  ![](images/yourApplication.png)
 
+On this page you can see the transaction volumes, the number of erroneous calls, latency, and the top services that make up the application.
 
+You'll notice a number of tabs across the top of the screen.  Explore these tabs.  In particular, let's take a look at the **"Depedencies"** tab.
 
+On the dependencies tab, you'll see a full topology of the application services.  This topology is discovered automatically.  You can see transactions flowing between
+the different nodes in the topology.   Most of these services are node.js based cloud-native services. The "acemq.tivlab.raleigh.ibm.com-BK1:EG2" is the ACE 
+integration node named BK1 and Integration Server named EG2.   The QM1 node in the topology is the MQ Queue Manager named "MQ1".
 
+Click on the QM1 node.  Notice that there are 3 options that would allow you to navigate to the MQ dashboard, the transaction Flow within MQ, or analyze the transaction
+calls through MQ.
 
+Click on "Upstream/Downsteam" near the top of the page.  This will allow you to see a list of Upstream and Downstream services for the application.
+  ![](images/upstreamDownstream.png)
 
+Click on "Stack" where you can view the Application, Kubernetes, and Infrastructure stack that makes up the application.
+  ![](images/stack.png)
 
-
-
+All of this contextual and relationship data helps you analyze and debug you applications to get to root cause as quickly as possible.  In addition, our built 
+analytics uses this data to automatically group multiple Events into a single Incident for diagnosis.
 
 
 
