@@ -7,7 +7,7 @@ description:
 <AnchorLinks>
   <AnchorLink>Explore kubernetes</AnchorLink>
   <AnchorLink>Explore the Infrasture View</AnchorLink>
-  <AnchorLink>Exploring the cloud providers</AnchorLink>
+  <AnchorLink>Exploring the Applications</AnchorLink>
   <AnchorLink>Exploring GRC dashboard</AnchorLink>  
   <AnchorLink>Summary</AnchorLink>
 </AnchorLinks>
@@ -64,7 +64,109 @@ Or, you can use the lucene query language in the search bar.
 - Once you have select "Host", another list will popup. Select "name"
 - Now, you will see "entity.host.name:".  After the ":", you can do a wildcard search.  For example "entity.host.name:student*"
 
-Once you have found your zone, flyover the cube that represents your worker node
+Once you have found your zone, flyover the tower that represents your worker node.  The taller tower is the worker node.  It is taller because there are more discovered entities 
+running on that server.
+  ![](images/student6Flyover.png) 
+
+You'll notice that a number of components were automatically discovered and are instrumented for monitoring.
+
+Next, flyover the other tower.  
+  ![](images/student6Flyover2.png) 
+
+This is the ACE and MQ server. You can see the MQ and ACE components along with a discovered JVM, a python app, and more.
+
+In the bottom right corner there are several icons that allow you to organize the Infrastructure view in different ways.  For example, group the servers by OS architecture.
+  ![](images/organize.png)
+
+We recommend you explore those at the end of the lab if time permits.
+
+Next, click on the "Comparison Table" near the top of the page.
+  ![](images/comparisonTab.png)
+
+This table shows a sortable and searchable list of the Hosts that make up this environment.  You can quickly find hosts consuming high CPU, high memory, or have poor health.
+
+In addition, if you select where is says "Hosts", there is a dropdown list that allows you to see lists of JVMs, containers, etc.
+  ![](images/tableContent.png)
+
+Change from "Hosts" to "Docker Containers" in the dropdown list and you'll see a complete list of containers and their utilization and health.
+
+Switch back to the Map view by clicking on "Map" near the upper left corner.
+  ![](images/map.png)
+
+Zoom in with the plus sign in the bottom right corner.
+  ![](images/plus.png)
+
+You'll notice that each tower is actually comprised of multiple pizza boxes.   Each one represents an "Entity" such as an MQ Queue Manager or an ACE Integration Node.
+  ![](images/pizza.png)
+
+Flyover the ACE/MQ server again until you see a list of all discovered Entities.  If you only see 1 entity, move your mouse to one of the corners of the tower.
+Once you see all of the entities, click your mouse.  You'll see a dialog open 
+  ![](images/towerWithEntities.png)
+
+Use the scroll bar to scroll down. You'll notice that you see each of the types of Entities that were discovered.  Expand the MQ entity type and you'll see the Queue
+Manager that was discovered.
+  ![](images/openDashboard.png)
+
+At this point, you could either click on the "Open Dashboard" button or you can click on the link for the MQ Queue Manager.  In a similar way, you could open the dashboard 
+for any of the Entities that are being monitored.
+
+Click on the "Open Dashboard" button and we'll examine the Host Agent dashboard.  After you click on the botton you'll see a screen that looks like this:
+  ![](images/host.png)
+
+You can see fine grained metric data for the Host operating system. Scroll down and explore the other metrics.
+
+As you scroll down the page, you'll notice a section on the left side of the screen that contains a list of Entity types that were discovered. This is the same list that you 
+saw earlier on the Infrastructure view.
+  ![](images/drillMQ.png)
+Expand the IBM MQ Queue Manager section and select the link for the **QM1@acemq.tivlab.raleigh.ibm.com**
+
+You will navigate to the dashboard for the MQ Queue Manager. Scroll down the page and examine the metrics.  There are many tables that contain links that would allow you to
+drill into the listener, topics, queues, channels, and more.  Let's focus on the Channels.  Scroll down to the table labeled "Channels".  You will notice two channels with the
+same name. One represents loopback and the other represents the server IP Address.   Select the link next to the one the connection name of 10.0.0.3.
+  ![](images/drillChannel.png)
+
+Next, look at the top of the screen.  You'll notice that this is a breadcrumb that allows you to navigate back to where you were earlier in your nativations.   It is also
+possible to use the back button in your browser.
+  ![](images/breadcrumb.png)
+
+If time permits at the end of the lab, you can explore some of the other 
+
+
+### Create Application Perspective
+
+On the left hand navigation, select "Applications". You will see a screen open up that contains a list of all applications that are defined in the environment.  Initially, this
+this will be small until the students in the class define their applications.  
+  ![](images/addApplication.png)
+
+The next thing you are going to do is define an application.  You will see an "Add" button in the bottom right corner. 
+  ![](images/add.png)
+
+Click on the "Add" button
+
+A dialog will open with two options.  We'll examine the "Global Smart Alerts" in the Administrative section of this lab.  For now, click on the "New Application Perspective" button
+  ![](images/newApplication.png)
+
+When the dialog opens, click the "Next" button
+  ![](images/next.png)
+
+On the next screen, click the radio button for "All downstream services".  This will ensure that all of the downstream calls for the application will be monitored in this 
+Application Perspective.
+
+Next, click the "Add filter" button.
+
+You will see list of filter options.  Select the option labeled "Zone"
+  ![](images/zoneFilter.png)
+
+Then, click on the "value" field that is next to the "Zone".  You should see a list of Zones including your student name.  Select your student name.
+  ![](images/zoneStudent6.png)
+
+Now, click "Next" to go to the next screen.
+  ![](images/next.png)
+
+On the next page, give your Application Perspect of your student name.  For example, student6.  Then, click the "All Calls" radio button to monitor all calls.  Then, click the "Create" button to create your Application Perspective.
+  ![](images/createApp.png)
+
+### Explore the Application
 
 
 
@@ -78,42 +180,7 @@ Once you have found your zone, flyover the cube that represents your worker node
 
 
 
-### Exploring the cloud providers
 
-  Log in to the Cloud Pak user interface with your assigned user id (studentX). From the "hamburger" menu in the top-left corner select **Automate infrastructure -> Infrastructure management**
-
-
-
-  New browser tab opens with Infrastructure management user interface. Here, depending on the assigned permissions you can view and manage virtual machines in any of the connected environments. Let's explore infrastructure in public clouds. From the left-hand side menu select **Compute -> Cloud -> Providers**
-
-
-
-  You should see some public cloud regions from different public providers registered. Due to the fact, that this is a shared environment you cannot edit the providers, but you should know that IBM Cloud Pak for Watson AIOps Infrastructure Management currently supports the following clouds:
-
-  - Amazon EC2
-  - Google Cloud Engine
-  - IBM Cloud
-  - Microsoft Azure
-  - Microsoft Azure Stack
-  - Openstack
-  - VMware vCloud
-
- 
-
-  Additional providers are planned for second half of 2021
-
-  Click any of the available providers (for example us-east-ohio). You will see details of all resources provisioned in selected region (to which you have access rights assigned). To explore further, click the **Instances**.
-
-
-
-  If you cannot see any instances on the list, it means that your access rights are limited. 
-  
-
-
-  You can click any instance to look at the details.
-
-
-  Let's provision some new instances in IBM Cloud.
 
 ### Exploring the service library
 
