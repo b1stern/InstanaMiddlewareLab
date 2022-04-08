@@ -171,10 +171,29 @@ Then, click on the **"value"** field that is next to the "Zone".  You should see
 in the entry box.
   ![](images/zoneStudent6.png)
 
+Now, click the **"Add filter"** button and select **"AND"**
+  ![](images/and.png)
+
+Select **"Add filter"** again.  Then, in the search field type the word **"endpoint"**.  After typing the word **"endpoint"**, you will see an entry "Endpoint Name".  
+
+Select **"Endpoint Name"**
+  ![](images/endpointFilter.png)
+
+A dropdown list will appear.  If it doesn't, click on the **"Value"** field.  In the dropdown list, find and then select the entry for **"GET /health"**.
+  ![](images/getHealth.png)
+
+Finally, select the **"="** symbol and select **"!= (does not equal)"** from the drop down list.
+  ![](images/endpointFilter.png)
+
+This last filter is going to all you to filter out the **"GET /health"** requests which are just kubernetes health checks and are unrelated to the application transactions.
+
+You screen should now look like this:
+  ![](images/appDefinition.png)
+
 Click **"Next"** to go to the next screen.
   ![](images/next.png)
 
-On the next page, give your Application Perspect of your student name.  For example, student6.  Then, click the "All Calls" radio button to monitor all calls.  Then, click the "Create" button to create your Application Perspective.
+On the next page, give the name of your Application Perspect your student name.  For example, **"student6"**.  Then, click the "All Calls" radio button to monitor all calls.  Then, click the "Create" button to create your Application Perspective.
   ![](images/createApp.png)
 
 You have now created an Application Perspective. In the next section, you'll explore the application.
@@ -207,6 +226,56 @@ Click on "Stack" where you can view the Application, Kubernetes, and Infrastruct
 
 All of this contextual and relationship data helps you analyze and debug you applications to get to root cause as quickly as possible.  In addition, our built 
 analytics uses this data to automatically group multiple Events into a single Incident for diagnosis.
+
+Close the **Stack** dialog by either clicking on the **Stack** button or somewhere else on the background of the Instana GUI.
+
+Click on the Services Tab
+  ![](images/services.png)
+
+You will see a list of services that make up the application.
+
+Scroll down on the page until you see the **"qotd-engraving"** service.
+
+Click on the **qotd-engraving** link on the left Column.  The qotd-engraving service is the services that calls and ACE flow and then puts a message on the MQ queue. 
+We want to explore this service in more detail.
+  ![](images/qotdEngraving.png)
+
+
+
+Next, click on the "Analyze Calls" button to analyze the individual transactions that are executing in the system.
+  ![](images/analyzeCalls.png)
+
+This will take you to a screen showing all of the different types of calls taking place within the qotd-engraving service.  At the top, there is a summary of all calls in terms of
+transaction rates, return codes, erroneous calls, and latency.
+
+On the right side, click the arrow to expand the list of qotd-engraving **"POST /order" calls.  Instana is capturing 100% of the transactions so that you don't miss intermittent problems that might be occurring in the environment.  
+  ![](images/engravingCalls.png)
+
+Select one of the requests
+
+You are now looking at the tracing data for a single transaction.  At the top of the screen, you will see a summary of the latency, sub-calls and timeline. On the right
+side of the screen, you'll see the details and stack trace.
+  ![](images/call1.png)
+
+Scroll down and you will see the service endpoint list
+  ![](images/call2.png)
+
+Finally, scroll to the bottom of the screen and you will see a detailed call stack.  The call stack gives you the timing and sequence of the call going through the application.
+  ![](images/call3.png)
+
+If you select the text on the left or the timeline bar, the "Details & Stack Trace" context will change.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
