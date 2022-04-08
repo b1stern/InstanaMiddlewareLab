@@ -265,12 +265,33 @@ Finally, scroll to the bottom of the screen and you will see a detailed call sta
 
 If you select the text on the left or the timeline bar, the "Details & Stack Trace" context will change.
 
+Explore the different types of calls going through this transaction by selecting the individual call.  When you select an entry, examine the detailed information on the right.
+  ![](images/callStack.png)
 
+You should notice that different request types are color coded differently.  Blue represents the HTTP requests going through an App Server or java process. Orange represents
+a database call.  And green represents a messaging call (ACE and MQ).  
 
+When you select the Node.js App Server requests, you'll see the StackTrace on the right hand side. Within the StackTrace, click one of the URLs.
+  ![](images/stackTrace.png)
 
+When you click on the link, Instana will decompile the code and show you the lines of code.  The exact line of code that is executing will be highlighted in yellow.
+  ![](images/lineOfCode.png)
 
+When you select the ACE portions of the call Stack (gen.supplychain, msgFlowTransaction, and postOrder) you will see key information including the flow name, Integration Node,
+Integration Server, IP address, and more.
+  ![](images/ace.png)
 
+When you select the MQ portion of the call stack, you'll see key information related to the MQ environment on the right.  The information includes the Queue Manager, Queue Name,
+and the message ID that was posted on the queue.
+  ![](images/mq.png)
 
+Scroll down to the very bottom where you a link named **"CP4I.DEMO.API.Q"**. 
+
+Click on the **"CP4I.DEMO.API.Q"** link and you will navigate to the Queue page of the MQ sensor for the CP4I.DEMO.API.Q queue.
+
+Earlier, you explored the Queue Manager and the MQ Channels.  You're now looking at the queue that is being used by this application.  You'll notice key information
+like the oldest message on the queue, queue depth, input/output rates, and more.
+  ![](images/queue1.png)
 
 
 
