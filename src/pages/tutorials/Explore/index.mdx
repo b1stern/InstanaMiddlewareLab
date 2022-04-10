@@ -8,10 +8,11 @@ description:
   <AnchorLink>Explore kubernetes</AnchorLink>
   <AnchorLink>Explore the Infrasture View</AnchorLink>
   <AnchorLink>Exploring the Applications</AnchorLink>
-  <AnchorLink>Java Profiling</AnchorLink>  
 </AnchorLinks>
 
 ***
+
+In this portion of the lab, you will explore some key Instana capabilities including monitoring of kubernetes, monitoring of applications, and monitoring of infrastructure.
 
 ## Explore Kubernetes
 
@@ -66,10 +67,10 @@ If you are unable to find your zone due to the large number of students, you can
   ![](images/student6Zone.png) 
 
 Or, you can use the lucene query language in the search bar.
-- Flyover the filter bar and select "Entity"
-- A list will popup. Find and select "Host"
+- Flyover the filter bar and select **"Entity"**
+- A list will popup. Find and select **"Host"**
 - Once you have select "Host", another list will popup. Select "name"
-- Now, you will see "entity.host.name:".  After the ":", you can do a wildcard search.  For example "entity.host.name:student*"
+- Now, you will see **"entity.host.name:"**.  After the ":", you can do a wildcard search.  For example **"entity.host.name:student*"**.
 
 Once you have found your zone, flyover the tower that represents your worker node.  The taller tower is the worker node.  It is taller because there are more discovered entities 
 running on that server.
@@ -125,6 +126,7 @@ You can see fine grained metric data for the Host operating system. Scroll down 
 As you scroll down the page, you'll notice a section on the left side of the screen that contains a list of Entity types that were discovered. This is the same list that you 
 saw earlier on the Infrastructure view.
   ![](images/drillMQ.png)
+
 Expand the IBM MQ Queue Manager section and select the link for the **QM1@acemq.tivlab.raleigh.ibm.com** queue manager
 
 You will navigate to the dashboard for the MQ Queue Manager. Scroll down the page and examine the metrics.  There are many tables that contain links that would allow you to
@@ -142,32 +144,35 @@ If time permits at the end of the lab, you can explore some of the other element
 
 
 ### Create Application Perspective
+**Application Perspectives** allow you to group together a number of different services and endpoints into dashboard that shows the health and performance of a business application.
+In this section, you will create and **Application Persective** for the **Quote of the Day** application that you setup earlier.
 
-On the left hand navigation, select "Applications". You will see a screen open up that contains a list of all applications that are defined in the environment.  Initially, this
+
+On the left hand navigation, select **"Applications"**. You will see a screen open up that contains a list of all applications that are defined in the environment.  Initially, this
 this will be small until the students in the class define their applications.  
   ![](images/addApplication.png)
 
-The next thing you are going to do is define an application.  You will see an "Add" button in the bottom right corner. 
+The next thing you are going to do is define an application.  You will see an **"Add"** button in the bottom right corner. 
   ![](images/add.png)
 
 Click on the **"Add"** button
 
-A dialog will open with two options.  We'll examine the "Global Smart Alerts" in the Administrative section of this lab.  For now, click on the "New Application Perspective" button
+A dialog will open with two options.  We'll examine the "Global Smart Alerts" in the Administrative section of this lab.  For now, click on the **"New Application Perspective"** button
   ![](images/newApplication.png)
 
-When the dialog opens, click the "Next" button
+When the dialog opens, click the **"Next"** button
   ![](images/next.png)
 
-On the next screen, click the radio button for "All downstream services".  This will ensure that all of the downstream calls for the application will be monitored in this 
+On the next screen, click the radio button for **"All downstream services"**.  This will ensure that all of the downstream calls for the application will be monitored in this 
 Application Perspective.
 
 Next, click the **"Add filter"** button.
 
-You will see list of filter options.  Select the option labeled "Zone"
+You will see list of filter options.  Select the option labeled **"Zone"**.
   ![](images/zoneFilter.png)
 
 
-Then, click on the **"value"** field that is next to the "Zone".  You should see a list of Zones including your student name.  Select your student name or type the name 
+Then, click on the **"value"** field that is next to the **"Zone"**.  You should see a list of Zones including your student name.  Select your student name or type the name 
 in the entry box.
   ![](images/zoneStudent6.png)
 
@@ -190,7 +195,7 @@ Finally, select the **"="** symbol and select **"!= (does not equal)"** from the
   ![](images/endpointFilter.png)
 
 
-This last filter is going to all you to filter out the **"GET /health"** requests which are just kubernetes health checks and are unrelated to the application transactions.
+This last filter is going to filter out the **"GET /health"** requests which are just kubernetes health checks and are unrelated to the application transactions.
 
 You screen should now look like this:
   ![](images/appDefinition.png)
@@ -200,7 +205,7 @@ Click **"Next"** to go to the next screen.
   ![](images/next.png)
 
 
-On the next page, give the name of your Application Perspect your student name.  For example, **"student6"**.  Then, click the "All Calls" radio button to monitor all calls.  Then, click the "Create" button to create your Application Perspective.
+On the next page, give the name of your Application Perspect your student name.  For example, **"student6"**.  Then, click the **"All Calls"** radio button to monitor all calls.  Then, click the **"Create"** button to create your Application Perspective.
   ![](images/createApp.png)
 
 You have now created an Application Perspective. In the next section, you'll explore the application.
@@ -210,7 +215,7 @@ You have now created an Application Perspective. In the next section, you'll exp
 
 After creating the application, your screen should have automatically changed context to show the **studentXXX** Application Perspective that you just defined.
 
-Initially, you probably won't see any metrics on the screen.  In the upper right corner, click the "Live" button and within a short amount of time you should start
+Initially, you probably won't see any metrics on the screen.  In the upper right corner, click the **"Live"** button and within a short amount of time you should start
 to see metrics in the widgets.
   ![](images/yourApplication.png)
 
@@ -219,22 +224,22 @@ On this page you can see the transaction volumes, the number of erroneous calls,
 You'll notice a number of tabs across the top of the screen.  Explore these tabs.  In particular, let's take a look at the **"Depedencies"** tab.
 
 On the dependencies tab, you'll see a full topology of the application services.  This topology is discovered automatically.  You can see transactions flowing between
-the different nodes in the topology.   Most of these services are node.js based cloud-native services. The "acemq.tivlab.raleigh.ibm.com-BK1:EG2" is the ACE 
-integration node named BK1 and Integration Server named EG2.   The QM1 node in the topology is the MQ Queue Manager named "MQ1".
+the different nodes in the topology.   Most of these services are node.js based cloud-native services. The **"acemq.tivlab.raleigh.ibm.com-BK1:EG2"** is the ACE 
+integration node named BK1 and Integration Server named EG2.   The QM1 node in the topology is the MQ Queue Manager named **"MQ1"**.
 
-Click on the QM1 node.  Notice that there are 3 options that would allow you to navigate to the MQ dashboard, the transaction Flow within MQ, or analyze the transaction
+Click on the **"QM1"** node.  Notice that there are 3 options that would allow you to navigate to the MQ dashboard, the transaction Flow within MQ, or analyze the transaction
 calls through MQ.
 
-Click on "Upstream/Downsteam" near the top of the page.  This will allow you to see a list of Upstream and Downstream services for the application.
+Click on **"Upstream/Downsteam"** near the top of the page.  This will allow you to see a list of Upstream and Downstream services for the application.
   ![](images/upstreamDownstream.png)
 
 
-Click on "Stack" where you can view the Application, Kubernetes, and Infrastructure stack that makes up the application.
+Click on **"Stack"** where you can view the Application, Kubernetes, and Infrastructure stack that makes up the application.
   ![](images/stack.png)
 
 
 All of this contextual and relationship data helps you analyze and debug you applications to get to root cause as quickly as possible.  In addition, our built 
-analytics uses this data to automatically group multiple Events into a single Incident for diagnosis.
+analytics uses this data to automatically group multiple related Events into a single Incident for diagnosis.
 
 Close the **Stack** dialog by either clicking on the **Stack** button or somewhere else on the background of the Instana GUI.
 
@@ -252,13 +257,13 @@ We want to explore this service in more detail.
 
 
 
-Next, click on the "Analyze Calls" button to analyze the individual transactions that are executing in the system.
+Next, click on the **"Analyze Calls"** button to analyze the individual transactions that are executing in the system.
   ![](images/analyzeCalls.png)
 
 This will take you to a screen showing all of the different types of calls taking place within the qotd-engraving service.  At the top, there is a summary of all calls in terms of
 transaction rates, return codes, erroneous calls, and latency.
 
-On the right side, click the arrow to expand the list of qotd-engraving **"POST /order" calls.  Instana is capturing 100% of the transactions so that you don't miss intermittent problems that might be occurring in the environment.  
+On the right side, click the arrow to expand the list of qotd-engraving **"POST /order"** calls.  Instana is capturing 100% of the transactions so that you don't miss intermittent problems that might be occurring in the environment.  
   ![](images/engravingCalls.png)
 
 
@@ -277,7 +282,7 @@ Finally, scroll to the bottom of the screen and you will see a detailed call sta
   ![](images/call3.png)
 
 
-If you select the text on the left or the timeline bar, the "Details & Stack Trace" context will change.
+If you select the text on the left or the timeline bar, the **"Details & Stack Trace"** context will change.
 
 Explore the different types of calls going through this transaction by selecting the individual call.  When you select an entry, examine the detailed information on the right.
   ![](images/callStack.png)
@@ -286,7 +291,7 @@ Explore the different types of calls going through this transaction by selecting
 You should notice that different request types are color coded differently.  Blue represents the HTTP requests going through an App Server or java process. Orange represents
 a database call.  And green represents a messaging call (ACE and MQ).  
 
-When you select the Node.js App Server requests, you'll see the StackTrace on the right hand side. Within the StackTrace, click one of the URLs.
+When you select the Node.js App Server requests, you'll see the **StackTrace** on the right hand side. Within the **StackTrace**, click one of the URLs.
   ![](images/stackTrace.png)
 
 
@@ -296,6 +301,7 @@ When you click on the link, Instana will decompile the code and show you the lin
 
 When you select the ACE portions of the call Stack (gen.supplychain, msgFlowTransaction, and postOrder) you will see key information including the flow name, Integration Node,
 Integration Server, IP address, and more.
+
   ![](images/ace.png)
 
 
@@ -304,7 +310,7 @@ and the message ID that was posted on the queue.
   ![](images/mq.png)
 
 
-Scroll down to the very bottom where you a link named **"CP4I.DEMO.API.Q"**. 
+Scroll down to the very bottom where you see a link named **"CP4I.DEMO.API.Q"**. 
 
 Click on the **"CP4I.DEMO.API.Q"** link and you will navigate to the Queue page of the MQ sensor for the CP4I.DEMO.API.Q queue.
 
@@ -319,7 +325,8 @@ like the oldest message on the queue, queue depth, input/output rates, and more.
 
 ## Summary
 
-  In this exercise you have explored some of the key capabilities within Instana.  You epxlored kubernetes monitoring and application monitoring.
+  In this exercise you have explored some of the key capabilities within Instana.  You explored kubernetes monitoring.  You defined an Application Perspective. And you
+  explored the application monitoring details.
 
 
 To continue other portions of the lab, select one of the lab exercises in the upper left corner or select one of the images below.
