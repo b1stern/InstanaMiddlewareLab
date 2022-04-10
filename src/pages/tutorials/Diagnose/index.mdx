@@ -1,74 +1,87 @@
 ---
-title: Managing SRE console access
+title: Diagnose a Problem
 description:
 ---
 
-In this exercise you will learn about Cloud Pak for Multicloud Management's Console Access.  It simplifies the troubleshooting process across regions and deployment models with increased visualization and remediation tools.
+In this section of the lab, you will learn how Instana can help you get to root cause of a problem in a quick and intuitive manner.
 
-1) Begin by selecting the hamburger menu in the upper left corner 
+On the left side, select **"Events"**
+![](images/incident.png)
 
-<img src="images/2021-05-03-10-32-50.png" width="50%" height="50%"></img>
+This will open up a panel showing all of the Incidents that are affecting the monitored systems and applications. Incidents are the raw Events that have been correlated via
+Analytics into an Incident. 
 
-2) From the dropdown menu, select "Take action" and then "Console access"
+Make sure that the time selection in the upper right corner is set to **"Last hour"**
 
-<img src="images/2021-05-03-12-44-51.png" width="50%" height="50%"></img>
+Select the Incident that is triggering on the **"POST /order"** request.
+![](images/singleIncident.png)
 
-3) Review this step only, this step was done for you.  In order to use the Console Access capability, servers must be onboarded.  The onboarding process has already been performed for one of the servers (think-lab-2176) in the environment.  See steps a) and b) below to see what the onboarding process looks like. 
-   
-   a) As an administrator, you could "Onboard" a server for console access.  This process involves clicking onto the vertical "..." and then select "Onboard"
 
-   <img src="images/2021-05-03-12-49-07.png" width="30%" height="30%"></img>
+In this case, only a single Event makes up the Incident, but in many cases, you will see 8 or 10 Events that are related to each other contained within a single Incident.
 
-   b) Provide the required credential information i.e. Your user ID, Password or SSH key.  Login credentials can be saved for later usage in Hashicorp Vault, an open source tool for secrets management, encryption, and privileged access management.
+Within the Incident, you can see when the Incident opened and in some cases, when it closed. 
 
-   <img src="images/2021-05-03-12-52-27.png" width="50%" height="50%"></img>
+You will see the "Triggering Event" and any "Related Events"
 
-4) You can search for a server by name (think-lab-2176), or you can click on "Onboard only" checkbox to filter the list of servers shown.  Or, use a combination of both filters for a large environment.  
+On the right side, click on the **"+"** symbol to expand the Triggering Event.
+![](images/singleIncident.png)
 
-![](images/2021-05-03-16-36-01.png)
 
-5) On the Console access page, you can open an SSH-over-HTTPS session by clicking onto the link under the SSH column to access the terminal for the particular server (think-lab-2176) from IBM Cloud Pak console.
+You can see in the historical graph that the erroneous calls reached 100% for a period of time.
+![](images/erroneous.png)
 
-![](images/2021-05-04-17-26-00.png)
 
-NOTE: Please lookout for popup blocker.  You can open the window by clicking "Preferences" and then the link "Show https:/..."
-![](images/2021-05-03-16-40-23.png)
+Next, click the **"Analyze Calls"** button to analyze the calls.
 
-6) Once the console screen opens, you can run various commands supported by the remote system i.e "ps", "df -k", "top", etc.  If you were troubeshooting an issue, you could see what processes are running, filesystem usage, system utilization, or run commands that perform various tasks i.e clean up files/directory, restart a process, etc.  On this environment you'll have limited access.
+You will be taken to an analytics screen where you can all of the failed calls for **"POST /order"** . You can also see latency for the calls is greater than 2 seconds.
+![](images/selectCall.png)
 
-![](images/2021-05-04-17-34-50.png)
 
-7) Type "exit" to end your remote session or you may have noticed that it disconnects after an inactivity period.
+Select one of the **"POST /order"** calls
 
-# Think Lab 2176 - Terminal Session Replay
-Terminal Session replay/audit: You can replay a terminal session as needed. In this way, you can avoid duplicate actions among your team, collaborate in a more efficient way, and thus accelerate troubleshooting and problem resolution process. In addition, you can check what everyone does in SSH sessions for auditing considerations.
 
-Here's a scenario: Imagine you are working a crit-sit.  You run a set of complex commands and diagnostics to quicly resolve the issue.  Then after things have calmed down, you can go back and review the commands you ran and perhaps turn them into a runbook to automate those tasks in the future.
+You will be taken to a screen where you can see the Call Stack and Stack Trace data. You explored this previously, but you did it with a good transaction.  Now you are 
+examining a failed transaction.
+![](images/badCall.png)
 
-1) Begin by selecting the hamburger menu in the upper left corner 
 
-<img src="images/2021-05-03-10-32-50.png" width="50%" height="50%"></img>
+Scroll to the bottom of the page where you see the **"Calls"**
+![](images/badCall.png)
 
-2) From the dropdown menu, select "Take action" and then "Terminal session replay"
 
-<img src="images/2021-05-04-09-20-57.png" width="50%" height="50%"></img>
 
-3) You can filter the session activity between two dates/times, you can search for a specific user, filter based on provider, and/or datacenter.
+When you see errors, normally you go to the bottom of the call stack.  That's because the error in the last call is likely affecting the upstream calls.  
 
-![](images/2021-05-04-09-29-16.png)
+Click on the last call and examine the information on the right side.
 
-4) Once you find a session of interest, you can click on the play button under the Replay column.
-![](images/2021-05-04-09-35-59.png)
+You will see the following error message:  **"IBM MQ call failed with compcode '2' reason '2053"**
+![](images/MQMessage.png)
 
-5) The selected session's video should auto play, however, you can play/pause the video by clicking on the play/pause button.  Or, you can fast-forward or reverse the video by dragging the playback timeline.
 
-![](images/2021-05-05-16-46-35.png)
+This error message indicates that the MQ Queue is full and new messages can't be put on the queue.  In the future, Instana will be providing a translated error message for 
+key messages like this so that you don't have to lookup the error codes.
+
+
+Now, scroll all the way to the bottom on the right side of the screen.  You'll see that there is a link that will link to the MQ Queue named CP4I.DEMO.API.Q.
+![](images/queueLink.png)
+
+
+Click on the link to navigate to the queue details.
+![](images/queueDetails.png)
+
+
+On this screen, you'll notice a few important things.
+- In the upper right corner, you'll notice that the time range is specifically set to the timeframe when the Incident was open.
+- The queue depth is at 100%
+- No messages are going in our out of the queue.
+
+Clearly there is a problem with this queue and we need to resolve the queue depth problem.
 
 
 That completes this section of the lab.
 
 
-In this portion of the lab, you saw how easy it is to quickly gain console access to rapidly troubleshoot an issue or run commands on a specific system.  And, you see how easy it is to audit the actions performed during a given session.
+In this portion of the lab, you learned out to diagnose a problem in Instana.  Ultimately, determining that the queue was full and preventing transactions from completing.
 
 
 To continue other portions of the lab, select one of the lab exercises in the upper left corner or select one of the images below.
