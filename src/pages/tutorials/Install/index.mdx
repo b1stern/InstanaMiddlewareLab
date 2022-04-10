@@ -23,28 +23,31 @@ In this portion of the lab, you will be installing the Instana Monitoring, insta
 At this point, you should be logged into Soleil and should see the two virtual machines.
 ![](images/Skytap.png)
 
-If you haven't already done it, click on the thinkdemo VM
+If you haven't already done it, click on the **thinkdemo** VM
 
 Click on the window and you will see a login dialog.  Login as demo with a password of "**Passw0rd**"
 
 After logging in, you will see that chrome has already been opened with 3 tabs at the top.  The first tab is the lab guide.  The 2nd tab is the Instana user interface,
-and the 3rd tab is a list of user accounts.  From this point forward, we recommend you use the lab guide within the virtual machine.
+and the 3rd tab is a list of user accounts.  From this point forward, we recommend you use the lab guide within the virtual machine unless you have 2 monitors.
 
 Open the 3rd tab and review the user accounts.  You'll notice 3 columns.  The first column is the student name.  This matches the student name that you were assigned. 
 Next to the Student Name, you will see an "Instana Login" column.  This column represents the username that you will use to login to the Instana user interface.  Find
 the username associated with your "Student Name".  Finally, you will see a password column.
  ![](images/accounts.png)
 
- Click on the 2nd tab in the browser to open the Instana user interface.  You'll see a login dialog.
+
+Click on the 2nd tab in the browser to open the Instana user interface.  You'll see a login dialog.
   ![](images/login.png) 
- Enter the "Instana Login" name associated with **your student name** and enter the password that you found on the 3rd tab. Finally, click the Login button.
 
- You will see the summary page for Instana.  We'll come back to the user interface later.  
 
- For now, open a Terminal window within the virtual machine.  To do this, select "Applications" in the upper left corner.  Then, flyover "System Tools". Finally, select "Terminal"
+Enter the "Instana Login" name associated with **your student name** and enter the password that you found on the 3rd tab. Finally, click the Login button.
+
+You will see the summary page for Instana.  We'll come back to the user interface later.  Leave the browser open.
+
+ For now, open a Terminal window within the virtual machine.  To do this, select **"Applications"** in the upper left corner.  Then, flyover **"System Tools"**. Finally, select **"Terminal"**
  ![](images/terminal.png)
 
- A terminal window will open.  Select the terminal window.
+A terminal window will open.  Select the terminal window.
 
 
 
@@ -94,6 +97,8 @@ If successful, you'll see output similar to what's shown below.
  ```sh
  oc project
  ```
+ Examine the output to make sure the project is **"instana-agent"**
+
 
  Next, you need to setup the proper permissions for the Namespace/Project.  This will allow the Agent to have access to monitor the entire cluster.
 
@@ -115,7 +120,7 @@ Leave the Terminal window open, but select the browser and navigate to the tab c
 Select the "Stan" the robot icon in the upper left corner
   ![](images/stan.png)
 
-Next, click the "Deploy Agent" button near the upper right corner.
+Next, click the **"Deploy Agent"** button near the upper right corner.
   ![](images/DeployAgent.png)
 
 A window will open with a list of different environments where you can install the Instana Agent.  In this lab, we are installing into OpenShift, so select OpenShift from the list.
@@ -123,6 +128,7 @@ A window will open with a list of different environments where you can install t
 
 Select the dropdown list next to the word "Technology".  Notice that there are multiple options for installing the Agent.  Choose the "YAML" option from the list.
   ![](images/yaml.png) 
+
 
 Enter a name for the Cluster and Zone as seen below.  Use **your student name** for the Cluster name and **your student name** for the Zone name.  This will allow you to find
 your Agent and Kubernetes Cluster within the user interface and not get confused by data coming in from other students.
@@ -134,7 +140,7 @@ Next, click the "Download" button to download the yaml file.  The yaml file has 
 You can now install the downloaded yaml file into the environment. This will install the Instana Agent as a daemonset within the OpenShift cluster.  The process is nearly
 identical for other versions of kubernetes.
 
-To install the Agent from the yaml file, type:  
+To install the Agent using the yaml file, type:  
 ```sh
 oc create -f /home/demo/Downloads/configuration.yaml
 ```
@@ -157,13 +163,14 @@ If the pod is not running, wait a minute and issue the "oc get pods" command aga
 
 
 ## Preparing to Install the Quote of the Day Application
-Next, you'll be installing the "Quote of the Day" application.   For the containerized portion of the application, a lot of the monitoring instrumentation.  In some cases, minor 
-configuration changes are necessary.  You'll see that when we deploy the "Quote of the Day" application, we'll specify that we want to enable the Instana monitoring.
+Next, you'll be installing the **"Quote of the Day"** application.   For the containerized portion of the application, some technologies will automatically be instrumented
+for monitoring.  In some cases, minor configuration changes are necessary. For this node.js based application, there are minor configuration changes that you will enable 
+during the install.
 
-For more information about the Quote of the Day application, you can go to this GitLab location:  https://gitlab.com/quote-of-the-day/quote-of-the-day
+For more information about the **Quote of the Day** application, you can go to this GitLab location:  https://gitlab.com/quote-of-the-day/quote-of-the-day
 It is not necessary to go to this GitLab location, but you might be interested in learning more about the application.
 
-The first thing you need to do is to create namespaces (projects) for the application and the load generation tool to run.   Then, you need to setup the OpenShift permissions
+The first thing you need to do is to create namespaces (projects) for the application and the load generation tool.   Then, you need to setup the OpenShift permissions
 for those projects.  Run the following commands to setup the namespaces and permissions.
 
 Issue the following 6 commands:
@@ -187,17 +194,20 @@ helm repo update
 You should see output indicating that it successfully got an update to the "qotd" chart repository.
   ![](images/HelmUpdate.png)
 
-Next, you need to define a Website within the Instana user interface.  Leave the terminal window open and return to the brower.  Open the browser tab containing the Instana UI.  Then, click on the Websites & Mobile Apps icon hear the upper left corner.
+
+Next, you need to define a Website within the Instana user interface.  Leave the terminal window open and return to the brower.  Open the browser tab containing the Instana UI.  Then, click on the **"Websites & Mobile Apps"** icon hear the upper left corner.
   ![](images/Websites.png)
 
-You will see a list of previously defined Websites.   You are going to create a new Website by clicking on the "+ Add Website" link near the upper right corner.
+You will see a list of previously defined Websites.   You are going to create a new Website by clicking on the **"+ Add Website"** link near the upper right corner.
   ![](images/AddWebsite.png)
 
-A dialog will open asking for a Website Name.  Enter your student name as the Website Name and click "Add Website" as seen below.
+
+A dialog will open asking for a Website Name.  Enter **your student name** as the Website Name and click **"Add Website"** as seen below.
   ![](images/WebsiteName.png)
 
-A dialog will open with some javascript.  For an existing web application, you could add this javascript to the HTML pages.  But, in this case, you will use it when you deploy the
-Quote of the Day application.
+
+A dialog will open with some javascript.  For an traditional web application, you could add this javascript to the HTML pages.  But, in this case, you will use the 
+information when you deploy the Quote of the Day application.
   ![](images/WebsiteKey.png)
 
 As seen in the dialog, copy the value associated with the "key".  It is highlighted with a red oval.  Do not include the single quotes when you copy the text.  You'll use the key when performing the helm install of the application.  This will allow the application to send End User Experience (EUM) data to the Instana server.
@@ -225,13 +235,15 @@ Next, you need to copy the helm command from the /media/qotd file.  Type the fol
 cat /media/qotd
 ```
 
-Now, hightlight the command in the the terminal. Then, right click the mouse and select copy
+The helm install command can be found at the bottom of the output.  Hightlight the command in the the terminal. Then, right click the mouse and select **"Copy"**.
+
   ![](images/copyHelm.png)
 
-Now, in the terminal window, right click with your mouse and select Paste.
+
+Now, in the terminal window, right click with your mouse and select **"Paste"**.
   ![](images/pasteHelm.png)
 
-If the command does not execute, press the ENTER key on your keyboard to run the helm install.
+Press the ENTER key on your keyboard to run the helm install.
 
 You should see output similar to what's shown below.
   ![](images/HelmInstall.png)
@@ -239,14 +251,17 @@ You should see output similar to what's shown below.
 At this point, the application should be running.  In addition, the load generation tool is continuously running transactions against the application.  Let's verify that things are 
 running.
 
-Type:  oc get pods -n $STUDENT
-
+Type:  
+```sh
+oc get pods -n $STUDENT
+```
 
 You should see results similar to what's shown below.
+
   ![](images/qotdPods.png)
 
 
-If the pods are not running, wait a minute and try the "oc get pods" command again.
+If the pods are not running, wait a minute and try the **"oc get pods"** command again.
 
 Next, verify that the automated workload is running.  Type the following command:
 ```sh
@@ -258,9 +273,12 @@ You should see results similar to what's shown below.
 
 If the pods are not running, wait a minute and try the "oc get pods" command again.
 
-## Configure Quote of the Day to use and extern ACE and MQ server
 
-The next step is to modify the configuration of the Quote of the Day application so that it uses an external ACE and MQ server.  By default it simulates the ACE/MQ workload.
+
+## Configure Quote of the Day to use and external ACE and MQ server
+
+The next step is to modify the configuration of the Quote of the Day application so that it uses an external ACE and MQ server.  By default, the application
+simulates the ACE/MQ workload.
 
 You will do this by editing the deployment for the qotd-engraving.  In the command shown below, change studentXXX to your student name.
 
@@ -268,31 +286,37 @@ Type the following command:
 ```sh
 oc edit deployment qotd-engraving -n $STUDENT
 ```
-Scroll down within the file to line 48.  You should see 3 lines of text like the following:
+This will open a "vi" session.  Scroll down within the file to line 48.  You should see 3 lines of text like the following:
 ```sh
         - name: SUPPLY_CHAIN_URL
         - name: SUPPLY_CHAIN_SIMULATE
           value: "true"
 ```
 
-You will modify those linkes to look like the following.  You need to add a "value" parameter that contains the SUPPLY_CHAIN_URL for the ACE flow.  Then, you'll need to change
-the value for the SUPPLY_CHAIN_SIMULATE to "false" to disable the simulation.  When you are done, the lines should look like this:
+You will modify those linkes to look like the following.  You need to add a "value" parameter that contains the SUPPLY_CHAIN_URL for the ACE flow. The flow within the
+ACE server is **"http://10.0.0.3:7081/supplychain/v1/order"**.  This is what you need to use for the SUPPLY_CHAIN_URL value.  You'll need to change the value for the SUPPLY_CHAIN_SIMULATE to "false" to disable the simulation.  When you are done, the lines should look like this:
 ```sh
         - name: SUPPLY_CHAIN_URL
-          value: http://zoftig1.fyre.ibm.com:7081/supplychain/v1/order
+          value: http://10.0.0.3:7081/supplychain/v1/order
         - name: SUPPLY_CHAIN_SIMULATE
           value: "false"
 ```
 
+Type **":wq"** to save your changes and exit the file. 
+```sh
+:wq
+```
+
+As soon as you save your changes, OpenShift will automatically redeploy the **"qotd-engraving"** pod with the updated configuration.
 
 ## Install the Instana Linux Agent on the ACE/MQ Server
 
-The next step is to go to the other virtual machine in Soleil.  Select the virtual machine named "MQ and ACE" to open the console.
+The next step is to go to the other virtual machine in Soleil.  Select the virtual machine named **"MQ and ACE"** to open the console.
   ![](images/ACEMQ_VM.png)
 
-At the login prompt, login with a password of "Passw0rd"
+At the login prompt, login with a password of **"Passw0rd"**.
 
-Within the Virtual Machines, select the "Instana" tab to open the Instana user interface.   Login using the username and password assigned to you.  If you don't remember,
+Within the Virtual Machines, select the **"Instana"** tab to open the Instana user interface.   Login using the username and password assigned to you.  If you don't remember,
 the 3rd tab in the browser contains a list of user accounts.
   ![](images/accounts.png)
 
@@ -305,39 +329,48 @@ Next, click the "Deploy Agent" button near the upper right corner.
 A window will open with a list of different environments where you can install the Instana Agent.  This is a Linux server, so select Linux on the left side of the screen.
   ![](images/linuxInstall.png)
 
-Just to see what your options are, select the "Technology" dropdown list to see the different ways that you can install the Instana Agent.  You'll notice that you perform
-rpm installs or simply download a tar file.  but, the easiest method is the default one, "Automatic Installation (One-Liner)".  Select that option in the dropdown list.
+Just to see what your options are, select the **"Technology"** dropdown list to see the different ways that you can install the Instana Agent.  You'll notice that you can perform
+rpm installs or simply download a tar file.  But, the easiest method is the default one, **"Automatic Installation (One-Liner)"**.  Select that option in the dropdown list.
 
-Notice that there are a few other options including the use of different java versions, static vs. dynamic agents, etc.   Leave those default settings.
+Notice that there are a few other options including the use of different java versions, static vs. dynamic agents, etc.   Leave the default settings.
 
-Next, select the checkbox next to "Install and start as service".  This will setup the systemctl autostart process and will also start the Agent immediately after it is installed.
+Next, select the checkbox next to **"Install and start as service"**.  This will setup the systemctl autostart process and will also start the Agent immediately after it is installed.
 
 Finally, copy and paste the curl command by selecting in with your mouse and then doing a right-click and selecting "Copy".
   ![](images/copyInstall.png)
 
-Next, within the terminal window, right-click and select "Paste".  This will paste the install command into the terminal window.
+
+Next, within the terminal window, **right-click** and select **"Paste"**.  This will paste the install command into the terminal window.
 
 Press "Enter" to begin the install.
 
 You will be promted with "[Y/N]" asking whether you want to continue the install.   
+
   ![](images/yesNo.png)
 
-Type "Y" and then press "Enter" to continue the install.
+Type **"Y"** and then press **"Enter"** to continue the install.
 
 The install will progress and you will see an output similar to the screen capture shown below.
+
   ![](images/installResult.png)
 
-  At this point the Agent is installed and up and running.
+At this point the Agent is installed and up and running.
 
 The Agent will automatically start monitoring the operating system and start discovering key processes and middleware.  In many cases it will automatically instrument
 those technologies.  In the case of MQ an and App Connect Enterprise(ACE), there are manual configuration steps required due to the need to provide credentials for accessing those applications.  We'll walk through those configuration steps in a little while.
 
+
+
 ## Configure ACE and MQ for Resource Monitoring
-This section of the lab is optional, but you might fine it useful.  It will help you understand how IBM MQ and IBM App Connect Enterprise (ACE) need to be configured for monitoring.  There are certain configuration settings within MQ and ACE that are required in order to get the
+This section of the lab is **optional**, but you might find it useful.  It will help you understand how IBM MQ and IBM App Connect Enterprise (ACE) need to be configured for monitoring.  There are certain configuration settings within MQ and ACE that are required in order to get the
 monitoring KPIs.  The requirements are documented in the sensor configuration guide that is online.  You'll see links to those guides further down in this document.  
 
-Typically, the "Resource Monitoring" KPIs are already enabled in most customer environments.  But it is work validating the configuration.  For example, you can use the
-ACE mqsireportresourcestats and mqsireportflowstats commands to view the configuration.  
+Note:  Typically, these steps are performed by the MQ and ACE admins, so you don't need to know the step by step procedure.
+
+In your lab environment, these steps have already been performed.
+
+The "Resource Monitoring" KPIs are already enabled in most customer environments.  But it is worth validating the configuration.  For example, you can use the
+ACE mqsireportresourcestats and mqsireportflowstats commands to view the configuration for ACE.  
 
 Here are example commands that you can issue to see the ACE configuration:
 ```sh
@@ -355,8 +388,8 @@ mqsireportflowstats BK1 -s -e EG2
 You will see results similar to those shown below.  Notice that the "state" is "active", the the outputFormat is "json"
   ![](images/flowstats.png)
 
-There are fewer requirements for MQ.  The sensor will work with the default settings.  However, you can have the sensor automatically use threshols/Events that are 
-setup within the MQ server.  If you want to use the built in MQ Events, then you need to set CHLEV and PEFMEV to ENABLED.  To check those settings, you can issue The
+There are fewer requirements for MQ.  The sensor will work with the default settings.  However, you can have the sensor automatically use thresholds/Events that are 
+setup within the MQ server.  If you want to use the built in MQ Events, then you need to set **CHLEV** and **PEFMEV** to **ENABLED**.  To check those settings, you can issue The
 following commands.  You first need to run the "runmqsc" command.  Then, within the runmqsc command prompt you can issue other MQ commands.
 ```sh 
 runmqsc QM1
@@ -369,19 +402,20 @@ display QMGR PUBSUB CHLEV
 display QMGR CLUSTER PERFMEV
 ```
 
-To exist the runmqsc shell, type "quit"
+To exit the runmqsc shell, type **"quit"**
 
 These commands will give outputs similar to what's shown below.
+
   ![](images/runmqsc.png)
 
 ## Configure ACE and MQ for Tracing
 
 In addition to the "Resource Monitoring" KPIs, additional settings are required to enable Tracing within IBM MQ and ACE.  It is important that you understand this 
-process since Tracing is typically not enabled by default in must IBM MQ and ACE environments.  In this section, we've documented the steps. 
+process since Tracing is typically not enabled by default in must IBM MQ and ACE environments.  In this section, we've documented the steps.
 
 Note:  Typically, these steps are performed by the MQ and ACE admins, so you don't need to know the step by step procedure.
 
-This section is simply going to describe the process.  It is well documented within the Instana online documentation.
+This section is simply going to describe the process.  You do not need to perform these steps.  The procedure is well documented within the Instana online documentation.
 
 For ACE, you perform the following steps
 - Download a small TAR file from IBM Fix Central.  There are links within the Instana documentation. 
@@ -425,6 +459,7 @@ vi configuration.yaml
 or use the Linux "Text Editor".  Navigate to the "Text Editor" via Applications -> Accessories -> Text Editor.
   ![](images/textEditor.png)
 
+
 **------------IMPORTANT------------**  
 yaml files are very picky about indentation.  Each line within the file must be indented by 0, 2, 4, 6, etc. spaces.  Do not use tabs and do not indent by odd numbers
 of characters.  Make sure that all of the characters line up vertically within the text.   If you see a line that is commented out and you need to uncomment it, just
@@ -434,9 +469,10 @@ First, let's change the Zone name within the file.   Scroll down until you see t
 com.instana.plugin.generic.hardware.   By default the "availability-zone" parameter is set to "Datacenter A /Rack 42".  Change the value to your student name.  Example:   **student27**
 
 The section should now look like this:
+
   ![](images/zone.png)
 
-Within the editor, scroll down to the section titled "IBM ACE"
+Within the editor, scroll down to the section titled **"IBM ACE"**
 
 You will need to uncomment the required entries and change the parameters to match the ACE/MQ configuration on this server.  If you read the description on each line,
 you'll see that some parameters are optional.  In addition, ACE can be configured to either use built in MQTT or use a local MQ server.  The configuration varies 
@@ -479,10 +515,12 @@ com.instana.plugin.ibmmq:
       password: 'Passw0rd'
 ```
 
+Save and exist the configuration.yaml file.   In "vi", you type ":wq" to save and exit the file.
+
 As soon as you save your changes to the file, Instana will detect those changes and will start to implement what you have configured.
 
 At this point, we recommend that you navigate to the "Explore" section of the lab.  In the Explore section, we'll begin by confirming that the ACE and MQ 
-monitoring are working propererly.  If they are not, come back to this second and double check your configuraion.yaml settings and check that there are no obvious
+monitoring are working propererly.  If they are not, come back to this section and double check your configuraion.yaml settings and check that there are no obvious
 errors in the log file.
 
 The main install log file is /opt/instana/agent/data/log/agent.log
