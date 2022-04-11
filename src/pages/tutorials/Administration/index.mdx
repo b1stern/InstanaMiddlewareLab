@@ -77,6 +77,74 @@ Click **"Cancel"** two more times to **"Smart Alert"** dialog.
 
 
 
+# Create a static threshold (Event)
+Now, let's examine how a more traditional threshold is created and used in conjunction with Alert Channels.
+
+On the left side of the screen, select the **"Settings"** gear.
+![](images/events.png)
+
+The Settings menu provides access to most of the administrative tasks within Instana.  You'll notice menus for Events, Alerts, Alert Channels, API Tokens, Users, Groups, Log Managemnet Integration, and more
+
+Select **"Events"**
+
+Once you click on **"Events"**, you will see a list of 300+ Events that are defined as out of the box thresholds within Instana.  If you want to filter the list, you can do that in a number of ways
+via the drop down lists at the top of the page.
+![](images/filterEvents.png)
+
+Notice that you can filter based on the Event type, severity, entity type, state, or simply enter a keyword filter.
+
+Let's select **"Entity Type"**
+
+Select the **"Entity Type"** dropdown list and type **"IBM MQ"** into the field.  You'll notice that a few different options show up. Each of the options is an Entity Type.  You can filter 
+on the Events related to the IBM MQ Queue Manager, Queue, Channel, etc.
+
+Select **"IBM MQ Queue Manager"** from the dropdown list.
+![](images/qmEvents.png)
+
+This will filter the Events to the list of Events that are written against the IBM MQ Queue Manager entity type.  There are several out of the box threshold Events that will detect things like
+channel initiator status, queue manager status, publish/subscribe engine status, and more.
+
+Let's create a new Event.
+
+At the top of the screen, select the **"+ New Event"** link.
+![](images/newEvent.png)
+
+Fill in the following information for you new Event:
+- Give your Event a name.  Make sure that you use your student name when creating the Event as seen below.
+- Enter a description for the Event
+- Select a severity (Warning or critical)
+- Select the option of whether you want your Event to get correlated into Incidents
+- Select a Grace Period.   
+![](images/newEvent1.png)
+
+The Grace Period is a capability that allow you to avoid flapping conditions.  Let's say you are monitoring for high CPU utilization on a server.  If CPU utilization goes High, then Low, then High 
+over a short period of time, you typically only want to see ONE event.  By setting a "Grace Period" of something like 60 seconds, you would only receive 1 Event during that interval.
+
+Now, scroll down a little further and fill in the remaining options.
+
+In the **"Condition"** section, select the dropdown and choose **"Built-in Metrics"**.  Most of your thresholds will be written against these.  
+![](images/newEvent2.png)
+
+The choice of "Custom metrics" would only apply to custom metrics that are being fed into Instana.  The "System Rules" are a specialized set of rules for doing thing like detecting that an 
+entity is **"offline"**.
+
+Once you select **"Built-in Metrics"** another dropdown list will appear.  The new dropdown list is asking for the **"Entity type"** that you are going to write your threshold against.
+
+In the **"Entity type"** dropdown, select **"IBM MQ Queue"**.  Notice that you can type in letters such as "IBM MQ" to filter the list.
+![](images/newEvent3.png)
+
+After specifying an **"Entity type"**, a new dropdown appears with a list of available **"Metrics"**.  Select the **"Metric"** dropdown and choose **"Depth > Queue Depth Percentage"**.
+![](images/newEvent4.png)
+
+After making your select, some new dropdowns appear on the screen looking for the following information:
+- Time Window:  This is the duration that you want to monitor and evaluate
+- Aggregation:  Since Instana is capture data at a high interval, you can use Min, Max, Avg, Sum as part of your evaluation.  
+- Operator: What type of evaluation do you want to do (>, < =, etc.)
+- Percentage - This field is actually different depending on the metric you are evaluating. In this case, you are evaluating a metric that is a percentage.
+In the dropdowns, choose **"60 s"** for the time window, **"max"** for the Aggregation, **">"** for the Operator, and **"90"** for the Percentage.
+![](images/newEvent5.png)
+
+
 
 
 
