@@ -171,15 +171,15 @@ during the install.
 For more information about the **Quote of the Day** application, you can go to this GitLab location:  https://gitlab.com/quote-of-the-day/quote-of-the-day
 It is not necessary to go to this GitLab location, but you might be interested in learning more about the application.
 
-The first thing you need to do is to create namespaces (projects) for the application and the load generation tool.   Then, you need to setup the OpenShift permissions
+The first thing you need to do is to create project (namespace) for the application and the load generation tool.   Then, you need to setup the OpenShift permissions
 for those projects.  Run the following commands to setup the namespaces and permissions.
 
 Issue the following 6 commands:
 ```sh
-oc create namespace $STUDENT-load
+oc new-project $STUDENT-load
 oc project $STUDENT-load
 oc adm policy add-scc-to-user anyuid -z default
-oc create namespace $STUDENT
+oc new-project $STUDENT
 oc project $STUDENT
 oc adm policy add-scc-to-user anyuid -z default
 ```
