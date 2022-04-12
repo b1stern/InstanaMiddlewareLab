@@ -153,14 +153,70 @@ In the dropdowns, choose **"60 s"** for the time window, **"max"** for the Aggre
 ![](images/newEvent5.png)
 
 
+# Setup an Alert for the New Event
+Now that you have a new Event defined, you need to define and Alert.  Alerts are used to notify people and teams via various Alert Channels.  You previously
+reviewed the options for Alert Channels.  The Alerts will be sent to one or more Alert Channels that you select.
+
+Select **"Settings"** on the left side navigation.  Then select **"Alerts"** 
+![](images/alerts.png)
+
+Click on the **"+ New Alert"** link 
+![](images/newAlert.png)
+
+Give the new **"Alert"** a name.  To ensure you can find your **"Alert"**, call it your **"student name"**
+
+Select the dropdown labeled **"Alert on Event(s)"**
+![](images/alertTypes.png)
+
+You will see that there are multiple options.  You can setup an Alert for a particular Entity Type.  For example, you might setup an Alert for all Oracle Database Events.
+
+In your case, select **"Alert on Event(s)"**.  This option allows you to select a specific list of Events to forward to an Alert Channel(s).
+
+Further down on the page, select the **"Add Events"** link.
+![](images/addEvents.png)
+
+Initially, you will see a list of ALL Events.
+
+Let's filter the list to just a specific **Entity Type**.   Select the **"Entity Type"** dropdown list and select **"IBM MQ Queue"**
+![](images/filterQueue.png)
+
+You will now see a filtered list of Events related to IBM MQ Queues.   Find the Event with your **"student name"** and select the checkbox.   Then, select the **"Add 1 Event"** button at the bottom.
+![](images/chooseEvent.png)
+
+You will now see the 1 selected Event listed.  Further down on the screen you will see a **"Scope"** section.  This determines which Entities this Alert will apply to.
+![](images/scope.png)
+
+Select the **"Apply on"** dropdown list. You'll see that you can choose one of 3 options:
+- Application Perspective:  This option allows you to limit the scope of the alert to a specific application.
+- Selected Entities Only:  You use the dynamic focus queries to filter to a specific set of Entities
+- All Available Entities:  The Alert would apply to any Entity that triggered the Event threshold.
+
+Select the **"Selected Entities Only"** option
+![](images/selectedEntities.png)
+
+A new widget will appear on the right side of the screen asking you to specify the **"Dynamic Focus Query"**
+
+In the entry field, enter the name of the queue that is used for the **Quote of the Day** application.  Enter **"entity.ibmmq.queue.name:CP4I.DEMO.API.Q"**
+![](images/CP4I.DEMO.API.Q.png)
+
+Next, click on the **"+ Add Alert Channels"** link
+![](images/alertChannel.png)
+
+A dialog will open with a list of available **"Alert Channels"**.  Since this is an MQ related Event, select the **"MQ Admins"** Alert Channel.
+
+Then, click the **"Add 1 Channel"** button.
+![](images/selectChannel.png)
+
+Scroll down to the bottom. You will see an optional section where you can add custom payloads by adding Key/Value pairs.  We're going to skip that section.
+
+Finally, click the **"Save"** button to save your Alert.
+![](images/saveAlert.png)
 
 
+You have now completed the section of the lab on performing Administrative Tasks within Instana.
 
 
-You have now completed the section of the lab on automating tasks in VMware environments.
-
-
-In this portion of the lab, you saw how easy it is for an end user to provision complex services that can provision virtual machine, clusters, install applications, and more.  You learned how to modify and customize a service.  You explored the capabilities within the service composer which allows you to combine Terraform, Ansible, Rest Hooks, ServiceNow, and more into complex workflows.  Finally, you learned how to publish your Service so that other users can execute the Service and provision VMware virtual machines.
+At this point, you have created an Event and an Alert for that Event.  The next time the custom **"Event"** that you created triggers, an **"Alert"** will be sent to the **"MQ Admins"** Alert Channel.  In this case, a slack notification will be posted to a slack channel being monitored by the MQ Admins.
 
 
 To continue other portions of the lab, select one of the lab exercises in the upper left corner or select one of the images below.
