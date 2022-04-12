@@ -67,11 +67,11 @@ When prompted, enter "**Passw0rd**" for the password.
 Throughout these procedures, we are going to be using your student name for various naming conventions and to identify objects.  In order to simplify the steps in this document, 
 you are going to setup an environment variable named $STUDENT and set it to the student name that you were assigned (student1 through student30) 
 
-Type the following command, but replace **STUDENTXXX** with your student name.
+Type the following command, but replace **STUDENTXXX** with your student name.  Make sure the first STUDENT is in upper case.  This is an environment variable.   The actual student name is typically lower case.
 
 The commend should look something like this:   **export STUDENT=student27**
 ```sh
-export STUDENT=STUDENTXXX
+export STUDENT=studentXXX
 ```
 
 Test to make sure the variable was set properly.  Type:
@@ -84,15 +84,15 @@ The output should be something like "student27".
 Throughout this lab, we will be using the "oc" command to run commands within OpenShift.  The "oc" command is similar to kubectl for other versions of kubernetes.  There are
 some minor syntax differences.
 
-Before installing the Instana Agent, we need to create a namespace (OpenShift Project) where the Agent will run.  Type the following command to create the namespace.
+Before installing the Instana Agent, we need to create a **"Project" (kubernetes namespace)"**" where the Agent will run.  Type the following command to create the project.
 ```sh
-oc create namespace instana-agent
+oc new-project instana-agent
 ```
 
 If successful, you'll see output similar to what's shown below.
   ![](images/namespace.png)
 
- Next, change your context to the instana-agent namespace (OpenShift project) by typing "oc project instana-agent".  If you want to confirm that you have changed to the 
+ Next, change your context to the instana-agent project (kubernetes namespace) by typing "oc project instana-agent".  If you want to confirm that you have changed to the 
  instana-agent project, type:
  ```sh
  oc project
@@ -100,7 +100,7 @@ If successful, you'll see output similar to what's shown below.
  Examine the output to make sure the project is **"instana-agent"**
 
 
- Next, you need to setup the proper permissions for the Namespace/Project.  This will allow the Agent to have access to monitor the entire cluster.
+ Next, you need to setup the proper permissions for the Project/Namespace.  This will allow the Agent to have access to monitor the entire cluster.
 
  Type the following command:   
  ```sh
@@ -134,7 +134,8 @@ Enter a name for the Cluster and Zone as seen below.  Use **your student name** 
 your Agent and Kubernetes Cluster within the user interface and not get confused by data coming in from other students.
   ![](images/ZoneCluster.png) 
 
-Next, click the "Download" button to download the yaml file.  The yaml file has been configured specifically to connect to your Instana SaaS environment.
+Next, click the "Download" button to download the yaml file.  The yaml file has been configured specifically to connect to your Instana SaaS environment and will contain the **Cluster** name 
+and **Zone** name that you previously specified.
   ![](images/Download.png) 
 
 You can now install the downloaded yaml file into the environment. This will install the Instana Agent as a daemonset within the OpenShift cluster.  The process is nearly
@@ -216,7 +217,7 @@ The helm command that you are going to use is in a file /media/qotd.  You are go
 that you just extracted from the Instana UI.   Type the following command.  When you type the command, replace **KEY_VALUE** with the key value that you extracted.
 
 ```sh
-sed -i 's/deOQ5O_8Tz27r820NpQnlg/KEY_VALUE/g' /media/qotd
+sed -i 's/deOQ5O_8Tz27r820NpQnlg/KEY_VALUE/g' /media/qotd.sh
 ```
 
 Again, we'll be using the $STUDENT environment variable to ensure that the command is unique for your student name.  Let's double check to make sure the variable 
@@ -230,23 +231,18 @@ If it is not set to your student name, type the following command and replace st
 export STUDENT=studentXXX
 ```
 
-Next, you need to copy the helm command from the /media/qotd file.  Type the following command:
+You will be executing the /media/qotd.sh script to execute the helm install. Before you run the shell script, let's take a look at the contents.
 ```sh
-cat /media/qotd
+cat /media/qotd.sh
 ```
 
-The helm install command can be found at the bottom of the output.  Hightlight the command in the the terminal. Then, right click the mouse and select **"Copy"**.
+Now,  run the helm install by executing the shell script.  Type:
+```sh
+/media/qotd.sh
+```
 
-  ![](images/copyHelm.png)
-
-
-Now, in the terminal window, right click with your mouse and select **"Paste"**.
-  ![](images/pasteHelm.png)
-
-Press the ENTER key on your keyboard to run the helm install.
-
-You should see output similar to what's shown below.
-  ![](images/HelmInstall.png)
+You will see output similar to this:
+  ![](images/qotdHelm.png)
 
 At this point, the application should be running.  In addition, the load generation tool is continuously running transactions against the application.  Let's verify that things are 
 running.
@@ -311,10 +307,16 @@ As soon as you save your changes, OpenShift will automatically redeploy the **"q
 
 ## Install the Instana Linux Agent on the ACE/MQ Server
 
-The next step is to go to the other virtual machine in Soleil.  Select the virtual machine named **"MQ and ACE"** to open the console.
-  ![](images/ACEMQ_VM.png)
+The next step is to go to the other virtual machine in Soleil. 
+
+The easiest way to switch virtual machines is to move your mouse to the top of the page.  Select the icon in the upper left corner that looks like a picture of two overlapping computer monitors.
+  ![](images/switchVMs.png)
+
+Then, select the **"MQ and ACE"** virtual machine.
 
 At the login prompt, login with a password of **"Passw0rd"**.
+
+You will notice that the lab guide within the virtual machine is already open to this set of steps.
 
 Within the Virtual Machines, select the **"Instana"** tab to open the Instana user interface.   Login using the username and password assigned to you.  If you don't remember,
 the 3rd tab in the browser contains a list of user accounts.
@@ -390,7 +392,9 @@ You will see results similar to those shown below.  Notice that the "state" is "
 
 There are fewer requirements for MQ.  The sensor will work with the default settings.  However, you can have the sensor automatically use thresholds/Events that are 
 setup within the MQ server.  If you want to use the built in MQ Events, then you need to set **CHLEV** and **PEFMEV** to **ENABLED**.  To check those settings, you can issue The
-following commands.  You first need to run the "runmqsc" command.  Then, within the runmqsc command prompt you can issue other MQ commands.
+following commands.  You first need to run the **"runmqsc"** command.  The **runmqsc** command won't prompt you with a cursor.  That's okay.  Just start typing the coomands.
+
+Within the runmqsc command prompt you can issue other MQ commands.  Type the following commands.
 ```sh 
 runmqsc QM1
 ```
@@ -402,7 +406,10 @@ display QMGR PUBSUB CHLEV
 display QMGR CLUSTER PERFMEV
 ```
 
-To exit the runmqsc shell, type **"quit"**
+Type **"quit"** to exit the runmqsc command prompt.
+```sh
+quit
+```
 
 These commands will give outputs similar to what's shown below.
 
