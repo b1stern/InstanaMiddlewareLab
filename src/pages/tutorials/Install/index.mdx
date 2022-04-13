@@ -23,9 +23,9 @@ In this portion of the lab, you will be installing the Instana Monitoring, insta
 At this point, you should be logged into Soleil and should see the two virtual machines.
 ![](images/Skytap.png)
 
-If you haven't already done it, click on the **thinkdemo** VM
+If you haven't already done it, click on the **"thinkdemo"** VM
 
-Click on the window and you will see a login dialog.  Login as demo with a password of "**Passw0rd**"
+Click on the window and you will see a login dialog.  Login as demo with a password of **"Passw0rd"**
 
 After logging in, you will see that chrome has already been opened with 3 tabs at the top.  The first tab is the lab guide.  The 2nd tab is the Instana user interface,
 and the 3rd tab is a list of user accounts.  From this point forward, we recommend you use the lab guide within the virtual machine unless you have 2 monitors.
@@ -36,11 +36,11 @@ the username associated with your "Student Name".  Finally, you will see a passw
  ![](images/accounts.png)
 
 
-Click on the 2nd tab in the browser to open the Instana user interface.  You'll see a login dialog.
+Click on the 2nd tab in the browser to open the Instana user interface.  In some cases, you will already be logged in.  In other cases, you'll see a login dialog.
   ![](images/login.png) 
 
 
-Enter the "Instana Login" name associated with **your student name** and enter the password that you found on the 3rd tab. Finally, click the Login button.
+If you are not already logged in, enter the "Instana Login" name associated with **your student name** and enter the password that you found on the 3rd tab. Finally, click the Login button.
 
 You will see the summary page for Instana.  We'll come back to the user interface later.  Leave the browser open.
 
@@ -84,32 +84,6 @@ The output should be something like "student27".
 Throughout this lab, we will be using the "oc" command to run commands within OpenShift.  The "oc" command is similar to kubectl for other versions of kubernetes.  There are
 some minor syntax differences.
 
-Before installing the Instana Agent, we need to create a **"Project" (kubernetes namespace)"**" where the Agent will run.  Type the following command to create the project.
-```sh
-oc new-project instana-agent
-```
-
-If successful, you'll see output similar to what's shown below.
-  ![](images/namespace.png)
-
- Next, change your context to the instana-agent project (kubernetes namespace) by typing "oc project instana-agent".  If you want to confirm that you have changed to the 
- instana-agent project, type:
- ```sh
- oc project
- ```
- Examine the output to make sure the project is **"instana-agent"**
-
-
- Next, you need to setup the proper permissions for the Project/Namespace.  This will allow the Agent to have access to monitor the entire cluster.
-
- Type the following command:   
- ```sh
- oc adm policy add-scc-to-user privileged -z instana-agent
- ```
-
- You should see output similar to the screen capture below.
-  ![](images/permissions.png)
-
 You are now ready to install the Agent.   
 
 
@@ -149,7 +123,15 @@ oc create -f /home/demo/Downloads/configuration.yaml
 You will see output similar to what's shown below
   ![](images/install.png)
 
-You will notice one error on the screen which simply indicates that it attemped to create the "instana-agent" project, but it already existed.  This error can be ignored.
+ Next, you need to setup the proper permissions for the service account.  This will allow the Agent to have access to monitor the entire cluster.
+
+ Type the following command:   
+ ```sh
+ oc adm policy add-scc-to-user privileged -z instana-agent
+ ```
+
+ You should see output similar to the screen capture below.
+  ![](images/permissions.png)
 
 Next, type:  
 ```sh
@@ -174,13 +156,11 @@ It is not necessary to go to this GitLab location, but you might be interested i
 The first thing you need to do is to create project (namespace) for the application and the load generation tool.   Then, you need to setup the OpenShift permissions
 for those projects.  Run the following commands to setup the namespaces and permissions.
 
-Issue the following 6 commands:
+Issue the following 4 commands:
 ```sh
 oc new-project $STUDENT-load
-oc project $STUDENT-load
 oc adm policy add-scc-to-user anyuid -z default
 oc new-project $STUDENT
-oc project $STUDENT
 oc adm policy add-scc-to-user anyuid -z default
 ```
 
