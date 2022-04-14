@@ -216,18 +216,20 @@ You will be executing the /media/qotd.sh script to execute the helm install. Bef
 cat /media/qotd.sh
 ```
 
+Double check and make sure that the "sed" command properly replaced the web application key with the key from the web application that you defined.
+
 Now,  run the helm install by executing the shell script.  Type:
 ```sh
 /media/qotd.sh
 ```
 
 You will see output similar to this:
-  ![](images/qotdHelm.png)
+  ![](image/qotd.png)
 
 At this point, the application should be running.  In addition, the load generation tool is continuously running transactions against the application.  Let's verify that things are 
 running.
 
-Type:  
+Type the following command to see the pods:  
 ```sh
 oc get pods -n $STUDENT
 ```
@@ -330,7 +332,7 @@ You will be promted with "[Y/N]" asking whether you want to continue the install
 
   ![](images/yesNo.png)
 
-Type **"Y"** and then press **"Enter"** to continue the install.
+Type **"y"** and then press **"Enter"** to continue the install.
 
 The install will progress and you will see an output similar to the screen capture shown below.
 
@@ -445,6 +447,7 @@ vi configuration.yaml
 ```
 or use the Linux "Text Editor".  Navigate to the "Text Editor" via Applications -> Accessories -> Text Editor.
   ![](images/textEditor.png)
+
 
 
 **------------IMPORTANT------------**  
