@@ -44,7 +44,7 @@ If you are not already logged in, enter the "Instana Login" name associated with
 
 You will see the summary page for Instana.  We'll come back to the user interface later.  Leave the browser open.
 
- For now, open a Terminal window within the virtual machine.  To do this, select **"Applications"** in the upper left corner.  Then, flyover **"System Tools"**. Finally, select **"Terminal"**
+For now, open a Terminal window within the virtual machine.  To do this, select **"Applications"** in the upper left corner.  Then, flyover **"System Tools"**. Finally, select **"Terminal"**
  ![](images/terminal.png)
 
 A terminal window will open.  Select the terminal window.
@@ -125,7 +125,12 @@ You will see output similar to what's shown below
 
  Next, you need to setup the proper permissions for the service account.  This will allow the Agent to have access to monitor the entire cluster.
 
- Type the following command:   
+ First, change to the instana-agent OpenShift project by typing:
+ ```sh
+ oc project instana-agent
+ ```
+
+ Type the following command to setup the proper permissions:   
  ```sh
  oc adm policy add-scc-to-user privileged -z instana-agent
  ```
@@ -224,7 +229,7 @@ Now,  run the helm install by executing the shell script.  Type:
 ```
 
 You will see output similar to this:
-  ![](image/qotd.png)
+  ![](images/qotd.png)
 
 At this point, the application should be running.  In addition, the load generation tool is continuously running transactions against the application.  Let's verify that things are 
 running.
@@ -300,7 +305,22 @@ At the login prompt, login with a password of **"Passw0rd"**.
 
 You will notice that the lab guide within the virtual machine is already open to this set of steps.
 
-Within the Virtual Machines, select the **"Instana"** tab to open the Instana user interface.   Login using the username and password assigned to you.  If you don't remember,
+Open a Terminal window within the virtual machine.  To do this, select **"Applications"** in the upper left corner.  Then, flyover **"System Tools"**. Finally, select **"Terminal"**
+ ![](images/terminal.png)
+
+A terminal window will open.  
+
+Click on the terminal window.
+
+Use sudo to become the root user.  Type the following command:
+```sh
+sudo -i
+```
+When prompted, enter **"Passw0rd"** for the password.
+
+Leave the terminal window open because you'll be coming back to the screen later.
+
+Within the Virtual Machines, select the **"Instana"** tab within the browser to open the Instana user interface.   Login using the username and password assigned to you.  If you don't remember,
 the 3rd tab in the browser contains a list of user accounts.
   ![](images/accounts.png)
 
@@ -328,11 +348,11 @@ Next, within the terminal window, **right-click** and select **"Paste"**.  This 
 
 Press "Enter" to begin the install.
 
-You will be promted with "[Y/N]" asking whether you want to continue the install.   
+You will be promted with "[y/N]" asking whether you want to continue the install.   
 
   ![](images/yesNo.png)
 
-Type **"y"** and then press **"Enter"** to continue the install.
+Type lower case **"y"** and then press **"Enter"** to continue the install.
 
 The install will progress and you will see an output similar to the screen capture shown below.
 
@@ -347,13 +367,13 @@ those technologies.  In the case of MQ an and App Connect Enterprise(ACE), there
 
 ## Configure ACE and MQ for Resource Monitoring
 This section of the lab is **optional**, but you might find it useful.  It will help you understand how IBM MQ and IBM App Connect Enterprise (ACE) need to be configured for monitoring.  There are certain configuration settings within MQ and ACE that are required in order to get the
-monitoring KPIs.  The requirements are documented in the sensor configuration guide that is online.  You'll see links to those guides further down in this document.  
+monitoring KPIs.  The key KPI's that need to be enabled are Resource Stats and Flow Stats.  The requirements are documented in the **sensor configuration guide** that is online.  You'll see links to those guides further down in this document.  
 
 Note:  Typically, these steps are performed by the MQ and ACE admins, so you don't need to know the step by step procedure.
 
 In your lab environment, these steps have already been performed.
 
-The "Resource Monitoring" KPIs are already enabled in most customer environments.  But it is worth validating the configuration.  For example, you can use the
+The "Resource Monitoring" KPIs are already enabled in most customer environments.   But it is worth validating the configuration.  For example, you can use the
 ACE mqsireportresourcestats and mqsireportflowstats commands to view the configuration for ACE.  
 
 Here are example commands that you can issue to see the ACE configuration:
@@ -361,7 +381,7 @@ Here are example commands that you can issue to see the ACE configuration:
 mqsireportresourcestats BK1 -e EG2
 ```
 
-You will see results similar to those shown below.  Notice that the "state" is set to "true"
+You will see results similar to those shown below.  Notice that the "state" is set to "true" indicating that **"Resource Stats"** are enabled.
   ![](images/resourcestats.png)
 
 To see the configuration of the "flow" stats, issue the following command:
@@ -369,11 +389,12 @@ To see the configuration of the "flow" stats, issue the following command:
 mqsireportflowstats BK1 -s -e EG2
 ```
 
-You will see results similar to those shown below.  Notice that the "state" is "active", the the outputFormat is "json"
+You will see results similar to those shown below.  Notice that the "state" is "active", and the outputFormat is "json".  This indicates that the **"Flow Stats"** are enabled.  The product
+requires that the output format be set to json vs. XML.
   ![](images/flowstats.png)
 
 There are fewer requirements for MQ.  The sensor will work with the default settings.  However, you can have the sensor automatically use thresholds/Events that are 
-setup within the MQ server.  If you want to use the built in MQ Events, then you need to set **CHLEV** and **PEFMEV** to **ENABLED**.  To check those settings, you can issue The
+setup within the MQ server.  If you want to use the built in MQ Events, then you need to set **CHLEV** (Channel Events) and **PERFMEV** (Performance Events) to **ENABLED**.  To check those settings, you can issue The
 following commands.  You first need to run the **"runmqsc"** command.  The **runmqsc** command won't prompt you with a cursor.  That's okay.  Just start typing the coomands.
 
 Within the runmqsc command prompt you can issue other MQ commands.  Type the following commands.
@@ -396,6 +417,8 @@ quit
 These commands will give outputs similar to what's shown below.
 
   ![](images/runmqsc.png)
+
+In the output, you can see that the CHLEV (Channel Events) is enabled.  You can see that PERFMEV (Performance Events) is set to enabled.
 
 ## Configure ACE and MQ for Tracing
 
@@ -505,7 +528,7 @@ com.instana.plugin.ibmmq:
       password: 'Passw0rd'
 ```
 
-Save and exist the configuration.yaml file.   In "vi", type ":wq" to save and exit the file.
+Save and exit the configuration.yaml file.   In "vi", type ":wq" to save and exit the file.
 
 As soon as you save your changes to the file, Instana will detect those changes and will start to implement what you have configured.
 

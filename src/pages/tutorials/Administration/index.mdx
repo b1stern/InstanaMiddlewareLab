@@ -24,7 +24,7 @@ There is a simple and an advanced mode.  We'll be using the advanced mode which 
 In the upper right corner of the dialog, select **"Switch to Advanced Mode"**
 ![](images/advanced.png)
 
-In the upper left corner, you'll see that there are 4 different types of **Smart Alerts**
+In the upper left corner, you'll see that there are 5 different types of **Smart Alerts**
 - Slow Calls
 - Erroneous Calls
 - HTTP Status Codes
@@ -50,8 +50,8 @@ You'll notice that there are a variety of options including:
 - whether you want to view the last 24 hours or 7 days of historical data
 - Sensitivity.
 
-Try out some of the options.  In particular, move the slider for sensitivity.  Notice that when you set it to higher sensitivity, some red triangle appear indicating
-when thresholds would trigger if you had chosen that setting.
+Try out some of the options.  In particular, move the slider for sensitivity.  Notice that when you set it to higher sensitivity, the number of red triangles show on the screen will change.
+These red triangles indicate when thresholds would trigger if you had chosen that setting.
 ![](images/sensitivity.png)
 
 Choose an appropriate value for the sensitivity.  You don't want to receive a lot of alert by setting the sensitivity too high.  Usually, if you see more than 1 or two alerts per day,
@@ -166,14 +166,14 @@ Click on the **"+ New Alert"** link
 Give the new **"Alert"** a name.  To ensure you can find your **"Alert"**, call it your **"student name"**
 
 Select the dropdown labeled **"Alert on Event(s)"**
-![](images/alertTypes.png)
+![](images/alertOnEvents.png)
 
 You will see that there are multiple options.  You can setup an Alert for a particular Entity Type.  For example, you might setup an Alert for all Oracle Database Events.
 
 In your case, select **"Alert on Event(s)"**.  This option allows you to select a specific list of Events to forward to an Alert Channel(s).
 
 Further down on the page, select the **"Add Events"** link.
-![](images/addEvents.png)
+![](images/addEvent.png)
 
 Initially, you will see a list of ALL Events.
 
@@ -196,7 +196,10 @@ Select the **"Selected Entities Only"** option
 
 A new widget will appear on the right side of the screen asking you to specify the **"Dynamic Focus Query"**
 
-In the entry field, enter the name of the queue that is used for the **Quote of the Day** application.  Enter **"entity.ibmmq.queue.name:CP4I.DEMO.API.Q"**
+In the entry field, enter the name of the queue that is used for the **Quote of the Day** application.  Enter the following value:
+```sh
+entity.ibmmq.queue.name:CP4I.DEMO.API.Q
+```
 ![](images/CP4I.DEMO.API.Q.png)
 
 Next, click on the **"+ Add Alert Channels"** link
@@ -209,17 +212,17 @@ Then, click the **"Add 1 Channel"** button.
 
 Scroll down to the bottom. You will see an optional section where you can add custom payloads by adding Key/Value pairs.  We're going to skip that section.
 
-Finally, click the **"Save"** button to save your Alert.
+Finally, click the **"Create"** button to save your Alert.
 ![](images/saveAlert.png)
 
 
-You have now completed the section of the lab on performing Administrative Tasks within Instana.
+You have now completed the section of the lab on performing Administrative Tasks within Instana.  You have learned how to create a Smart Alert, a traditional Alert (Event), and learned 
 
 
 At this point, you have created an Event and an Alert for that Event.  The next time the custom **"Event"** that you created triggers, an **"Alert"** will be sent to the **"MQ Admins"** Alert Channel.  In this case, a slack notification will be posted to a slack channel being monitored by the MQ Admins.
 
 
-To continue other portions of the lab, select one of the lab exercises in the upper left corner or select one of the images below.
+If you haven't completed all of the sections, you can continue other portions of the lab. Select one of the lab exercises in the upper left corner or select one of the images below.
 
 
 <Row>
