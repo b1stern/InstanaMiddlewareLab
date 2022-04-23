@@ -51,15 +51,17 @@ Select some of the other tabs to explore the kubernetes monitoring.  We recommen
 In the upper right corner, add your student name into the search widget.  You'll notice that it will filter the list to the pods related to the Quote of the Day application.
   ![](images/pods.png)
 
+Click on one of the links on the left side and drill into the pod utilization details.
+
 
 ***
 
 ## 2-2: Explore the Infrastructure View
 
-Next, explore the Infrastructure view.  To do this, click on the "Infrastructure" icon on the left side.
+Next, explore the Infrastructure view.  To do this, click on the **"Infrastructure"** icon on the left side.
   ![](images/yourZone1.png)
 
-Look for your student name.  You'll notice that there is a square surrounding two "towers" with your student name.  The square is a "zone".  If you recall, you 
+Look for your student name.  You'll notice that there is a square surrounding two **"towers"** with your student name.  The square is a **"zone"**.  If you recall, you 
 specified a zone name when you performed the yaml based install of the Instana Agent.  The towers contained within the square represents the OpenShift worker node and the 
 virtual machine running ACE and MQ. 
 
@@ -90,7 +92,7 @@ In the bottom right corner there are several icons that allow you to organize th
 
 We recommend you explore those at the end of the lab if time permits.
 
-Next, click on the "Comparison Table" near the top of the page.
+Next, click on the **"Comparison Table"** near the top of the page.
   ![](images/comparisonTab.png)
 
 This table shows a sortable and searchable list of the Hosts that make up this environment.  You can quickly find hosts consuming high CPU, high memory, or have poor health.
@@ -100,13 +102,13 @@ In addition, if you select where is says **"Hosts"**, there is a dropdown list t
 
 Change from **"Hosts"** to **"Docker Containers"** in the dropdown list and you'll see a complete list of containers and their utilization and health.
 
-Switch back to the Map view by clicking on "Map" near the upper left corner.
+Switch back to the Map view by clicking on **"Map"** near the upper left corner.
   ![](images/map.png)
 
 Zoom in with the plus sign in the bottom right corner.
   ![](images/plus.png)
 
-You'll notice that each tower is actually comprised of multiple pizza boxes.   Each one represents an "Entity" such as an MQ Queue Manager or an ACE Integration Node.
+You'll notice that each tower is actually comprised of multiple pizza boxes.   Each one represents an **"Entity"** such as an MQ Queue Manager or an ACE Integration Node.
   ![](images/pizzaBox.png)
 
 Flyover the ACE/MQ server again until you see a list of all discovered Entities.  If you only see 1 entity, move your mouse to one of the corners of the tower.
@@ -120,7 +122,7 @@ Manager that was discovered.
 It is possible to click on either the "Open Dashboard" button or the links for the individual entities.  If you clicked, you could navigate to either the Host 
 operating system metrics or the specific middleware entity.
 
-Click on the "Open Dashboard" button and we'll examine the Host Agent dashboard.  After you click on the botton you'll see a screen that looks like this:
+Click on the "Open Dashboard" button and we'll examine the Host Agent dashboard.  After you click on the button you'll see a screen that looks like this:
   ![](images/host.png)
 
 You can see fine grained metric data for the Host operating system. Scroll down and explore the other metrics.
@@ -132,7 +134,7 @@ saw earlier on the Infrastructure view.
 Expand the IBM MQ Queue Manager section and select the link for the **QM1@acemq.tivlab.raleigh.ibm.com** queue manager
 
 You will navigate to the dashboard for the MQ Queue Manager. Scroll down the page and examine the metrics.  There are many tables that contain links that would allow you to
-drill into the listener, topics, queues, channels, and more.  Let's focus on the Channels.  Scroll down to the table labeled "Channels".  You will notice two channels with the
+drill into the listener, topics, queues, channels, and more.  Let's focus on the Channels.  Scroll down to the table labeled **"Channels"**.  You will notice two channels with the
 same name. One represents loopback and the other represents the server IP Address.   Select the link next to the one with connection name 10.0.0.3.
   ![](images/drillChannel.png)
 
@@ -227,7 +229,7 @@ You'll notice a number of tabs across the top of the screen.  Explore these tabs
 
 On the dependencies tab, you'll see a full topology of the application services.  This topology is discovered automatically.  You can see transactions flowing between
 the different nodes in the topology.   Most of these services are node.js based cloud-native services. The **"acemq.tivlab.raleigh.ibm.com-BK1:EG2"** is the ACE 
-integration node named BK1 and Integration Server named EG2.   The QM1 node in the topology is the MQ Queue Manager named **"MQ1"**.
+integration node named BK1 and Integration Server named EG2.   The QM1 node in the topology is the MQ Queue Manager named **"QM1"**.
 
 Click on the **"QM1"** node.  Notice that there are 3 options that would allow you to navigate to the MQ dashboard, the transaction Flow within MQ, or analyze the transaction
 calls through MQ.
@@ -241,7 +243,7 @@ Click on **"Stack"** where you can view the Application, Kubernetes, and Infrast
 
 
 All of this contextual and relationship data helps you analyze and debug you applications to get to root cause as quickly as possible.  In addition, our built 
-analytics uses this data to automatically group multiple related Events into a single Incident for diagnosis.
+analytics uses this data to automatically group multiple related **"Events"** into a single **"Incident"** for diagnosis.
 
 Close the **Stack** dialog by either clicking on the **Stack** button or somewhere else on the background of the Instana GUI.
 
@@ -253,13 +255,13 @@ You will see a list of services that make up the application.
 
 Scroll down on the page until you see the **"qotd-engraving"** service.
 
-Click on the **qotd-engraving** link on the left Column.  The qotd-engraving service is the services that calls and ACE flow and then puts a message on the MQ queue. 
+Click on the **qotd-engraving** link on the left Column.  The qotd-engraving service is the service that calls and ACE flow and then puts a message on the MQ queue. 
 We want to explore this service in more detail.
   ![](images/qotdEngraving.png)
 
 
 
-Next, click on the **"Analyze Calls"** button to analyze the individual transactions that are executing in the system.
+Click on the **"Analyze Calls"** button to analyze the individual transactions that are executing within the **"qotd-engraving"** service.
   ![](images/analyzeCalls.png)
 
 This will take you to a screen showing all of the different types of calls taking place within the qotd-engraving service.  At the top, there is a summary of all calls in terms of
@@ -327,29 +329,14 @@ That completes this section of the lab.
 
 ## 2-5: Summary
 
-In this exercise you have explored some of the key capabilities within Instana.  You explored kubernetes monitoring.  You defined an Application Perspective. And you
-explored the application monitoring details.
+In this exercise you have explored some of the key capabilities within Instana.  You explored kubernetes monitoring. You explored the Infrastructure view.  You defined an 
+Application Perspective. And you explored the application monitoring details.
 
 
 To continue other portions of the lab, select one of the lab exercises in the upper left corner or select one of the images below.
 
 
 <Row>
-
-<Column colLg={4} colMd={4} noGutterMdLeft>
-<ArticleCard
-    color="dark"
-    subTitle="Installing and Configuring Monitoring"
-    title="Install the Instana Monitoring Agent and Configure the Sensors"
-    href="/tutorials/Install"
-    actionIcon="arrowRight"
-    >
-
-![](images/dynamicGraph.png)
-
-</ArticleCard>
-
-</Column>
 
 <Column colLg={4} colMd={4} noGutterMdLeft>
 <ArticleCard
