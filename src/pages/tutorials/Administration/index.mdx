@@ -14,6 +14,8 @@ description: Perform Administrative Functions with Instana
 
 In this section, students are going to create an analytics based **"Smart Alert"** to detect abnormal behavior within an application.
 
+If you haven't already done so, open a the chrome browser to the Instana tab and make sure you are logged in. The login credentials can be found on the **"accounts"** browser tab.
+
 Click on Applications.  Then, select the **"Quote of the Day"** application. 
 
 Note, you can't use the application that you just installed for Analytics based threshold because
@@ -31,7 +33,7 @@ There is a simple and an advanced mode.  We'll be using the advanced mode which 
 In the upper right corner of the dialog, select **"Switch to Advanced Mode"**
 ![](images/advanced.png)
 
-In the upper left corner, you'll see that there are 5 different types of **Smart Alerts**
+In the upper left corner, you'll see that there are 4 different types of **Smart Alerts**
 - Slow Calls
 - Erroneous Calls
 - HTTP Status Codes
@@ -45,6 +47,8 @@ Scroll down.  You'll see that there are number of options to determine which cal
 - You can analyze **Inbound Calls** or **All Calls**
 - You can include **Internal Calls**
 - You can include **Synthetic Calls**
+
+![](images/options4.png)
 
 Leave the default settings.
 
@@ -159,6 +163,18 @@ After making your select, some new dropdowns appear on the screen looking for th
 In the dropdowns, choose **"60 s"** for the time window, **"max"** for the Aggregation, **">"** for the Operator, and **"90"** for the Percentage.
 ![](images/newEvent5.png)
 
+Now you have to select the **"Scope"** that this threshold will apply to.  Select the dropdown list.
+![](images/allEntities.png)
+
+In the dropdown list, you'll see the following options:
+- You have the option of applying this threshold to an **"Application Perspective"**. This would limit the scope of the threshold to a specific application.
+- You can use a **"Dynamic Focus Query"** to filter to a specific list of MQ Queues.
+- Or, you can have your threshold apply to **"All Available Entities"**.
+
+Let's make this a global Event and choose the **"All Available Entities"** option.
+
+Click the **"Create"** button to save your new Event.
+
 
 # 4-3:  Setup an Alert for the New Event
 Now that you have a new Event defined, you need to define and Alert.  Alerts are used to notify people and teams via various Alert Channels.  You previously
@@ -203,11 +219,13 @@ Select the **"Selected Entities Only"** option
 
 A new widget will appear on the right side of the screen asking you to specify the **"Dynamic Focus Query"**
 
-In the entry field, enter the name of the queue that is used for the **Quote of the Day** application.  Enter the following value:
+In the entry field, enter the lucene query that will filter to the queue that is used for the **Quote of the Day** application.  Enter the following value:
 ```sh
 entity.ibmmq.queue.name:CP4I.DEMO.API.Q
 ```
 ![](images/CP4I.DEMO.API.Q.png)
+
+These lucene queries can be complex sequences of AND and OR statements.  In this case, we are looking for 1 specific queue.
 
 Next, click on the **"+ Add Alert Channels"** link
 ![](images/alertChannel.png)
@@ -235,21 +253,6 @@ If you haven't completed all of the sections, you can continue other portions of
 
 
 <Row>
-
-<Column colLg={4} colMd={4} noGutterMdLeft>
-<ArticleCard
-    color="dark"
-    subTitle="Installing and Configuring Monitoring"
-    title="Install the Instana Monitoring Agent and Configure the Sensors"
-    href="/tutorials/Install"
-    actionIcon="arrowRight"
-    >
-
-![](images/dynamicGraph.png)
-
-</ArticleCard>
-
-</Column>
 
 <Column colLg={4} colMd={4} noGutterMdLeft>
 <ArticleCard
