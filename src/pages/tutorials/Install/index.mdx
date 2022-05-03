@@ -67,6 +67,11 @@ sudo -i
 
 When prompted, enter "**Passw0rd**" for the password.
 
+Due to the cloning process, the yum repository might get corrupted.  To fix the yum repository, run the following command:
+```sh
+subscription-manager repository
+```
+
 Throughout these procedures, we are going to be using your student name for various naming conventions and to identify objects.  In order to simplify the steps in this document, 
 you are going to setup an environment variable named $STUDENT and set it to the student name that you were assigned (student1 through student30) 
 
@@ -254,6 +259,12 @@ You should see results similar to what's shown below.
 
 If the pods are not running, wait a minute and try the **"oc get pods"** command again.
 
+If you notice that the qotd-db pod is in ERROR or CrashLoopBackOff state, run the following commands:
+```sh
+oc project $STUDENT
+oc adm policy add-scc-to-user anyuid -z default
+```
+
 Next, verify that the automated workload is running.  Type the following command:
 ```sh
 oc get pods -n $STUDENT-load
@@ -325,6 +336,11 @@ Use sudo to become the root user.  Type the following command:
 sudo -i
 ```
 When prompted, enter **"Passw0rd"** for the password.
+
+Due to the cloning process, the yum repository might get corrupted.  To fix the yum repository, run the following command:
+```sh
+subscription-manager repository
+```
 
 Leave the terminal window open because you'll be coming back to the screen later.
 
