@@ -282,7 +282,7 @@ If the pods are not running, wait a minute and try the "oc get pods" command aga
 The next step is to modify the configuration of the Quote of the Day application so that it uses an external ACE and MQ server.  By default, the application
 simulates the ACE/MQ workload.
 
-You will do this by editing the deployment for the qotd-engraving.  In the command shown below, change studentXXX to your student name.
+You will do this by editing the deployment for the qotd-engraving.  
 
 Type the following command:  
 ```sh
@@ -294,6 +294,8 @@ This will open a "vi" session.  Scroll down within the file to line 49.  You sho
         - name: SUPPLY_CHAIN_SIMULATE
           value: "true"
 ```
+
+When using **"vi"** to edit files, type the letter "i" to ensure insert mode.  After inserting text, press the escape key **"ESC"** to exit insert mode.  You can type the letter "x" to delete single characters.
 
 You will modify those lines to look like the following.  You need to add a "value" parameter that contains the SUPPLY_CHAIN_URL for the ACE flow. The flow within the
 ACE server is **"http://10.0.0.3:7081/supplychain/v1/order"**.  This is what you need to use for the SUPPLY_CHAIN_URL value.  You'll need to change the value for the SUPPLY_CHAIN_SIMULATE to "false" to disable the simulation.  When you are done, the lines should look like this:
@@ -339,7 +341,7 @@ When prompted, enter **"Passw0rd"** for the password.
 
 Due to the cloning process, the yum repository might get corrupted.  To fix the yum repository, run the following command:
 ```sh
-subscription-manager repository
+subscription-manager clean
 ```
 
 Leave the terminal window open because you'll be coming back to the screen later.
@@ -447,7 +449,7 @@ In the output, you can see that the CHLEV (Channel Events) is enabled.  You can 
 ## 1-9:  Configure ACE and MQ for Tracing
 
 In addition to the "Resource Monitoring" KPIs, additional settings are required to enable Tracing within IBM MQ and ACE.  It is important that you understand this 
-process since Tracing is typically not enabled by default in must IBM MQ and ACE environments.  In this section, we've documented the steps.
+process since Tracing is typically not enabled by default in most IBM MQ and ACE environments.  In this section, we've documented the steps.
 
 Note:  Typically, these steps are performed by the MQ and ACE admins, so you don't need to know the step by step procedure.
 

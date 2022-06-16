@@ -18,6 +18,8 @@ In this portion of the lab, you will explore some key Instana capabilities inclu
 
 ## 2-1: Explore Kubernetes
 
+In this section of the lab, you want to be logged into the thinkdemo virtual machine.  If you are currently logged into the MQ/ACE virtual machine, switch to the other VM.
+
 Open the browser tab for the Instana user interface.
 
 On the left navigation, select "kubernetes"
@@ -37,7 +39,7 @@ If all pods are running, we need examine the logs of one of the pods.
 
 Type:  
 ```sh
-oc logs POD_NAME -c instana-agent
+oc logs POD_NAME -c instana-agent -n instana-agent
 ```
 where **POD_NAME** is one of the pods listed in the previous command.
 
@@ -195,7 +197,7 @@ A dropdown list will appear.  If it doesn't, click on the **"Value"** field.  In
   ![](images/getHealth.png)
 
 
-Finally, select the **"="** symbol and select **"!= (does not equal)"** from the drop down list.
+Finally, select the **"="** symbol in between **Endpoint Name** and **GET /health** and select **"!= (does not equal)"** from the drop down list.
   ![](images/endpointFilter.png)
 
 
@@ -255,7 +257,7 @@ You will see a list of services that make up the application.
 
 Scroll down on the page until you see the **"qotd-engraving"** service.
 
-Click on the **qotd-engraving** link on the left Column.  The qotd-engraving service is the service that calls and ACE flow and then puts a message on the MQ queue. 
+Click on the **qotd-engraving** link on the left Column.  The qotd-engraving service is the service that calls an ACE flow and then puts a message on the MQ queue. 
 We want to explore this service in more detail.
   ![](images/qotdEngraving.png)
 
