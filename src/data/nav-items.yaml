@@ -1,7 +1,7 @@
 - title: Intro and Login
   pages:
     - path: /
-- title:  Power SKO Instana Lab
+- title:  IBM Middleware Instana Lab
 
   pages:
     - title: Installation
