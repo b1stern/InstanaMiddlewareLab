@@ -1,7 +1,8 @@
 - title: Intro and Login
   pages:
     - path: /
-- title: Think Lab 1189 - Observability of a Hybrid Application Using Instana
+- title:  Power SKO Instana Lab
+
   pages:
     - title: Installation
       path: /tutorials/Install
